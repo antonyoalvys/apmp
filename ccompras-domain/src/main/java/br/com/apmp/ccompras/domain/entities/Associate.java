@@ -1,5 +1,7 @@
 package br.com.apmp.ccompras.domain.entities;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -49,7 +51,11 @@ public class Associate implements BaseEntity {
 	@Enumerated( EnumType.STRING )
 	@Column( name = "associate_type" )
 	private AssociateType associateType;
-	
+
+	@Column( name = "register_date" )
+	@NotNull
+	private LocalDateTime registerDate;
+
 	@Embedded
 	private Address address;
 
@@ -103,6 +109,22 @@ public class Associate implements BaseEntity {
 		this.secundaryPhone = secundaryPhone;
 	}
 
+	public LocalDateTime getRegisterDate() {
+		return registerDate;
+	}
+
+	public void setRegisterDate( LocalDateTime registerDate ) {
+		this.registerDate = registerDate;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress( Address address ) {
+		this.address = address;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -112,6 +134,7 @@ public class Associate implements BaseEntity {
 		result = prime * result + ( ( id == null ) ? 0 : id.hashCode() );
 		result = prime * result + ( ( mainPhone == null ) ? 0 : mainPhone.hashCode() );
 		result = prime * result + ( ( name == null ) ? 0 : name.hashCode() );
+		result = prime * result + ( ( registerDate == null ) ? 0 : registerDate.hashCode() );
 		result = prime * result + ( ( secundaryPhone == null ) ? 0 : secundaryPhone.hashCode() );
 		return result;
 	}
@@ -147,6 +170,11 @@ public class Associate implements BaseEntity {
 				return false;
 		} else if ( !name.equals( other.name ) )
 			return false;
+		if ( registerDate == null ) {
+			if ( other.registerDate != null )
+				return false;
+		} else if ( !registerDate.equals( other.registerDate ) )
+			return false;
 		if ( secundaryPhone == null ) {
 			if ( other.secundaryPhone != null )
 				return false;
@@ -154,6 +182,5 @@ public class Associate implements BaseEntity {
 			return false;
 		return true;
 	}
-	
 
 }

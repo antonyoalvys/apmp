@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import br.com.apmp.ccompras.domain.enums.AssociateType;
+import br.com.apmp.ccompras.domain.enums.PhoneType;
 
 @Entity
 @Table( name = "associate" )
@@ -44,9 +45,17 @@ public class Associate implements BaseEntity {
 	@Column( name = "main_phone" )
 	private String mainPhone;
 
+	@Enumerated( EnumType.STRING )
+	@Column( name = "main_phone_type" )
+	private PhoneType mainPhoneType;
+
 	@Size( max = 20 )
-	@Column( name = "secundary_phone" )
-	private String secundaryPhone;
+	@Column( name = "secondary_phone" )
+	private String secondaryPhone;
+
+	@Enumerated( EnumType.STRING )
+	@Column( name = "secondary_phone_type" )
+	private PhoneType secondaryPhoneType;
 
 	@Enumerated( EnumType.STRING )
 	@Column( name = "associate_type" )
@@ -93,20 +102,36 @@ public class Associate implements BaseEntity {
 		this.mainPhone = mainPhone;
 	}
 
+	public PhoneType getMainPhoneType() {
+		return mainPhoneType;
+	}
+
+	public void setMainPhoneType( PhoneType mainPhoneType ) {
+		this.mainPhoneType = mainPhoneType;
+	}
+
+	public String getSecondaryPhone() {
+		return secondaryPhone;
+	}
+
+	public void setSecondaryPhone( String secondaryPhone ) {
+		this.secondaryPhone = secondaryPhone;
+	}
+
+	public PhoneType getSecondaryPhoneType() {
+		return secondaryPhoneType;
+	}
+
+	public void setSecondaryPhoneType( PhoneType secondaryPhoneType ) {
+		this.secondaryPhoneType = secondaryPhoneType;
+	}
+
 	public AssociateType getAssociateType() {
 		return associateType;
 	}
 
 	public void setAssociateType( AssociateType associateType ) {
 		this.associateType = associateType;
-	}
-
-	public String getSecundaryPhone() {
-		return secundaryPhone;
-	}
-
-	public void setSecundaryPhone( String secundaryPhone ) {
-		this.secundaryPhone = secundaryPhone;
 	}
 
 	public LocalDateTime getRegisterDate() {
@@ -131,11 +156,7 @@ public class Associate implements BaseEntity {
 		int result = 1;
 		result = prime * result + ( ( associateType == null ) ? 0 : associateType.hashCode() );
 		result = prime * result + ( ( enrollment == null ) ? 0 : enrollment.hashCode() );
-		result = prime * result + ( ( id == null ) ? 0 : id.hashCode() );
-		result = prime * result + ( ( mainPhone == null ) ? 0 : mainPhone.hashCode() );
 		result = prime * result + ( ( name == null ) ? 0 : name.hashCode() );
-		result = prime * result + ( ( registerDate == null ) ? 0 : registerDate.hashCode() );
-		result = prime * result + ( ( secundaryPhone == null ) ? 0 : secundaryPhone.hashCode() );
 		return result;
 	}
 
@@ -155,30 +176,10 @@ public class Associate implements BaseEntity {
 				return false;
 		} else if ( !enrollment.equals( other.enrollment ) )
 			return false;
-		if ( id == null ) {
-			if ( other.id != null )
-				return false;
-		} else if ( !id.equals( other.id ) )
-			return false;
-		if ( mainPhone == null ) {
-			if ( other.mainPhone != null )
-				return false;
-		} else if ( !mainPhone.equals( other.mainPhone ) )
-			return false;
 		if ( name == null ) {
 			if ( other.name != null )
 				return false;
 		} else if ( !name.equals( other.name ) )
-			return false;
-		if ( registerDate == null ) {
-			if ( other.registerDate != null )
-				return false;
-		} else if ( !registerDate.equals( other.registerDate ) )
-			return false;
-		if ( secundaryPhone == null ) {
-			if ( other.secundaryPhone != null )
-				return false;
-		} else if ( !secundaryPhone.equals( other.secundaryPhone ) )
 			return false;
 		return true;
 	}

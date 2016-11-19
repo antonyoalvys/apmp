@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:x="http://java.sun.com/jsf/composite/components" template="/views/index.xhtml">
+
+	<ui:define name="content">
+		<h:form id="form">
+			<p:panel header="Cadastro de Associado" style="text-align:center;">
+				<div class="ui-grid">
+					<div class="ui-grid-row">
+						<p:outputLabel value="Nome" for="name" styleClass="ui-grid-col-1" />
+						<p:inputText value="#{associateBean.associate.name}" id="name" styleClass="ui-grid-col-9" required="true" />
+					</div>
+					<br />
+					<div class="ui-grid-row">
+						<p:outputLabel value="Email" for="mail" styleClass="ui-grid-col-1" />
+						<p:inputText value="#{associateBean.associate.mail}" id="mail" styleClass="ui-grid-col-4" required="true" />
+						<p:outputLabel value="Telefone Principal" for="mainPhone" styleClass="ui-grid-col-1" />
+						<p:selectOneMenu value="#{associateBean.associate.mainPhoneType}" id="mainPhoneType" styleClass="ui-grid-col-1" />
+						<p:inputMask mask="(99) 9999-9999" value="#{associateBean.associate.mainPhone}" id="mainPhone" styleClass="ui-grid-col-4" required="true" />
+
+						<p:outputLabel value="Telefone Secundário" for="secondaryPhone" styleClass="ui-grid-col-1" />
+						<p:selectOneMenu value="#{associateBean.associate.secondaryPhoneType}" id="secondaryPhoneType" styleClass="ui-grid-col-1" />
+						<p:inputMask mask="(99) 9999-9999" value="#{associateBean.associate.secondaryPhone}" id="secondaryPhone" styleClass="ui-grid-col-4" />
+					</div>
+
+					<br />
+					<p:panel header="Endereço" style="text-align:center;">
+						<div class="ui-grid-row">
+							<p:outputLabel value="UF" for="state" styleClass="ui-grid-col-1" />
+							<p:inputText value="#{associateBean.associate.address.state}" id="state" styleClass="ui-grid-col-4" />
+							<p:outputLabel value="Cidade" for="city" styleClass="ui-grid-col-1" />
+							<p:inputText value="#{associateBean.associate.address.city}" id="city" styleClass="ui-grid-col-4" />
+						</div>
+						<br />
+						<div class="ui-grid-row">
+							<p:outputLabel value="Logradouro" for="street" styleClass="ui-grid-col-1" />
+							<p:inputText value="#{associateBean.associate.address.street}" id="street" styleClass="ui-grid-col-4" />
+							<p:outputLabel value="Bairro" for="neighborhood" styleClass="ui-grid-col-1" />
+							<p:inputText value="#{associateBean.associate.address.neighborhood}" id="neighborhood" styleClass="ui-grid-col-4" />
+						</div>
+						<br />
+						<div class="ui-grid-row">
+							<p:outputLabel value="Número" for="numero" styleClass="ui-grid-col-1" />
+							<p:inputText value="#{associateBean.associate.address.number}" id="number" styleClass="ui-grid-col-4" />
+							<p:outputLabel value="CEP" for="zipCode" styleClass="ui-grid-col-1" />
+							<p:inputMask mask="99999-999" value="#{associateBean.associate.address.zipCode}" id="zipCode" styleClass="ui-grid-col-4" />
+						</div>
+						<p:outputLabel value="Complemento" for="complement" styleClass="ui-grid-col-1" />
+						<p:inputText value="#{associateBean.associate.address.complement}" id="complement" styleClass="ui-grid-col-4" />
+					</p:panel>
+					<br />
+					<div class="buttons">
+						<p:commandButton action="#{associateBean.register}" value="Salvar" styleClass="span2" process="@form" update="@form" />
+					</div>
+				</div>
+			</p:panel>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

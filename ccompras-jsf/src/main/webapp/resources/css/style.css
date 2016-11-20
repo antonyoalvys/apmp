@@ -55,8 +55,19 @@
 	border-right: 1px solid #ffffff;
 }
 
-//
-primefaces override /* Footer	:::::::::::::::::::::::::::::::::::: */
+.left-label label {
+	text-align: left;
+}
+
+.right-label label {
+	text-align: right;
+}
+
+.center-label {
+	text-align: center;
+}
+
+/*primefaces override /* Footer	:::::::::::::::::::::::::::::::::::: */
 	   
 .ui-layout-center .ui-layout-unit-content.ui-widget-content {
 	margin-bottom: 0;

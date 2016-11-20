@@ -38,4 +38,13 @@ public class AssociateBean implements Serializable {
 		this.entity = new Associate();
 	}
 
+	public Associate getEntity() {
+		return entity;
+	}
+
+	public void setEntity( Associate entity ) {
+		this.entity = entity;
+	}
+	
+
 }

@@ -65,6 +65,10 @@ public class Associate implements BaseEntity {
 	@NotNull
 	private LocalDateTime registerDate;
 
+	@Size( max = 100 )
+	@Column( name = "mail" )
+	private String mail;
+
 	@Embedded
 	private Address address;
 
@@ -148,6 +152,15 @@ public class Associate implements BaseEntity {
 
 	public void setAddress( Address address ) {
 		this.address = address;
+	}
+	
+
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail( String mail ) {
+		this.mail = mail;
 	}
 
 	@Override

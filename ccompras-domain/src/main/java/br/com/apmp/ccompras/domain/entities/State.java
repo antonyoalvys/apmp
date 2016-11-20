@@ -11,14 +11,14 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table( name = "state")
+@Table( name = "state" )
 public class State implements BaseEntity {
 
 	private static final long serialVersionUID = 8470553003553432444L;
 
 	@Id
 	@GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "PK_STATE_GENERATOR" )
-	@SequenceGenerator( name = "PK_STATE_GENERATOR", sequenceName = "SEQ_STATE" )
+	@SequenceGenerator( name = "PK_STATE_GENERATOR", sequenceName = "SEQ_STATE", allocationSize = 1 )
 	@Column( name = "pk_state" )
 	private Long id;
 
@@ -26,6 +26,11 @@ public class State implements BaseEntity {
 	@Size( max = 100 )
 	@Column( name = "name" )
 	private String name;
+
+	@NotNull
+	@Size( max = 2 )
+	@Column( name = "short_name" )
+	private String shortName;
 
 	@Override
 	public Long getId() {
@@ -37,12 +42,28 @@ public class State implements BaseEntity {
 		this.id = id;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName( String name ) {
+		this.name = name;
+	}
+
+	public String getShortName() {
+		return shortName;
+	}
+
+	public void setShortName( String shortName ) {
+		this.shortName = shortName;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ( ( id == null ) ? 0 : id.hashCode() );
 		result = prime * result + ( ( name == null ) ? 0 : name.hashCode() );
+		result = prime * result + ( ( shortName == null ) ? 0 : shortName.hashCode() );
 		return result;
 	}
 
@@ -55,15 +76,15 @@ public class State implements BaseEntity {
 		if ( getClass() != obj.getClass() )
 			return false;
 		State other = (State) obj;
-		if ( id == null ) {
-			if ( other.id != null )
-				return false;
-		} else if ( !id.equals( other.id ) )
-			return false;
 		if ( name == null ) {
 			if ( other.name != null )
 				return false;
 		} else if ( !name.equals( other.name ) )
+			return false;
+		if ( shortName == null ) {
+			if ( other.shortName != null )
+				return false;
+		} else if ( !shortName.equals( other.shortName ) )
 			return false;
 		return true;
 	}

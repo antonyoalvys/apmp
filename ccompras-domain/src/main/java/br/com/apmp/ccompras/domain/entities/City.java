@@ -10,22 +10,24 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table( name = "city" )
+@Table( name = "city", uniqueConstraints = { @UniqueConstraint( columnNames = { "name", "fk_state" } ) } )
 public class City implements BaseEntity {
 
 	private static final long serialVersionUID = -3605264643320637441L;
 
 	@Id
 	@GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "PK_CITY_GENERATOR" )
-	@SequenceGenerator( name = "PK_CITY_GENERATOR", sequenceName = "SEQ_CITY" )
+	@SequenceGenerator( name = "PK_CITY_GENERATOR", sequenceName = "SEQ_CITY", allocationSize = 1 )
 	@Column( name = "pk_city" )
 	private Long id;
 
 	@NotNull
+	@Column( name = "name", unique = true )
 	@Size( max = 100 )
 	private String name;
 

@@ -23,7 +23,7 @@ public class PurchaseTicket implements BaseEntity {
 
 	@Id
 	@GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "PK_PURCHASE_TICKET_GENERATOR" )
-	@SequenceGenerator( name = "PK_PURCHASE_TICKET_GENERATOR", sequenceName = "SEQ_PURCHASE_TICKET" )
+	@SequenceGenerator( name = "PK_PURCHASE_TICKET_GENERATOR", sequenceName = "SEQ_PURCHASE_TICKET", allocationSize = 1 )
 	@Column( name = "pk_purchase_ticket" )
 	private Long id;
 

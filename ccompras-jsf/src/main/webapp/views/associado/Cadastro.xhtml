@@ -7,7 +7,7 @@
 		<h:form id="form">
 			<o:importConstants type="br.com.apmp.ccompras.domain.enums.AssociateType" />
 			<o:importConstants type="br.com.apmp.ccompras.domain.enums.PhoneType" />
-			
+
 			<p:panel header="Dados Funcionais" style="text-align:center;" styleClass="left-label" toggleable="true">
 				<div class="ui-g">
 					<p:outputLabel value="Nome" for="name" styleClass="ui-g-2" />
@@ -16,14 +16,16 @@
 				<p:spacer />
 				<div class="ui-g">
 					<p:outputLabel value="Matricula" for="enrollment" styleClass="ui-g-2" />
-					<p:inputText value="#{associateBean.entity.enrollment}" id="enrollment" required="true" styleClass="ui-g-4" />
+					<div class="ui-g-4">
+						<p:inputText value="#{associateBean.entity.enrollment}" id="enrollment" required="true" styleClass="ui-g-12" />
+					</div>
 
 					<p:outputLabel value="Tipo de Associado" for="associateType" styleClass="ui-g-2" />
 					<div class="ui-g-4">
 						<p:selectOneMenu value="#{associateBean.entity.associateType}" id="associateType">
-							<f:selectItems value="#{AssociateType}" var="enum" itemLabel="#{enum.description}"/>
+							<f:selectItems value="#{AssociateType}" var="enum" itemLabel="#{enum.description}" />
 						</p:selectOneMenu>
-					</div>					
+					</div>
 
 				</div>
 			</p:panel>
@@ -35,12 +37,12 @@
 						<p:inputText value="#{associateBean.entity.mail}" id="mail" styleClass="ui-g-12" required="true" />
 					</div>
 				</div>
-
+				<p:spacer />
 				<div class="ui-g">
 					<p:outputLabel value="Telefone Principal" for="mainPhone" styleClass="ui-g-2" />
 					<div class="ui-g-2">
 						<p:selectOneMenu value="#{associateBean.entity.mainPhoneType}" id="mainPhoneType">
-							<f:selectItems value="#{PhoneType}" var="enum" itemLabel="#{enum.description}"/>
+							<f:selectItems value="#{PhoneType}" var="enum" itemLabel="#{enum.description}" />
 						</p:selectOneMenu>
 					</div>
 					<div class="ui-g-2">
@@ -92,6 +94,7 @@
 			</p:panel>
 			<p:spacer />
 			<div class="buttons">
+				<p:commandButton action="#{associateBean.clear}" value="Limpar" styleClass="span2" process="@form" update="@form" />
 				<p:commandButton action="#{associateBean.register}" value="Salvar" styleClass="span2" process="@form" update="@form" />
 			</div>
 		</h:form>

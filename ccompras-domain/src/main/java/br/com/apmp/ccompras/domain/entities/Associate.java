@@ -26,7 +26,7 @@ public class Associate implements BaseEntity {
 
 	@Id
 	@GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "PK_ASSOCIATE_GENERATOR" )
-	@SequenceGenerator( name = "PK_ASSOCIATE_GENERATOR", sequenceName = "SEQ_ASSOCIATE" )
+	@SequenceGenerator( name = "PK_ASSOCIATE_GENERATOR", sequenceName = "SEQ_ASSOCIATE", allocationSize = 1 )
 	@Column( name = "pk_associate" )
 	private Long id;
 
@@ -69,8 +69,16 @@ public class Associate implements BaseEntity {
 	@Column( name = "mail" )
 	private String mail;
 
+	@Column( name = "active" )
+	@NotNull
+	private Boolean active;
+
 	@Embedded
 	private Address address;
+
+	public Associate() {
+		this.address = new Address();
+	}
 
 	@Override
 	public Long getId() {
@@ -153,7 +161,6 @@ public class Associate implements BaseEntity {
 	public void setAddress( Address address ) {
 		this.address = address;
 	}
-	
 
 	public String getMail() {
 		return mail;
@@ -163,10 +170,19 @@ public class Associate implements BaseEntity {
 		this.mail = mail;
 	}
 
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive( Boolean active ) {
+		this.active = active;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ( ( active == null ) ? 0 : active.hashCode() );
 		result = prime * result + ( ( associateType == null ) ? 0 : associateType.hashCode() );
 		result = prime * result + ( ( enrollment == null ) ? 0 : enrollment.hashCode() );
 		result = prime * result + ( ( name == null ) ? 0 : name.hashCode() );
@@ -182,6 +198,11 @@ public class Associate implements BaseEntity {
 		if ( getClass() != obj.getClass() )
 			return false;
 		Associate other = (Associate) obj;
+		if ( active == null ) {
+			if ( other.active != null )
+				return false;
+		} else if ( !active.equals( other.active ) )
+			return false;
 		if ( associateType != other.associateType )
 			return false;
 		if ( enrollment == null ) {

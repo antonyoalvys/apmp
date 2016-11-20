@@ -13,4 +13,6 @@ public interface AssociateService extends Serializable {
 
 	public List<Associate> findAll();
 
+	public List<Associate> findByEntity( Associate associateSearch );
+
 }

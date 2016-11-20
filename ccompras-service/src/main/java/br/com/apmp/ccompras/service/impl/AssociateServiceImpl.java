@@ -40,4 +40,9 @@ public class AssociateServiceImpl implements AssociateService {
 		return associateRepository.findAll();
 	}
 
+	@Override
+	public List<Associate> findByEntity( Associate associateSearch ) {
+		return associateRepository.findByEntity(associateSearch);
+	}
+
 }

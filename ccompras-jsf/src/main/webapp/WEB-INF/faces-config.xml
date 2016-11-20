@@ -16,6 +16,14 @@
 			<base-name>widgets</base-name>
 			<var>wds</var>
 		</resource-bundle>
+		<resource-bundle>
+			<base-name>entities</base-name>
+			<var>lbl</var>
+		</resource-bundle>
+		<resource-bundle>
+			<base-name>widgets</base-name>
+			<var>wds</var>
+		</resource-bundle>
 	</application>
 
 </faces-config>

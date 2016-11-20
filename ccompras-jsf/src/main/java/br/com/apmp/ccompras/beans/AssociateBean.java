@@ -46,5 +46,9 @@ public class AssociateBean implements Serializable {
 		this.entity = entity;
 	}
 	
+	public void clear() {
+		entityClear();
+	}
+	
 
 }

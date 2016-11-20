@@ -23,7 +23,7 @@ public class Company implements BaseEntity {
 
 	@Id
 	@GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "PK_COMPANY_GENERATOR" )
-	@SequenceGenerator( name = "PK_COMPANY_GENERATOR", sequenceName = "SEQ_COMPANY" )
+	@SequenceGenerator( name = "PK_COMPANY_GENERATOR", sequenceName = "SEQ_COMPANY", allocationSize = 1 )
 	@Column( name = "pk_company" )
 	private Long id;
 

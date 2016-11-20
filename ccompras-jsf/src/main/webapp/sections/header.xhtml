@@ -6,16 +6,18 @@
     </div>
     <div class="menu-bar">
         <h:form>
-            <p:menubar autoDisplay="false">
-                <p:submenu label="Certidão Negativa">
-                    <p:menuitem value="Solicitar" url="#" />
-                    <p:menuitem value="Consultar/Emitir" url="#"/>
-                    <p:menuitem value="Validar" url="#"/>
+            <p:menubar autoDisplay="true">
+                <p:submenu label="Associado">
+                    <p:menuitem value="Cadastrar" url="/views/associado/Cadastro.xhtml" />
+                    <p:menuitem value="Consultar" url="/views/associado/Associado.xhtml"/>
                 </p:submenu>
-                <p:submenu label="Certidão Tributária">
-                    <p:menuitem value="Solicitar" url="#" />
-                    <p:menuitem value="Consultar/Emitir" url="#"/>
-                    <p:menuitem value="Validar" url="#"/>
+                <p:submenu label="Cheque Compra">
+                    <p:menuitem value="Cadastrar" url="#" />
+                    <p:menuitem value="Consultar" url="#"/>
+                </p:submenu>                
+                <p:submenu label="Estabelecimento Comercial">
+                    <p:menuitem value="Cadastrar" url="#" />
+                    <p:menuitem value="Consultar" url="#"/>
                 </p:submenu>
             </p:menubar>
         </h:form>

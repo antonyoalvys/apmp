@@ -11,6 +11,10 @@ public interface StateService extends Serializable {
 
 	public State findById( Long id );
 
-	public State findByName( String name );
+	public List<State> findByName( String name );
+
+	public List<String> autocompleteNames( String name );
+
+	public List<String> autocompleteShortNames( String shortName );
 
 }

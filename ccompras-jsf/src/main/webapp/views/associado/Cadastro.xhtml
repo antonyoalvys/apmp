@@ -11,14 +11,18 @@
 			<p:panel header="Dados Funcionais" style="text-align:center;" styleClass="left-label" toggleable="true">
 				<div class="ui-g">
 					<p:outputLabel value="Nome" for="name" styleClass="ui-g-2" />
-					<p:inputText value="#{associateBean.entity.name}" id="name" required="true" class="ui-g-10" />
+					<p:inputText value="#{associateBean.entity.name}" id="name" class="ui-g-10" required="true" />
 				</div>
 				<p:spacer />
 				<div class="ui-g">
 					<p:outputLabel value="Matricula" for="enrollment" styleClass="ui-g-2" />
-					<div class="ui-g-4">
-						<p:inputText value="#{associateBean.entity.enrollment}" id="enrollment" required="true" styleClass="ui-g-12" />
-					</div>
+					<p:inputText value="#{associateBean.entity.enrollment}" id="enrollment" styleClass="ui-g-4" required="true" />
+
+					<p:outputLabel value="CPF" for="cpf" styleClass="ui-g-2" />
+					<p:inputMask mask="999.999.999-99" value="#{associateBean.entity.cpf}" id="cpf" styleClass="ui-g-4" required="true" />
+				</div>
+				<p:spacer />
+				<div class="ui-g">
 
 					<p:outputLabel value="Tipo de Associado" for="associateType" styleClass="ui-g-2" />
 					<div class="ui-g-4">
@@ -26,37 +30,32 @@
 							<f:selectItems value="#{AssociateType}" var="enum" itemLabel="#{enum.description}" />
 						</p:selectOneMenu>
 					</div>
-
 				</div>
+
 			</p:panel>
 
 			<p:panel header="Informações Para Contato" toggleable="true" styleClass="left-label" style="text-align:center;">
-				<div class="ui-g">
-					<p:outputLabel value="Email" for="mail" styleClass="ui-g-2" />
-					<div class="ui-g-10">
-						<p:inputText value="#{associateBean.entity.mail}" id="mail" styleClass="ui-g-12" required="true" />
-					</div>
-				</div>
-				<p:spacer />
 				<div class="ui-g">
 					<p:outputLabel value="Telefone Principal" for="mainPhone" styleClass="ui-g-2" />
 					<div class="ui-g-2">
 						<p:selectOneMenu value="#{associateBean.entity.mainPhoneType}" id="mainPhoneType">
 							<f:selectItems value="#{PhoneType}" var="enum" itemLabel="#{enum.description}" />
+							<p:ajax event="itemSelect" update="mainPhone" />
 						</p:selectOneMenu>
 					</div>
 					<div class="ui-g-2">
-						<p:inputMask mask="(99) 9999-9999" value="#{associateBean.entity.mainPhone}" id="mainPhone" required="true" />
+						<p:inputMask mask="#{optionsBean.phoneMask(associateBean.entity.mainPhoneType)}" value="#{associateBean.entity.mainPhone}" id="mainPhone" />
 					</div>
 
 					<p:outputLabel value="Telefone Secundário" for="secondaryPhone" styleClass="ui-g-2" />
 					<div class="ui-g-2">
 						<p:selectOneMenu value="#{associateBean.entity.secondaryPhoneType}" id="secondaryPhoneType">
 							<f:selectItems value="#{PhoneType}" var="enum" itemLabel="#{enum.description}" />
+							<p:ajax event="itemSelect" update="secondaryPhone" />
 						</p:selectOneMenu>
 					</div>
 					<div class="ui-g-2">
-						<p:inputMask mask="(99) 9999-9999" value="#{associateBean.entity.secondaryPhone}" id="secondaryPhone" />
+						<p:inputMask mask="#{optionsBean.phoneMask(associateBean.entity.secondaryPhoneType)}" value="#{associateBean.entity.secondaryPhone}" id="secondaryPhone" />
 					</div>
 				</div>
 
@@ -69,11 +68,23 @@
 				</div>
 				<p:spacer />
 				<div class="ui-g">
-					<p:outputLabel value="UF" for="state" styleClass="ui-g-2" />
-					<p:inputText value="#{associateBean.entity.address.state}" id="state" styleClass="ui-g-4" />
-					<p:outputLabel value="Cidade" for="city" styleClass="ui-g-2" />
-					<p:inputText value="#{associateBean.entity.address.city}" id="city" styleClass="ui-g-4" />
+					<p:outputLabel value="Estado" for="state" styleClass="ui-g-2" />
+					<div class="ui-g-4">
+						<p:autoComplete value="#{associateBean.entity.address.state}" id="state" dropdown="true" completeMethod="#{stateSearchBean.autocompleteStatesNames}" var="var" itemLabel="#{var}"
+							itemValue="#{var}" minQueryLength="" scrollHeight="200" valueChangeListener="#{associateBean.changeState}" size="40">
+							<p:ajax event="itemSelect" update="city" />
+						</p:autoComplete>
+					</div>
+					<p:outputLabel value="Cidade" for="city" styleClass="ui-g-1" />
+					<div class="ui-g-5">
+						<p:autoComplete value="#{associateBean.entity.address.city}" id="city" dropdown="true" completeMethod="#{citySearchBean.autocompleteCitiesNames}" var="var" itemLabel="#{var}" itemValue="#{var}"
+							minQueryLength="" scrollHeight="200" size="40">
+							<p:ajax event="itemSelect" process="city" />
+							<f:attribute name="stateName" value="#{associateBean.entity.address.state}" />
+						</p:autoComplete>
+					</div>
 				</div>
+
 				<p:spacer />
 				<div class="ui-g">
 					<p:outputLabel value="Logradouro" for="street" styleClass="ui-g-2" />
@@ -81,7 +92,7 @@
 					<p:outputLabel value="Número" for="number" styleClass="ui-g-2" />
 					<p:inputText value="#{associateBean.entity.address.number}" id="number" styleClass="ui-g-2" />
 				</div>
-				<br />
+				<p:spacer />
 				<div class="ui-g">
 					<p:outputLabel value="Bairro" for="neighborhood" styleClass="ui-g-2" />
 					<p:inputText value="#{associateBean.entity.address.neighborhood}" id="neighborhood" styleClass="ui-g-10" />

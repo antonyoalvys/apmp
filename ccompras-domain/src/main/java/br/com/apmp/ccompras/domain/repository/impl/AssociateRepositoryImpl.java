@@ -41,6 +41,8 @@ public class AssociateRepositoryImpl extends BaseRepositoryImpl<Associate> imple
 		BooleanBuilder bb = new BooleanBuilder();
 		JPAQuery<Associate> query = new JPAQuery<Associate>( em );
 
+		bb.and( qAssociate.active.isTrue() );
+		
 		if ( associateSearch.getName() != null && !associateSearch.getName().trim().isEmpty() )
 			bb.and( qAssociate.name.containsIgnoreCase( associateSearch.getName() ) );
 		if ( associateSearch.getEnrollment() != null && !associateSearch.getName().trim().isEmpty() )
@@ -51,6 +53,12 @@ public class AssociateRepositoryImpl extends BaseRepositoryImpl<Associate> imple
 
 		return query.from( qAssociate ).where( bb ).orderBy( qAssociate.name.asc() ).fetch();
 
+	}
+
+	@Override
+	public void disable( Associate associate ) {
+		associate.setActive( false );
+		this.save( associate );
 	}
 
 }

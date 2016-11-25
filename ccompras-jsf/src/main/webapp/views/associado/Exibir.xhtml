@@ -6,6 +6,67 @@
 
 	<h:form id="showForm">
 
+		<p:panel header="Dados Funcionais" style="text-align:center;" styleClass="show-label" toggleable="true">
+			<div class="ui-g">
+				<p:outputLabel value="Nome: " styleClass="ui-g-2" />
+				<h:outputText value="#{associateSearchBean.showEntity.name}" styleClass="ui-g-10" />
+			</div>
+
+			<div class="ui-g">
+				<p:outputLabel value="Matrícula: " styleClass="ui-g-2" />
+				<h:outputText value="#{associateSearchBean.showEntity.enrollment}" styleClass="ui-g-4" />
+
+				<p:outputLabel value="CPF: " styleClass="ui-g-2" />
+				<h:outputText value="#{associateSearchBean.showEntity.cpf}" styleClass="ui-g-4" />
+			</div>
+
+		</p:panel>
+
+		<p:panel header="Informações Para Contato" style="text-align:center;" styleClass="show-label" toggleable="true">
+			<div class="ui-g">
+				<p:outputLabel value="Telefone Principal: " styleClass="ui-g-2" />
+				<h:outputText value="#{associateSearchBean.showEntity.mainPhone}" styleClass="ui-g-4" />
+
+				<p:outputLabel value="Telefone Secundário: " styleClass="ui-g-2" />
+				<h:outputText value="#{associateSearchBean.showEntity.secondaryPhone}" styleClass="ui-g-4" />
+			</div>
+		</p:panel>
+
+		<p:panel header="Endereço" style="text-align:center;" toggleable="true" styleClass="show-label">
+			<div class="ui-g">
+				<p:outputLabel value="CEP" styleClass="ui-g-2" />
+				<h:outputText value="#{associateSearchBean.showEntity.address.zipCode}" styleClass="ui-g-10" />
+			</div>
+			<div class="ui-g">
+				<p:outputLabel value="Estado" styleClass="ui-g-2" />
+				<h:outputText value="#{associateSearchBean.showEntity.address.state}" styleClass="ui-g-4" />
+
+				<p:outputLabel value="Cidade" styleClass="ui-g-2" />
+				<h:outputText value="#{associateSearchBean.showEntity.address.city}" styleClass="ui-g-4" />
+			</div>
+
+			<div class="ui-g">
+				<p:outputLabel value="Logradouro" styleClass="ui-g-2" />
+				<h:outputText value="#{associateSearchBean.showEntity.address.street}" styleClass="ui-g-4" />
+				<p:outputLabel value="Número" styleClass="ui-g-2" />
+				<h:outputText value="#{associateSearchBean.showEntity.address.number}" styleClass="ui-g-4" />
+			</div>
+			<div class="ui-g">
+				<p:outputLabel value="Bairro" styleClass="ui-g-2" />
+				<h:outputText value="#{associateSearchBean.showEntity.address.neighborhood}" styleClass="ui-g-4" />
+
+				<p:outputLabel value="Complemento" styleClass="ui-g-2" />
+				<h:outputText value="#{associateSearchBean.showEntity.address.complement}" styleClass="ui-g-4" />
+			</div>
+
+		</p:panel>
+
+		<p:spacer />
+		
+		<div class="buttons">
+			<p:commandButton id="closeButton" value="#{wds['button.return']}" action="#{associateSearchBean.closeShow}" update=":associateTv @form" process="@this" />
+		</div>
+
 	</h:form>
 
 </ui:composition>

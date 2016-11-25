@@ -67,6 +67,14 @@
 	text-align: center;
 }
 
+.show-label label {
+	text-align: left;
+	font-weight: bold;
+}
+.show-label span {
+	text-align: left;
+}
+
 /*primefaces override /* Footer	:::::::::::::::::::::::::::::::::::: */
 	   
 .ui-layout-center .ui-layout-unit-content.ui-widget-content {

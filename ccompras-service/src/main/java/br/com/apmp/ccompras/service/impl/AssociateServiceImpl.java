@@ -42,7 +42,12 @@ public class AssociateServiceImpl implements AssociateService {
 
 	@Override
 	public List<Associate> findByEntity( Associate associateSearch ) {
-		return associateRepository.findByEntity(associateSearch);
+		return associateRepository.findByEntity( associateSearch );
+	}
+
+	@Override
+	public void disable( Associate associate ) {
+		associateRepository.disable( associate );
 	}
 
 }

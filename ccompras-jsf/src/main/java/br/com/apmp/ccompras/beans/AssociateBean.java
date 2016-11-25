@@ -5,11 +5,13 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.apmp.ccompras.domain.entities.Associate;
+import br.com.apmp.ccompras.domain.enums.PhoneType;
 import br.com.apmp.ccompras.service.AssociateService;
 
 @Named
@@ -34,8 +36,17 @@ public class AssociateBean implements Serializable {
 		entityClear();
 	}
 
+	public void changeState( ValueChangeEvent event ) {
+		if ( event != null && event.getNewValue() != null ) {
+			this.entity.getAddress().setState( (String) event.getNewValue() );
+			this.entity.getAddress().setCity( null );
+		}
+	}
+
 	public void entityClear() {
 		this.entity = new Associate();
+		this.entity.setMainPhoneType( PhoneType.LANDLINE );
+		this.entity.setSecondaryPhoneType( PhoneType.MOBILE );
 	}
 
 	public Associate getEntity() {
@@ -45,10 +56,9 @@ public class AssociateBean implements Serializable {
 	public void setEntity( Associate entity ) {
 		this.entity = entity;
 	}
-	
+
 	public void clear() {
 		entityClear();
 	}
-	
 
 }

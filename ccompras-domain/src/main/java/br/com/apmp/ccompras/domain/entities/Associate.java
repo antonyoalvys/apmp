@@ -1,6 +1,7 @@
 package br.com.apmp.ccompras.domain.entities;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -14,6 +15,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 import br.com.apmp.ccompras.domain.enums.AssociateType;
 import br.com.apmp.ccompras.domain.enums.PhoneType;
@@ -30,17 +33,21 @@ public class Associate implements BaseEntity {
 	@Column( name = "pk_associate" )
 	private Long id;
 
-	@NotNull
+	@NotBlank
 	@Size( max = 100 )
 	@Column( name = "name" )
 	private String name;
 
-	@NotNull
+	@NotBlank
 	@Size( max = 20 )
 	@Column( name = "enrollment", unique = true )
 	private String enrollment;
 
-	@NotNull
+	@NotBlank
+	@Size( max = 14 )
+	@Column( name = "cpf" )
+	private String cpf;
+
 	@Size( max = 20 )
 	@Column( name = "main_phone" )
 	private String mainPhone;
@@ -61,16 +68,12 @@ public class Associate implements BaseEntity {
 	@Column( name = "associate_type" )
 	private AssociateType associateType;
 
-	@Column( name = "register_date" )
 	@NotNull
+	@Column( name = "register_date" )
 	private LocalDateTime registerDate;
 
-	@Size( max = 100 )
-	@Column( name = "mail" )
-	private String mail;
-
-	@Column( name = "active" )
 	@NotNull
+	@Column( name = "active" )
 	private Boolean active;
 
 	@Embedded
@@ -78,6 +81,8 @@ public class Associate implements BaseEntity {
 
 	public Associate() {
 		this.address = new Address();
+		this.active = true;
+		this.registerDate = LocalDateTime.now();
 	}
 
 	@Override
@@ -162,14 +167,6 @@ public class Associate implements BaseEntity {
 		this.address = address;
 	}
 
-	public String getMail() {
-		return mail;
-	}
-
-	public void setMail( String mail ) {
-		this.mail = mail;
-	}
-
 	public Boolean getActive() {
 		return active;
 	}
@@ -178,12 +175,20 @@ public class Associate implements BaseEntity {
 		this.active = active;
 	}
 
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf( String cpf ) {
+		this.cpf = cpf;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ( ( active == null ) ? 0 : active.hashCode() );
 		result = prime * result + ( ( associateType == null ) ? 0 : associateType.hashCode() );
+		result = prime * result + ( ( cpf == null ) ? 0 : cpf.hashCode() );
 		result = prime * result + ( ( enrollment == null ) ? 0 : enrollment.hashCode() );
 		result = prime * result + ( ( name == null ) ? 0 : name.hashCode() );
 		return result;
@@ -198,12 +203,12 @@ public class Associate implements BaseEntity {
 		if ( getClass() != obj.getClass() )
 			return false;
 		Associate other = (Associate) obj;
-		if ( active == null ) {
-			if ( other.active != null )
-				return false;
-		} else if ( !active.equals( other.active ) )
-			return false;
 		if ( associateType != other.associateType )
+			return false;
+		if ( cpf == null ) {
+			if ( other.cpf != null )
+				return false;
+		} else if ( !cpf.equals( other.cpf ) )
 			return false;
 		if ( enrollment == null ) {
 			if ( other.enrollment != null )

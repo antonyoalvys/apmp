@@ -7,10 +7,12 @@ import br.com.apmp.ccompras.domain.entities.City;
 
 public interface CityService extends Serializable {
 
-	public City findByName( String name );
-
 	public City findById( Long id );
 
 	public List<City> findAll();
+
+	public List<City> autocomplete( String query, String stateName );
+
+	public List<String> autocompleteCitiesNames( String query, String stateName );
 
 }

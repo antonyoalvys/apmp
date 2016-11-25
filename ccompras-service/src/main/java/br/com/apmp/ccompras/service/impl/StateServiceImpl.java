@@ -31,8 +31,18 @@ public class StateServiceImpl implements StateService {
 	}
 
 	@Override
-	public State findByName( String name ) {
+	public List<State> findByName( String name ) {
 		return this.stateRepository.findByName( name );
+	}
+
+	@Override
+	public List<String> autocompleteNames( String name ) {
+		return this.stateRepository.autocompleteNames( name );
+	}
+
+	@Override
+	public List<String> autocompleteShortNames( String shortName ) {
+		return this.stateRepository.autocompleteShortNames( shortName );
 	}
 
 }

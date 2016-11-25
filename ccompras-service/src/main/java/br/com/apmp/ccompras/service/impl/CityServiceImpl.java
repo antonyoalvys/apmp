@@ -21,11 +21,6 @@ public class CityServiceImpl implements CityService {
 	private CityRepository cityRepository;
 
 	@Override
-	public City findByName( String name ) {
-		return this.cityRepository.findByName( name );
-	}
-
-	@Override
 	public City findById( Long id ) {
 		return this.cityRepository.findById( id );
 	}
@@ -33,6 +28,16 @@ public class CityServiceImpl implements CityService {
 	@Override
 	public List<City> findAll() {
 		return this.cityRepository.findAll();
+	}
+
+	@Override
+	public List<City> autocomplete( String query, String stateName ) {
+		return cityRepository.autocomplete(query, stateName);
+	}
+
+	@Override
+	public List<String> autocompleteCitiesNames( String query, String stateName ) {
+		return this.cityRepository.autocompleteCitiesNames( query, stateName );
 	}
 
 }

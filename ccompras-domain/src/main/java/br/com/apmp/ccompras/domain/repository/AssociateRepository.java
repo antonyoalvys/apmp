@@ -8,4 +8,6 @@ public interface AssociateRepository extends BaseRepository<Associate> {
 
 	public List<Associate> findByEntity( Associate associateSearch );
 
+	public void disable( Associate associate );
+
 }

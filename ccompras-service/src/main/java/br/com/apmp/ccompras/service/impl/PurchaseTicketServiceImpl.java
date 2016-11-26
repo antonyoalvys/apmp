@@ -11,6 +11,7 @@ import javax.inject.Inject;
 
 import br.com.apmp.ccompras.domain.entities.Associate;
 import br.com.apmp.ccompras.domain.entities.Company;
+import br.com.apmp.ccompras.domain.entities.Period;
 import br.com.apmp.ccompras.domain.entities.PurchaseTicket;
 import br.com.apmp.ccompras.domain.repository.PurchaseTicketRepository;
 import br.com.apmp.ccompras.service.PurchaseTicketService;
@@ -64,6 +65,11 @@ public class PurchaseTicketServiceImpl implements PurchaseTicketService {
 	@TransactionAttribute( TransactionAttributeType.NEVER )
 	public List<PurchaseTicket> findByAssociate( Associate associate ) {
 		return this.purchaseTicketRepository.findByAssociate( associate );
+	}
+
+	@Override
+	public List<PurchaseTicket> findByEntity( PurchaseTicket entity, Period period ) {
+		return this.purchaseTicketRepository.findByEntity( entity, period );
 	}
 
 }

@@ -21,4 +21,6 @@ public interface CompanyService extends Serializable {
 
 	public List<Company> findByEntity( Company entity );
 
+	public List<Company> findByNameOrCnpj( String queryCompany );
+
 }

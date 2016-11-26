@@ -14,4 +14,6 @@ public interface CompanyRepository extends BaseRepository<Company> {
 	
 	public void disable( Company company );
 
+	public List<Company> findByNameOrCnpj( String queryCompany );
+
 }

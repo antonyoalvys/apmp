@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions">
+
+
+	<h:form id="searchForm">
+		<f:validateBean disabled="true">
+
+			<p:panel header="Dados da Consulta" style="text-align:center;">
+				<div class="ui-g">
+					<p:outputLabel value="Código" styleClass="ui-g-2" />
+					<p:inputText value="#{purchaseTicketSearchBean.searchEntity.code}" id="code" class="ui-g-4" />
+				</div>
+				<div class="ui-g">
+					<p:outputLabel value="Associado" styleClass="ui-g-2" />
+					<div class="ui-g-4">
+						<p:autoComplete value="#{purchaseTicketSearchBean.searchEntity.associate}" id="associate" dropdown="true" completeMethod="#{purchaseTicketSearchBean.autocompleteAssociate}" var="var"
+							itemLabel="#{var.enrollment +' - '+ var.name}" itemValue="#{var}" minQueryLength="" scrollHeight="200" size="40">
+						</p:autoComplete>
+					</div>
+
+					<p:outputLabel value="Estabelecimento Comercial" styleClass="ui-g-2" />
+					<div class="ui-g-4">
+						<p:autoComplete value="#{purchaseTicketSearchBean.searchEntity.company}" id="company" dropdown="true" completeMethod="#{purchaseTicketSearchBean.autocompleteCompany}" var="var"
+							itemLabel="#{var.cnpj +' - '+ var.name}" itemValue="#{var}" minQueryLength="" scrollHeight="200" size="40">
+						</p:autoComplete>
+					</div>
+				</div>
+				<div class="ui-g">
+					<p:outputLabel value="Período de Uso" styleClass="ui-g-2" />
+					<p:calendar value="#{purchaseTicketSearchBean.period.beginDate}" id="beginDate" class="ui-g-4" pattern="dd/MM/yyyy" />
+					-
+					<p:calendar value="#{purchaseTicketSearchBean.period.endDate}" id="endDate" class="ui-g-4" pattern="dd/MM/yyyy" />
+				</div>
+				<p:spacer />
+				<div class="buttons">
+					<p:commandButton action="#{purchaseTicketSearchBean.clear}" value="Limpar" styleClass="span2" process="@form" update="@form" />
+					<p:commandButton id="searchBtn" action="#{purchaseTicketSearchBean.findByEntity()}" value="Consultar" styleClass="span2" process="@form" update="@form">
+						<p:blockUI block="resultsDataTable" trigger="searchBtn">
+			                            #{wds['blockui.processing.txt']}<br />
+							<h:graphicImage library="images" name="#{wds['blockui.loading.img']}" />
+						</p:blockUI>
+					</p:commandButton>
+
+				</div>
+				<p:spacer />
+				<p:spacer />
+				<p:dataTable id="resultsDataTable" value="#{purchaseTicketSearchBean.purchaseTicketList}" emptyMessage="Nenhum cheque de compra registrado." var="ticket">
+					<f:facet name="header">Cheques de Compra</f:facet>
+
+					<p:column headerText="Opções">
+						<p:commandButton id="showCommandButton" icon="ui-icon-search" action="#{purchaseTicketSearchBean.show(ticket)}" title="Exibir" update=":purchaseTicketTv"
+							oncomplete="javascript:window.location='#purchaseTicketTv'" process="@this" />
+						<p:commandButton id="editCommandButton" icon="ui-icon-pencil" action="#{purchaseTicketSearchBean.edit()}" title="#{wds['table.columns.options.edit.hint']}" update=":purchaseTicketTv"
+							oncomplete="javascript:window.location='#purchaseTicketTv'" process="@this">
+							<f:setPropertyActionListener target="#{purchaseTicketSearchBean.editEntity}" value="#{ticket}" />
+						</p:commandButton>
+
+						<p:commandButton id="disableCommandButton" icon="ui-icon-trash" title="#{wds['table.columns.options.disable.hint']}" oncomplete="PF('confirmation').show();">
+							<f:setPropertyActionListener target="#{purchaseTicketSearchBean.removeEntity}" value="#{ticket}" />
+						</p:commandButton>
+					</p:column>
+					<p:column headerText="Código">
+						<h:outputText value="#{ticket.code}" />
+					</p:column>
+					<p:column headerText="Associado">
+						<h:outputText value="#{ticket.associate.enrollment + ' - ' + ticket.associate.name}" />
+					</p:column>
+					<p:column headerText="Estabelecimento Comercial">
+						<h:outputText value="#{ticket.company.cnpj + ' - ' + ticket.company.name}" />
+					</p:column>
+					<p:column headerText="Data de Uso">
+						<h:outputText value="#{ticket.usageDate}" />
+					</p:column>
+					<p:column headerText="Valor">
+						<h:outputText value="#{ticket.ticketValue}" />
+					</p:column>
+				</p:dataTable>
+
+			</p:panel>
+		</f:validateBean>
+
+		<p:confirmDialog id="disableConfirmDialog" message="#{wds['dialog.disableConfirmation.message']}" header="#{wds['dialog.disableConfirmation.header']}" widgetVar="confirmation" appendTo="@(body)">
+			<p:commandButton id="yesCommandButton" icon="ui-icon-check" value="#{wds['dialog.optionYes']}" onclick="PF('confirmation').hide();" actionListener="#{purchaseTicketSearchBean.disable}"
+				update="@form" process="@this" />
+			<p:commandButton id="noCommandButton" onclick="PF('confirmation').hide();" icon="ui-icon-cancel" value="#{wds['dialog.optionNo']}" type="button" />
+		</p:confirmDialog>
+
+	</h:form>
+
+
+</ui:composition>

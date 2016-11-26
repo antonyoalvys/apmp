@@ -14,6 +14,8 @@ public interface AssociateService extends Serializable {
 	public List<Associate> findAll();
 
 	public List<Associate> findByEntity( Associate associateSearch );
+	
+	public List<Associate> findByNameOrEnrollment( String queryAssociate );
 
 	public void disable( Associate associate );
 

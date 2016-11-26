@@ -50,4 +50,9 @@ public class AssociateServiceImpl implements AssociateService {
 		associateRepository.disable( associate );
 	}
 
+	@Override
+	public List<Associate> findByNameOrEnrollment( String queryAssociate ) {
+		return associateRepository.findByNameOrEnrollment( queryAssociate );
+	}
+
 }

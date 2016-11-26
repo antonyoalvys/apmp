@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions">
+
+
+	<h:form id="showForm">
+
+		<p:panel header="Dados do Estabelecimento Comercial" style="text-align:center;" styleClass="show-label" toggleable="true">
+			<div class="ui-g">
+				<p:outputLabel value="Nome: " styleClass="ui-g-2" />
+				<h:outputText value="#{companySearchBean.showEntity.name}" styleClass="ui-g-10" />
+			</div>
+
+			<div class="ui-g">
+				<p:outputLabel value="CNPJ: " styleClass="ui-g-2" />
+				<h:outputText value="#{companySearchBean.showEntity.cnpj}" styleClass="ui-g-4" />
+			</div>
+			
+			<div class="ui-g">
+				<p:outputLabel value="Nome Fantasia: " styleClass="ui-g-2" />
+				<h:outputText value="#{companySearchBean.showEntity.fantasyName}" styleClass="ui-g-4" />
+			</div>			
+
+		</p:panel>
+
+		<p:panel header="Informações Para Contato" style="text-align:center;" styleClass="show-label" toggleable="true">
+			<div class="ui-g">
+				<p:outputLabel value="Telefone: " styleClass="ui-g-2" />
+				<h:outputText value="#{companySearchBean.showEntity.phone}" styleClass="ui-g-4" />
+
+				<p:outputLabel value="Email: " styleClass="ui-g-2" />
+				<h:outputText value="#{companySearchBean.showEntity.mail}" styleClass="ui-g-4" />
+			</div>
+		</p:panel>
+
+		<p:panel header="Endereço" style="text-align:center;" toggleable="true" styleClass="show-label">
+			<div class="ui-g">
+				<p:outputLabel value="CEP" styleClass="ui-g-2" />
+				<h:outputText value="#{companySearchBean.showEntity.address.zipCode}" styleClass="ui-g-10" />
+			</div>
+			<div class="ui-g">
+				<p:outputLabel value="Estado" styleClass="ui-g-2" />
+				<h:outputText value="#{companySearchBean.showEntity.address.state}" styleClass="ui-g-4" />
+
+				<p:outputLabel value="Cidade" styleClass="ui-g-2" />
+				<h:outputText value="#{companySearchBean.showEntity.address.city}" styleClass="ui-g-4" />
+			</div>
+
+			<div class="ui-g">
+				<p:outputLabel value="Logradouro" styleClass="ui-g-2" />
+				<h:outputText value="#{companySearchBean.showEntity.address.street}" styleClass="ui-g-4" />
+				<p:outputLabel value="Número" styleClass="ui-g-2" />
+				<h:outputText value="#{companySearchBean.showEntity.address.number}" styleClass="ui-g-4" />
+			</div>
+			<div class="ui-g">
+				<p:outputLabel value="Bairro" styleClass="ui-g-2" />
+				<h:outputText value="#{companySearchBean.showEntity.address.neighborhood}" styleClass="ui-g-4" />
+
+				<p:outputLabel value="Complemento" styleClass="ui-g-2" />
+				<h:outputText value="#{companySearchBean.showEntity.address.complement}" styleClass="ui-g-4" />
+			</div>
+
+		</p:panel>
+
+		<p:spacer />
+		
+		<div class="buttons">
+			<p:commandButton id="closeButton" value="#{wds['button.return']}" action="#{companySearchBean.closeShow}" update=":companyTv @form" process="@this" />
+		</div>
+
+	</h:form>
+
+</ui:composition>

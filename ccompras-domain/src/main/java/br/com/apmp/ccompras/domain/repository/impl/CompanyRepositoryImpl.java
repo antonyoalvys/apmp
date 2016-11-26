@@ -53,7 +53,7 @@ public class CompanyRepositoryImpl extends BaseRepositoryImpl<Company> implement
 		JPAQuery<Company> query = new JPAQuery<Company>( em );
 
 		bb.and( qCompany.active.isTrue() );
-		
+
 		if ( entity.getName() != null && !entity.getName().trim().isEmpty() )
 			bb.and( qCompany.name.containsIgnoreCase( entity.getName() ).or( qCompany.fantasyName.containsIgnoreCase( entity.getName() ) ) );
 		if ( entity.getCnpj() != null && !entity.getCnpj().trim().isEmpty() )
@@ -67,6 +67,27 @@ public class CompanyRepositoryImpl extends BaseRepositoryImpl<Company> implement
 	public void disable( Company company ) {
 		company.setActive( false );
 		this.save( company );
+	}
+
+	@Override
+	public List<Company> findByNameOrCnpj( String queryCompany ) {
+		QCompany qCompany = QCompany.company;
+		BooleanBuilder bb = new BooleanBuilder();
+		JPAQuery<Company> query = new JPAQuery<Company>( em );
+
+		bb.and( qCompany.active.isTrue() );
+
+		if ( queryCompany == null || queryCompany.isEmpty() )
+			return query.from( qCompany ).where( bb ).orderBy( qCompany.name.asc() ).fetch();
+
+		try {
+			Integer.parseInt( queryCompany );
+			bb.and( qCompany.cnpj.contains( queryCompany ) );
+		} catch ( NumberFormatException ex ) {
+			bb.and( qCompany.name.containsIgnoreCase( queryCompany ) );
+		}
+
+		return query.from( qCompany ).where( bb ).orderBy( qCompany.name.asc() ).fetch();
 	}
 
 }

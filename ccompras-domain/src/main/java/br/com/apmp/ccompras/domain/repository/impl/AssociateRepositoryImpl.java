@@ -64,4 +64,25 @@ public class AssociateRepositoryImpl extends BaseRepositoryImpl<Associate> imple
 		this.save( associate );
 	}
 
+	@Override
+	public List<Associate> findByNameOrEnrollment( String queryAssociate ) {
+		QAssociate qAssociate = QAssociate.associate;
+		BooleanBuilder bb = new BooleanBuilder();
+		JPAQuery<Associate> query = new JPAQuery<Associate>( em );
+
+		bb.and( qAssociate.active.isTrue() );
+
+		if ( queryAssociate == null || queryAssociate.isEmpty() )
+			return query.from( qAssociate ).where( bb ).orderBy( qAssociate.name.asc() ).fetch();
+
+		try {
+			Integer.parseInt( queryAssociate );
+			bb.and( qAssociate.enrollment.contains( queryAssociate ) );
+		} catch ( NumberFormatException ex ) {
+			bb.and( qAssociate.name.containsIgnoreCase( queryAssociate ) );
+		}
+
+		return query.from( qAssociate ).where( bb ).orderBy( qAssociate.name.asc() ).fetch();
+	}
+
 }

@@ -51,10 +51,6 @@ public class PurchaseTicket implements BaseEntity {
 	@NotNull
 	private LocalDateTime registerDate;
 
-	@Column( name = "active" )
-	@NotNull
-	private Boolean active;
-
 	@Column( name = "description" )
 	@Size( max = 200 )
 	private String description;
@@ -121,14 +117,6 @@ public class PurchaseTicket implements BaseEntity {
 		this.registerDate = registerDate;
 	}
 
-	public Boolean getActive() {
-		return active;
-	}
-
-	public void setActive( Boolean active ) {
-		this.active = active;
-	}
-
 	public String getDescription() {
 		return description;
 	}
@@ -149,12 +137,9 @@ public class PurchaseTicket implements BaseEntity {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ( ( active == null ) ? 0 : active.hashCode() );
 		result = prime * result + ( ( associate == null ) ? 0 : associate.hashCode() );
 		result = prime * result + ( ( code == null ) ? 0 : code.hashCode() );
 		result = prime * result + ( ( company == null ) ? 0 : company.hashCode() );
-		result = prime * result + ( ( registerDate == null ) ? 0 : registerDate.hashCode() );
-		result = prime * result + ( ( ticketValue == null ) ? 0 : ticketValue.hashCode() );
 		result = prime * result + ( ( usageDate == null ) ? 0 : usageDate.hashCode() );
 		return result;
 	}
@@ -168,11 +153,6 @@ public class PurchaseTicket implements BaseEntity {
 		if ( getClass() != obj.getClass() )
 			return false;
 		PurchaseTicket other = (PurchaseTicket) obj;
-		if ( active == null ) {
-			if ( other.active != null )
-				return false;
-		} else if ( !active.equals( other.active ) )
-			return false;
 		if ( associate == null ) {
 			if ( other.associate != null )
 				return false;
@@ -187,16 +167,6 @@ public class PurchaseTicket implements BaseEntity {
 			if ( other.company != null )
 				return false;
 		} else if ( !company.equals( other.company ) )
-			return false;
-		if ( registerDate == null ) {
-			if ( other.registerDate != null )
-				return false;
-		} else if ( !registerDate.equals( other.registerDate ) )
-			return false;
-		if ( ticketValue == null ) {
-			if ( other.ticketValue != null )
-				return false;
-		} else if ( !ticketValue.equals( other.ticketValue ) )
 			return false;
 		if ( usageDate == null ) {
 			if ( other.usageDate != null )

@@ -63,4 +63,9 @@ public class CompanyServiceImpl implements CompanyService {
 		return this.companyRepository.findByEntity( entity );
 	}
 
+	@Override
+	public List<Company> findByNameOrCnpj( String queryCompany ) {
+		return this.companyRepository.findByNameOrCnpj( queryCompany );
+	}
+
 }

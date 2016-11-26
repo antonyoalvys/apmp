@@ -7,6 +7,8 @@ import br.com.apmp.ccompras.domain.entities.Associate;
 public interface AssociateRepository extends BaseRepository<Associate> {
 
 	public List<Associate> findByEntity( Associate associateSearch );
+	
+	public List<Associate> findByNameOrEnrollment( String queryAssociate );
 
 	public void disable( Associate associate );
 

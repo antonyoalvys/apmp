@@ -54,8 +54,13 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	@TransactionAttribute( TransactionAttributeType.REQUIRED )
-	public void delete( Company entity ) {
-		this.companyRepository.delete( entity );
+	public void disable( Company entity ) {
+		this.companyRepository.disable( entity );
+	}
+
+	@Override
+	public List<Company> findByEntity( Company entity ) {
+		return this.companyRepository.findByEntity( entity );
 	}
 
 }

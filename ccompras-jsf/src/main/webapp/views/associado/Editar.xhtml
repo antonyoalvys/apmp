@@ -12,7 +12,6 @@
 				<p:outputLabel value="Nome" for="name" styleClass="ui-g-2" />
 				<p:inputText value="#{associateSearchBean.editEntity.name}" id="name" class="ui-g-10" required="true" />
 			</div>
-			<p:spacer />
 			<div class="ui-g">
 				<p:outputLabel value="Matricula" for="enrollment" styleClass="ui-g-2" />
 				<p:inputText value="#{associateSearchBean.editEntity.enrollment}" id="enrollment" styleClass="ui-g-4" required="true" />
@@ -20,14 +19,16 @@
 				<p:outputLabel value="CPF" for="cpf" styleClass="ui-g-2" />
 				<p:inputMask mask="999.999.999-99" value="#{associateSearchBean.editEntity.cpf}" id="cpf" styleClass="ui-g-4" required="true" />
 			</div>
-			<p:spacer />
 			<div class="ui-g">
-
 				<p:outputLabel value="Tipo de Associado" for="associateType" styleClass="ui-g-2" />
 				<div class="ui-g-4">
 					<p:selectOneMenu value="#{associateSearchBean.editEntity.associateType}" id="associateType">
 						<f:selectItems value="#{AssociateType}" var="enum" itemLabel="#{enum.description}" />
 					</p:selectOneMenu>
+				</div>
+				<p:outputLabel value="Inativo (Aposentado)" for="retired" styleClass="ui-g-2" />
+				<div class="ui-g-4">
+					<p:selectBooleanButton id="retired" value="#{associateSearchBean.editEntity.retired}" onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px" />
 				</div>
 			</div>
 

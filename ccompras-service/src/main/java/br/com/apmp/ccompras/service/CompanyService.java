@@ -17,6 +17,8 @@ public interface CompanyService extends Serializable {
 
 	public void save( Company entity );
 
-	public void delete( Company entity );
+	public void disable( Company entity );
+
+	public List<Company> findByEntity( Company entity );
 
 }

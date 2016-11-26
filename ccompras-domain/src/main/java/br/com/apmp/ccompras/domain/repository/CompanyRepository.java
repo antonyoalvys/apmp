@@ -10,4 +10,8 @@ public interface CompanyRepository extends BaseRepository<Company> {
 
 	public List<Company> findByName( String name );
 
+	public List<Company> findByEntity( Company entity );
+	
+	public void disable( Company company );
+
 }

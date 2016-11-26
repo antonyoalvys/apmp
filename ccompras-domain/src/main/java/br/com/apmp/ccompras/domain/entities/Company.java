@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import br.com.apmp.ccompras.domain.enums.PhoneType;
 
 @Entity
@@ -33,8 +35,12 @@ public class Company implements BaseEntity {
 
 	@Column( name = "name" )
 	@Size( max = 100 )
-	@NotNull
+	@NotBlank
 	private String name;
+
+	@Column( name = "fantasy_name" )
+	@Size( max = 100 )
+	private String fantasyName;
 
 	@Column( name = "phone" )
 	@Size( max = 20 )
@@ -54,6 +60,12 @@ public class Company implements BaseEntity {
 
 	@Embedded
 	private Address address;
+
+	public Company() {
+		this.active = true;
+		this.address = new Address();
+		this.phoneType = PhoneType.LANDLINE;
+	}
 
 	@Override
 	public Long getId() {
@@ -121,11 +133,18 @@ public class Company implements BaseEntity {
 		this.address = address;
 	}
 
+	public String getFantasyName() {
+		return fantasyName;
+	}
+
+	public void setFantasyName( String fantasyName ) {
+		this.fantasyName = fantasyName;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ( ( active == null ) ? 0 : active.hashCode() );
 		result = prime * result + ( ( cnpj == null ) ? 0 : cnpj.hashCode() );
 		result = prime * result + ( ( name == null ) ? 0 : name.hashCode() );
 		return result;
@@ -140,11 +159,6 @@ public class Company implements BaseEntity {
 		if ( getClass() != obj.getClass() )
 			return false;
 		Company other = (Company) obj;
-		if ( active == null ) {
-			if ( other.active != null )
-				return false;
-		} else if ( !active.equals( other.active ) )
-			return false;
 		if ( cnpj == null ) {
 			if ( other.cnpj != null )
 				return false;

@@ -23,12 +23,15 @@
 				</div>
 				<p:spacer />
 				<div class="ui-g">
-
 					<p:outputLabel value="Tipo de Associado" for="associateType" styleClass="ui-g-2" />
 					<div class="ui-g-4">
 						<p:selectOneMenu value="#{associateBean.entity.associateType}" id="associateType">
 							<f:selectItems value="#{AssociateType}" var="enum" itemLabel="#{enum.description}" />
 						</p:selectOneMenu>
+					</div>
+					<p:outputLabel value="Inativo (Aposentado)" for="retired" styleClass="ui-g-2" />
+					<div class="ui-g-4">
+						<p:selectBooleanButton id="retired" value="#{associateBean.entity.retired}" onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px" />
 					</div>
 				</div>
 

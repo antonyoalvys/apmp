@@ -7,7 +7,11 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.jpa.impl.JPAQuery;
+
 import br.com.apmp.ccompras.domain.entities.Company;
+import br.com.apmp.ccompras.domain.entities.QCompany;
 import br.com.apmp.ccompras.domain.repository.CompanyRepository;
 
 @Named
@@ -39,6 +43,30 @@ public class CompanyRepositoryImpl extends BaseRepositoryImpl<Company> implement
 	@Override
 	public Class<Company> getClassT() {
 		return Company.class;
+	}
+
+	@Override
+	public List<Company> findByEntity( Company entity ) {
+
+		QCompany qCompany = QCompany.company;
+		BooleanBuilder bb = new BooleanBuilder();
+		JPAQuery<Company> query = new JPAQuery<Company>( em );
+
+		bb.and( qCompany.active.isTrue() );
+		
+		if ( entity.getName() != null && !entity.getName().trim().isEmpty() )
+			bb.and( qCompany.name.containsIgnoreCase( entity.getName() ).or( qCompany.fantasyName.containsIgnoreCase( entity.getName() ) ) );
+		if ( entity.getCnpj() != null && !entity.getCnpj().trim().isEmpty() )
+			bb.and( QCompany.company.cnpj.eq( entity.getCnpj() ) );
+
+		return query.from( qCompany ).where( bb ).orderBy( qCompany.name.asc() ).fetch();
+
+	}
+
+	@Override
+	public void disable( Company company ) {
+		company.setActive( false );
+		this.save( company );
 	}
 
 }

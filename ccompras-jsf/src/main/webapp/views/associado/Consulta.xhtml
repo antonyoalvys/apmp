@@ -15,14 +15,20 @@
 				<p:spacer />
 				<div class="ui-g">
 					<p:outputLabel value="Matricula" styleClass="ui-g-2" />
-					<p:inputText value="#{associateSearchBean.searchEntity.enrollment}" id="enrollment" styleClass="ui-g-4" required="false" />
-
+					<p:inputText value="#{associateSearchBean.searchEntity.enrollment}" id="enrollment" styleClass="ui-g-10" required="false" />
+				</div>
+				<div class="ui-g">
 					<p:outputLabel value="Tipo de Associado" styleClass="ui-g-2" />
 					<div class="ui-g-4">
 						<p:selectOneMenu value="#{associateSearchBean.searchEntity.associateType}" id="associateType">
 							<f:selectItems value="#{AssociateType}" var="enum" itemLabel="#{enum.description}" />
 						</p:selectOneMenu>
 					</div>
+					
+					<p:outputLabel value="Inativo (Aposentado)" for="retired" styleClass="ui-g-2" />
+					<div class="ui-g-4">
+						<p:selectBooleanButton id="retired" value="#{associateSearchBean.searchEntity.retired}" onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px" />
+					</div>					
 
 				</div>
 				<p:spacer />
@@ -62,6 +68,9 @@
 					<p:column headerText="Telefone Principal">
 						<h:outputText value="#{associate.mainPhone}" />
 					</p:column>
+					<p:column headerText="Inativo (Aposentado)">
+						<h:outputText value="#{associate.retired ? 'Sim' : 'Não'}" />
+					</p:column>					
 				</p:dataTable>
 
 			</p:panel>

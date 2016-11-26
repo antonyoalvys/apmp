@@ -42,13 +42,16 @@ public class AssociateRepositoryImpl extends BaseRepositoryImpl<Associate> imple
 		JPAQuery<Associate> query = new JPAQuery<Associate>( em );
 
 		bb.and( qAssociate.active.isTrue() );
-		
+
 		if ( associateSearch.getName() != null && !associateSearch.getName().trim().isEmpty() )
 			bb.and( qAssociate.name.containsIgnoreCase( associateSearch.getName() ) );
 		if ( associateSearch.getEnrollment() != null && !associateSearch.getName().trim().isEmpty() )
 			bb.and( qAssociate.enrollment.eq( associateSearch.getEnrollment() ) );
 		if ( associateSearch.getAssociateType() != null ) {
 			bb.and( qAssociate.associateType.eq( associateSearch.getAssociateType() ) );
+		}
+		if ( associateSearch.getRetired() != null ) {
+			bb.and( qAssociate.retired.eq( associateSearch.getRetired() ) );
 		}
 
 		return query.from( qAssociate ).where( bb ).orderBy( qAssociate.name.asc() ).fetch();

@@ -1,7 +1,6 @@
 package br.com.apmp.ccompras.domain.entities;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -72,6 +71,9 @@ public class Associate implements BaseEntity {
 	@Column( name = "register_date" )
 	private LocalDateTime registerDate;
 
+	@Column( name = "retired" )
+	private Boolean retired;
+
 	@NotNull
 	@Column( name = "active" )
 	private Boolean active;
@@ -82,6 +84,7 @@ public class Associate implements BaseEntity {
 	public Associate() {
 		this.address = new Address();
 		this.active = true;
+		this.retired = false;
 		this.registerDate = LocalDateTime.now();
 	}
 
@@ -181,6 +184,14 @@ public class Associate implements BaseEntity {
 
 	public void setCpf( String cpf ) {
 		this.cpf = cpf;
+	}
+
+	public Boolean getRetired() {
+		return retired;
+	}
+
+	public void setRetired( Boolean retired ) {
+		this.retired = retired;
 	}
 
 	@Override

@@ -58,6 +58,11 @@ public class PurchaseTicket implements BaseEntity {
 	@Column( name = "observation" )
 	@Size( max = 255 )
 	private String observation;
+	
+	
+	public PurchaseTicket() {
+		this.registerDate = LocalDateTime.now();
+	}
 
 	@Override
 	public Long getId() {

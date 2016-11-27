@@ -6,67 +6,42 @@
 
 	<h:form id="showForm">
 
-		<p:panel header="Dados do Estabelecimento Comercial" style="text-align:center;" styleClass="show-label" toggleable="true">
+		<p:panel header="Dados do Cheque de Convênio de Compra" style="text-align:center;" styleClass="show-label" toggleable="true">
 			<div class="ui-g">
-				<p:outputLabel value="Nome: " styleClass="ui-g-2" />
-				<h:outputText value="#{companySearchBean.showEntity.name}" styleClass="ui-g-10" />
+				<p:outputLabel value="Código: " styleClass="ui-g-2" />
+				<h:outputText value="#{purchaseTicketSearchBean.showEntity.code}" styleClass="ui-g-10" />
 			</div>
 
 			<div class="ui-g">
-				<p:outputLabel value="CNPJ: " styleClass="ui-g-2" />
-				<h:outputText value="#{companySearchBean.showEntity.cnpj}" styleClass="ui-g-4" />
-			</div>
-			
-			<div class="ui-g">
-				<p:outputLabel value="Nome Fantasia: " styleClass="ui-g-2" />
-				<h:outputText value="#{companySearchBean.showEntity.fantasyName}" styleClass="ui-g-4" />
-			</div>			
-
-		</p:panel>
-
-		<p:panel header="Informações Para Contato" style="text-align:center;" styleClass="show-label" toggleable="true">
-			<div class="ui-g">
-				<p:outputLabel value="Telefone: " styleClass="ui-g-2" />
-				<h:outputText value="#{companySearchBean.showEntity.phone}" styleClass="ui-g-4" />
-
-				<p:outputLabel value="Email: " styleClass="ui-g-2" />
-				<h:outputText value="#{companySearchBean.showEntity.mail}" styleClass="ui-g-4" />
-			</div>
-		</p:panel>
-
-		<p:panel header="Endereço" style="text-align:center;" toggleable="true" styleClass="show-label">
-			<div class="ui-g">
-				<p:outputLabel value="CEP" styleClass="ui-g-2" />
-				<h:outputText value="#{companySearchBean.showEntity.address.zipCode}" styleClass="ui-g-10" />
-			</div>
-			<div class="ui-g">
-				<p:outputLabel value="Estado" styleClass="ui-g-2" />
-				<h:outputText value="#{companySearchBean.showEntity.address.state}" styleClass="ui-g-4" />
-
-				<p:outputLabel value="Cidade" styleClass="ui-g-2" />
-				<h:outputText value="#{companySearchBean.showEntity.address.city}" styleClass="ui-g-4" />
+				<p:outputLabel value="Data de Uso: " styleClass="ui-g-2" />
+				<h:outputText value="#{purchaseTicketSearchBean.showEntity.usageDate}" styleClass="ui-g-4" />
 			</div>
 
 			<div class="ui-g">
-				<p:outputLabel value="Logradouro" styleClass="ui-g-2" />
-				<h:outputText value="#{companySearchBean.showEntity.address.street}" styleClass="ui-g-4" />
-				<p:outputLabel value="Número" styleClass="ui-g-2" />
-				<h:outputText value="#{companySearchBean.showEntity.address.number}" styleClass="ui-g-4" />
-			</div>
-			<div class="ui-g">
-				<p:outputLabel value="Bairro" styleClass="ui-g-2" />
-				<h:outputText value="#{companySearchBean.showEntity.address.neighborhood}" styleClass="ui-g-4" />
+				<p:outputLabel value="Associado: " styleClass="ui-g-2" />
+				<h:outputText value="#{purchaseTicketSearchBean.showEntity.associate.enrollment +' - ' +purchaseTicketSearchBean.showEntity.associate.name}" styleClass="ui-g-4" />
 
-				<p:outputLabel value="Complemento" styleClass="ui-g-2" />
-				<h:outputText value="#{companySearchBean.showEntity.address.complement}" styleClass="ui-g-4" />
+				<p:outputLabel value="Estabelecimento Comercial: " styleClass="ui-g-2" />
+				<h:outputText value="#{purchaseTicketSearchBean.showEntity.company.cnpj +' - ' +purchaseTicketSearchBean.showEntity.company.name}" styleClass="ui-g-4" />
+			</div>
+
+			<div class="ui-g">
+				<p:outputLabel value="Valor" for="ticketValue" styleClass="ui-g-2" />
+				<h:outputText value="#{purchaseTicketSearchBean.editEntity.ticketValue}" styleClass="ui-g-4" />
+			</div>
+
+			<div class="ui-g">
+				<p:outputLabel value="Descrição" styleClass="ui-g-2" />
+				<p:inputTextarea value="#{purchaseTicketSearchBean.editEntity.description}" id="description" styleClass="ui-g-4" disabled="true" />
+
+				<p:outputLabel value="Observação" styleClass="ui-g-2" />
+				<p:inputTextarea value="#{purchaseTicketSearchBean.editEntity.observation}" id="observation" styleClass="ui-g-4" />
 			</div>
 
 		</p:panel>
 
-		<p:spacer />
-		
 		<div class="buttons">
-			<p:commandButton id="closeButton" value="#{wds['button.return']}" action="#{companySearchBean.closeShow}" update=":companyTv @form" process="@this" />
+			<p:commandButton id="closeButton" value="#{wds['button.return']}" action="#{purchaseTicketSearchBean.closeShow}" update=":purchaseTicketTv @form" process="@this" />
 		</div>
 
 	</h:form>

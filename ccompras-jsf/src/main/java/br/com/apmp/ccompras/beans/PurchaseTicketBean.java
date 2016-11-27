@@ -73,4 +73,20 @@ public class PurchaseTicketBean implements Serializable {
 		entityClear();
 	}
 
+	public List<Associate> getAssociateList() {
+		return associateList;
+	}
+
+	public void setAssociateList( List<Associate> associateList ) {
+		this.associateList = associateList;
+	}
+
+	public List<Company> getCompanyList() {
+		return companyList;
+	}
+
+	public void setCompanyList( List<Company> companyList ) {
+		this.companyList = companyList;
+	}
+
 }

@@ -3,18 +3,18 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui" template="/views/index.xhtml">
 	<ui:define name="content">
-		<p:tabView id="companyTv" widgetVar="companyTabs">
-			<p:ajax event="tabClose" update="companyTv" listener="#{companySearchBean.onTabClose}" process="@all" />
+		<p:tabView id="purchaseTicketTv" widgetVar="chequeCompraTabs">
+			<p:ajax event="tabClose" update="purchaseTicketTv" listener="#{purchaseTicketSearchBean.onTabClose}" process="@all" />
 
 			<p:tab title="Concultar" closable="false">
 				<ui:include src="Consulta.xhtml" />
 			</p:tab>
 
-			<p:tab title="Exibir" closable="true" rendered="false" binding="#{companySearchBean.showTab}">
+			<p:tab title="Exibir" closable="true" rendered="false" binding="#{purchaseTicketSearchBean.showTab}">
 				<ui:include src="Exibir.xhtml" />
 			</p:tab>
 
-			<p:tab title="Editar" closable="true" rendered="false" binding="#{companySearchBean.editTab}">
+			<p:tab title="Editar" closable="true" rendered="false" binding="#{purchaseTicketSearchBean.editTab}">
 				<ui:include src="Editar.xhtml" />
 			</p:tab>
 		</p:tabView>

@@ -16,6 +16,8 @@ import br.com.apmp.ccompras.domain.entities.Company;
 import br.com.apmp.ccompras.domain.entities.Period;
 import br.com.apmp.ccompras.domain.entities.PurchaseTicket;
 import br.com.apmp.ccompras.domain.exceptions.RepositoryException;
+import br.com.apmp.ccompras.service.AssociateService;
+import br.com.apmp.ccompras.service.CompanyService;
 import br.com.apmp.ccompras.service.PurchaseTicketService;
 import br.com.apmp.ccompras.service.exceptions.ServiceException;
 
@@ -27,6 +29,11 @@ public class PurchaseTicketSearchBean extends BaseBeanSearch<PurchaseTicket> {
 
 	@Inject
 	private PurchaseTicketService purchaseTicketService;
+
+	@Inject
+	private CompanyService companyService;
+	@Inject
+	private AssociateService associateService;
 
 	private PurchaseTicket purchaseTicketSearch;
 
@@ -69,6 +76,18 @@ public class PurchaseTicketSearchBean extends BaseBeanSearch<PurchaseTicket> {
 		FacesContext.getCurrentInstance().addMessage( null, facesMessage );
 	}
 
+	public List<Associate> autocompleteAssociate( String queryAssociate ) {
+		queryAssociate = queryAssociate.trim();
+		this.associateList = associateService.findByNameOrEnrollment( queryAssociate );
+		return this.associateList;
+	}
+
+	public List<Company> autocompleteCompany( String queryCompany ) {
+		queryCompany = queryCompany.trim();
+		this.companyList = companyService.findByNameOrCnpj( queryCompany );
+		return this.companyList;
+	}
+
 	public void closeShow() {
 		setShowEntity( new PurchaseTicket() );
 		closeTab( getShowTab() );
@@ -93,7 +112,7 @@ public class PurchaseTicketSearchBean extends BaseBeanSearch<PurchaseTicket> {
 	protected Class<PurchaseTicket> searchEntityClass() {
 		return PurchaseTicket.class;
 	}
-	
+
 	public PurchaseTicket getPurchaseTicketSearch() {
 		return purchaseTicketSearch;
 	}

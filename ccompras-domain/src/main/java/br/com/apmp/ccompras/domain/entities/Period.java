@@ -28,14 +28,18 @@ public class Period implements BaseEntity {
 	@NotNull
 	@Column( name = "begin_date" )
 	private LocalDateTime beginDate;
-	
+
 	@NotNull
 	@Column( name = "end_date" )
 	private LocalDateTime endDate;
-	
+
 	@NotNull
 	@Column( name = "period_status" )
 	private PeriodStatus periodStatus;
+
+	public Period() {
+		this.periodStatus = PeriodStatus.OPEN;
+	}
 
 	@Override
 	public Long getId() {

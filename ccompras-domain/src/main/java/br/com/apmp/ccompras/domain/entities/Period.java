@@ -1,6 +1,6 @@
 package br.com.apmp.ccompras.domain.entities;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,11 +27,11 @@ public class Period implements BaseEntity {
 
 	@NotNull
 	@Column( name = "begin_date" )
-	private LocalDateTime beginDate;
+	private LocalDate beginDate;
 
 	@NotNull
 	@Column( name = "end_date" )
-	private LocalDateTime endDate;
+	private LocalDate endDate;
 
 	@NotNull
 	@Column( name = "period_status" )
@@ -51,19 +51,19 @@ public class Period implements BaseEntity {
 		this.id = id;
 	}
 
-	public LocalDateTime getBeginDate() {
+	public LocalDate getBeginDate() {
 		return beginDate;
 	}
 
-	public void setBeginDate( LocalDateTime beginDate ) {
+	public void setBeginDate( LocalDate beginDate ) {
 		this.beginDate = beginDate;
 	}
 
-	public LocalDateTime getEndDate() {
+	public LocalDate getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate( LocalDateTime endDate ) {
+	public void setEndDate( LocalDate endDate ) {
 		this.endDate = endDate;
 	}
 

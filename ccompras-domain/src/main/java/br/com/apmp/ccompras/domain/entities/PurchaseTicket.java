@@ -1,6 +1,7 @@
 package br.com.apmp.ccompras.domain.entities;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -45,7 +46,7 @@ public class PurchaseTicket implements BaseEntity {
 	private Associate associate;
 
 	@Column( name = "usage_date" )
-	private LocalDateTime usageDate;
+	private LocalDate usageDate;
 
 	@Column( name = "register_date" )
 	@NotNull
@@ -106,11 +107,11 @@ public class PurchaseTicket implements BaseEntity {
 		this.associate = associate;
 	}
 
-	public LocalDateTime getUsageDate() {
+	public LocalDate getUsageDate() {
 		return usageDate;
 	}
 
-	public void setUsageDate( LocalDateTime usageDate ) {
+	public void setUsageDate( LocalDate usageDate ) {
 		this.usageDate = usageDate;
 	}
 

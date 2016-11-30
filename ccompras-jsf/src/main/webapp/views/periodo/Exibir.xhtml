@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions">
+
+
+	<h:form id="showForm">
+
+		<p:panel header="Dados do Período" style="text-align:center;" styleClass="show-label" toggleable="true">
+			<div class="ui-g">
+				<p:outputLabel value="Data Inicial: " styleClass="ui-g-2" />
+				<h:outputText value="#{periodSearchBean.showEntity.beginDate}" styleClass="ui-g-4" />
+				<p:outputLabel value="Data Final: " styleClass="ui-g-2" />
+				<h:outputText value="#{periodSearchBean.showEntity.endDate}" styleClass="ui-g-4" />
+			</div>
+
+			<div class="ui-g">
+				<p:outputLabel value="Status: " styleClass="ui-g-2" />
+				<h:outputText value="#{periodSearchBean.showEntity.periodStatus.description}" styleClass="ui-g-4" />
+			</div>			
+
+		</p:panel>
+
+		<div class="buttons">
+			<p:commandButton id="closeButton" value="#{wds['button.return']}" action="#{periodSearchBean.closeShow}" update=":periodTv @form" process="@this" />
+		</div>
+
+	</h:form>
+
+</ui:composition>

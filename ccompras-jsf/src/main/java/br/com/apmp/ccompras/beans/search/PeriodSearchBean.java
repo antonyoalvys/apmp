@@ -39,7 +39,7 @@ public class PeriodSearchBean extends BaseBeanSearch<Period> {
 	}
 
 	public void findByEntity() throws ServiceException {
-		this.periodList = periodService.findByEntity( this.periodSearch );
+		this.periodList = periodService.findByEntity( getSearchEntity() );
 	}
 
 	public void show( Period period ) {
@@ -73,7 +73,7 @@ public class PeriodSearchBean extends BaseBeanSearch<Period> {
 	}
 
 	public void clear() {
-		this.periodSearch = new Period();
+		setSearchEntity( new Period() );
 		this.periodList = new ArrayList<Period>();
 	}
 

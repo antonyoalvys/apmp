@@ -11,7 +11,7 @@
 					<p:inputText value="#{purchaseTicketBean.entity.code}" id="code" styleClass="ui-g-4" required="true" />
 
 					<p:outputLabel value="Data de Uso" for="usageDate" styleClass="ui-g-2" />
-					<p:calendar value="#{purchaseTicketBean.entity.usageDate}" id="usageDate" styleClass="ui-g-4" pattern="dd/MM/yyyy HH:mm:ss" converter="localDateTimeConverter"/>
+					<p:calendar value="#{purchaseTicketBean.entity.usageDate}" id="usageDate" styleClass="ui-g-4" pattern="dd/MM/yyyy" converter="localDateConverter"/>
 				</div>
 				<div class="ui-g">
 					<p:outputLabel value="Associado" for="associate" styleClass="ui-g-2" />

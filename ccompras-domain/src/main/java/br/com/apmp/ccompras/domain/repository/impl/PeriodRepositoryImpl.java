@@ -60,13 +60,13 @@ public class PeriodRepositoryImpl extends BaseRepositoryImpl<Period> implements 
 			return query.from( qPeriod ).orderBy( qPeriod.endDate.desc() ).fetch();
 
 		if ( entity.getBeginDate() != null )
-			bb.and( qPeriod.beginDate.loe( entity.getBeginDate() ) );
+			bb.and( qPeriod.beginDate.goe( entity.getBeginDate() ) );
 		if ( entity.getEndDate() != null )
-			bb.and( qPeriod.endDate.goe( entity.getEndDate() ) );
+			bb.and( qPeriod.endDate.loe( entity.getEndDate() ) );
 		if ( entity.getPeriodStatus() != null )
 			bb.and( qPeriod.periodStatus.eq( entity.getPeriodStatus() ) );
 
-		return query.from( qPeriod ).orderBy( qPeriod.endDate.desc() ).fetch();
+		return query.from( qPeriod ).where( bb ).orderBy( qPeriod.endDate.desc() ).fetch();
 	}
 
 }

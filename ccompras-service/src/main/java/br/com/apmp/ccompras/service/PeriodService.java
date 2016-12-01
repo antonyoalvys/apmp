@@ -17,5 +17,7 @@ public interface PeriodService extends Serializable {
 	public List<Period> findByEntity( Period entity );
 
 	public List<Period> findAll();
-	
+
+	public void validatePeriod( Period entity );
+
 }

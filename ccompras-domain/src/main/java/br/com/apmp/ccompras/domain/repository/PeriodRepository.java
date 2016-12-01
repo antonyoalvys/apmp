@@ -11,5 +11,9 @@ public interface PeriodRepository extends BaseRepository<Period> {
 
 	public List<Period> findByEntity( Period entity );
 
+	public Period findByBeginDate( Period entity );
+
+	public Period findByEndDate( Period entity );
+
 
 }

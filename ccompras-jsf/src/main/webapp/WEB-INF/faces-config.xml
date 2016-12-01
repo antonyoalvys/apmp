@@ -20,10 +20,15 @@
 			<base-name>entities</base-name>
 			<var>lbl</var>
 		</resource-bundle>
-		<resource-bundle>
-			<base-name>widgets</base-name>
-			<var>wds</var>
-		</resource-bundle>
+
+		<converter>
+			<converter-id>localDateConverter</converter-id>
+			<converter-class>br.com.apmp.ccompras.converters.LocalDateConverter</converter-class>
+		</converter>
+		<converter>
+			<converter-id>localDateTimeConverter</converter-id>
+			<converter-class>br.com.apmp.ccompras.converters.LocalDateTimeConverter</converter-class>
+		</converter>		
 	</application>
 
 </faces-config>

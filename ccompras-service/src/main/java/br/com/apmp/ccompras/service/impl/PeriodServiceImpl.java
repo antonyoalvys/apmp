@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import br.com.apmp.ccompras.domain.entities.Period;
 import br.com.apmp.ccompras.domain.repository.PeriodRepository;
 import br.com.apmp.ccompras.service.PeriodService;
+import br.com.apmp.ccompras.service.exceptions.ServiceException;
 
 @Stateless
 @TransactionManagement( TransactionManagementType.CONTAINER )
@@ -32,6 +33,7 @@ public class PeriodServiceImpl implements PeriodService {
 	@Override
 	@TransactionAttribute( TransactionAttributeType.REQUIRED )
 	public void save( Period entity ) {
+		validatePeriod( entity );
 		periodRepository.save( entity );
 	}
 
@@ -44,13 +46,29 @@ public class PeriodServiceImpl implements PeriodService {
 	@Override
 	@TransactionAttribute( TransactionAttributeType.NEVER )
 	public List<Period> findByEntity( Period entity ) {
-		return periodRepository.findByEntity( entity ) ;
+		return periodRepository.findByEntity( entity );
 	}
 
 	@Override
 	@TransactionAttribute( TransactionAttributeType.NEVER )
 	public List<Period> findAll() {
 		return periodRepository.findAll();
+	}
+	
+	@Override
+	public void validatePeriod( Period entity ) {
+		if (entity.getBeginDate().isAfter( entity.getEndDate() ))
+			throw new  ServiceException("Data Inicial não pode ser posterior a Data Final");
+		
+		Period otherPeriod = periodRepository.findByBeginDate( entity ); 
+		if ( otherPeriod != null )
+			throw new  ServiceException("Data Inicial já coberta pelo período " + otherPeriod.toString() );
+		
+
+		otherPeriod = periodRepository.findByEndDate( entity ); 
+		if ( otherPeriod != null )
+			throw new  ServiceException("Data Final já coberta pelo período " + otherPeriod.toString() );
+		
 	}
 
 }

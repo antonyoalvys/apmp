@@ -69,4 +69,35 @@ public class PeriodRepositoryImpl extends BaseRepositoryImpl<Period> implements 
 		return query.from( qPeriod ).where( bb ).orderBy( qPeriod.endDate.desc() ).fetch();
 	}
 
+	@Override
+	public Period findByBeginDate( Period entity ) {
+		QPeriod qPeriod = QPeriod.period;
+		BooleanBuilder bb = new BooleanBuilder();
+		JPQLQuery<Period> query = new JPAQuery<Period>( em );
+
+		if ( entity == null || entity.getBeginDate() == null )
+			throw new NullPointerException();
+
+		bb.and( qPeriod.beginDate.loe( entity.getBeginDate() ) );
+		bb.and( qPeriod.endDate.goe( entity.getBeginDate() ) );
+
+		return query.from( qPeriod ).where( bb ).fetchOne();
+
+	}
+	
+	@Override
+	public Period findByEndDate( Period entity ) {
+		QPeriod qPeriod = QPeriod.period;
+		BooleanBuilder bb = new BooleanBuilder();
+		JPQLQuery<Period> query = new JPAQuery<Period>( em );
+
+		if ( entity == null || entity.getEndDate() == null )
+			throw new NullPointerException();
+
+		bb.and( qPeriod.beginDate.loe( entity.getEndDate() ) );
+		bb.and( qPeriod.endDate.goe( entity.getEndDate() ) );
+
+		return query.from( qPeriod ).where( bb ).fetchOne();
+	}
+
 }

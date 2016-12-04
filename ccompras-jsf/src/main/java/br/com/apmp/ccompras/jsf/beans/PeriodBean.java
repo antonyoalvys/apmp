@@ -1,4 +1,4 @@
-package br.com.apmp.ccompras.beans;
+package br.com.apmp.ccompras.jsf.beans;
 
 import java.io.Serializable;
 import java.time.format.DateTimeFormatter;

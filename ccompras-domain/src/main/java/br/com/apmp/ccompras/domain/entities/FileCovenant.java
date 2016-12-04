@@ -29,7 +29,7 @@ public class FileCovenant implements BaseEntity {
 	@Lob
 	@Column( name = "file" )
 	@NotNull
-	private Byte file;
+	private byte[] file;
 
 	@OneToOne
 	@JoinColumn( name = "fk_period" )
@@ -40,6 +40,14 @@ public class FileCovenant implements BaseEntity {
 	@Column( name = "generate_date" )
 	private LocalDateTime generateDate;
 
+	@NotNull
+	@Column( name = "name" )
+	private String name;
+
+	public FileCovenant() {
+		this.generateDate = LocalDateTime.now();
+	}
+
 	@Override
 	public Long getId() {
 		return this.id;
@@ -49,12 +57,12 @@ public class FileCovenant implements BaseEntity {
 	public void setId( Long id ) {
 		this.id = id;
 	}
-
-	public Byte getFile() {
+	
+	public byte[] getFile() {
 		return file;
 	}
 
-	public void setFile( Byte file ) {
+	public void setFile( byte[] file ) {
 		this.file = file;
 	}
 
@@ -72,6 +80,14 @@ public class FileCovenant implements BaseEntity {
 
 	public void setGenerateDate( LocalDateTime generateDate ) {
 		this.generateDate = generateDate;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName( String name ) {
+		this.name = name;
 	}
 
 	@Override

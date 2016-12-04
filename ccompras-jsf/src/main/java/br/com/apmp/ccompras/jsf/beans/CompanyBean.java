@@ -1,4 +1,4 @@
-package br.com.apmp.ccompras.beans;
+package br.com.apmp.ccompras.jsf.beans;
 
 import java.io.Serializable;
 
@@ -10,19 +10,19 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import br.com.apmp.ccompras.domain.entities.Associate;
+import br.com.apmp.ccompras.domain.entities.Company;
 import br.com.apmp.ccompras.domain.enums.PhoneType;
-import br.com.apmp.ccompras.service.AssociateService;
+import br.com.apmp.ccompras.service.CompanyService;
 
 @Named
 @ViewScoped
-public class AssociateBean implements Serializable {
+public class CompanyBean implements Serializable {
 
 	private static final long serialVersionUID = -5391076748088986414L;
 
 	@Inject
-	private AssociateService associateService;
-	private Associate entity;
+	private CompanyService companyService;
+	private Company entity;
 
 	@PostConstruct
 	public void init() {
@@ -30,8 +30,8 @@ public class AssociateBean implements Serializable {
 	}
 
 	public void register() {
-		associateService.save( this.entity );
-		String message = String.format( "O associado %s foi registrado com sucesso.", this.entity.getName() );
+		companyService.save( this.entity );
+		String message = String.format( "O estabelecimento comercial %s foi registrado com sucesso.", this.entity.getName() );
 		FacesContext.getCurrentInstance().addMessage( null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, null ) );
 		entityClear();
 	}
@@ -44,16 +44,15 @@ public class AssociateBean implements Serializable {
 	}
 
 	public void entityClear() {
-		this.entity = new Associate();
-		this.entity.setMainPhoneType( PhoneType.LANDLINE );
-		this.entity.setSecondaryPhoneType( PhoneType.MOBILE );
+		this.entity = new Company();
+		this.entity.setPhoneType( PhoneType.LANDLINE );
 	}
 
-	public Associate getEntity() {
+	public Company getEntity() {
 		return entity;
 	}
 
-	public void setEntity( Associate entity ) {
+	public void setEntity( Company entity ) {
 		this.entity = entity;
 	}
 

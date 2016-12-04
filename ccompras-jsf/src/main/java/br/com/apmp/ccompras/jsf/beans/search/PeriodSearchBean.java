@@ -1,4 +1,4 @@
-package br.com.apmp.ccompras.beans.search;
+package br.com.apmp.ccompras.jsf.beans.search;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;

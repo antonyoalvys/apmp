@@ -11,10 +11,11 @@ import javax.inject.Inject;
 
 import br.com.apmp.ccompras.domain.entities.Associate;
 import br.com.apmp.ccompras.domain.entities.Company;
-import br.com.apmp.ccompras.domain.entities.Period;
 import br.com.apmp.ccompras.domain.entities.PurchaseTicket;
+import br.com.apmp.ccompras.domain.enums.PeriodStatus;
 import br.com.apmp.ccompras.domain.repository.PurchaseTicketRepository;
 import br.com.apmp.ccompras.service.PurchaseTicketService;
+import br.com.apmp.ccompras.service.exceptions.ServiceException;
 
 @Stateless
 @TransactionManagement( TransactionManagementType.CONTAINER )
@@ -26,7 +27,7 @@ public class PurchaseTicketServiceImpl implements PurchaseTicketService {
 	private PurchaseTicketRepository purchaseTicketRepository;
 
 	@Override
-	@TransactionAttribute( TransactionAttributeType.NEVER )
+	@TransactionAttribute( TransactionAttributeType.NOT_SUPPORTED )
 	public PurchaseTicket findById( Long id ) {
 		return this.purchaseTicketRepository.findById( id );
 	}
@@ -46,6 +47,10 @@ public class PurchaseTicketServiceImpl implements PurchaseTicketService {
 	@Override
 	@TransactionAttribute( TransactionAttributeType.REQUIRED )
 	public void save( PurchaseTicket entity ) {
+		if ( entity.getUsageDate().isBefore( entity.getPeriod().getBeginDate() ) || entity.getUsageDate().isAfter( entity.getPeriod().getEndDate() ) )
+			throw new ServiceException( "A data de uso deve está no período " + entity.getPeriod().getDescription() );
+		if ( entity.getPeriod().getPeriodStatus().equals( PeriodStatus.CLOSE ) )
+			throw new ServiceException( "O período " + entity.getPeriod().getDescription() + " encontra-se fechado." );
 		this.purchaseTicketRepository.save( entity );
 	}
 
@@ -56,7 +61,7 @@ public class PurchaseTicketServiceImpl implements PurchaseTicketService {
 	}
 
 	@Override
-	@TransactionAttribute( TransactionAttributeType.NEVER )
+	@TransactionAttribute( TransactionAttributeType.NOT_SUPPORTED )
 	public PurchaseTicket findByCode( String code ) {
 		return this.purchaseTicketRepository.findByCode( code );
 	}
@@ -68,8 +73,15 @@ public class PurchaseTicketServiceImpl implements PurchaseTicketService {
 	}
 
 	@Override
-	public List<PurchaseTicket> findByEntity( PurchaseTicket entity, Period period ) {
-		return this.purchaseTicketRepository.findByEntity( entity, period );
+	@TransactionAttribute( TransactionAttributeType.NEVER )
+	public List<PurchaseTicket> findByEntity( PurchaseTicket entity ) {
+		return this.purchaseTicketRepository.findByEntity( entity );
+	}
+
+	@Override
+	@TransactionAttribute( TransactionAttributeType.NOT_SUPPORTED )
+	public List<PurchaseTicket> findByPeriodId( Long periodId ) {
+		return this.purchaseTicketRepository.findByPeriodId( periodId );
 	}
 
 }

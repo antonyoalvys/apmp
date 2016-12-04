@@ -1,58 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui" template="/views/index.xhtml">
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
 
-	<ui:define name="content">
-		<h:form id="form">
-			<p:panel header="Dados do Cheque de Compra" style="text-align:center;" styleClass="left-label" toggleable="true">
-				<div class="ui-g">
-					<p:outputLabel value="Código" for="code" styleClass="ui-g-2" />
-					<p:inputText value="#{purchaseTicketSearchBean.editEntity.code}" id="code" styleClass="ui-g-4" required="true" />
-
-					<p:outputLabel value="Data de Uso" for="usageDate" styleClass="ui-g-2" />
-					<div class="ui-g-4"
-						<p:calendar value="#{purchaseTicketSearchBean.editEntity.usageDate}" id="usageDate" pattern="dd/MM/yyyy" converter="localDateConverter" />
-					</div>
-				</div>
-				<div class="ui-g">
-					<p:outputLabel value="Associado" for="associate" styleClass="ui-g-2" />
-					<div class="ui-g-4">
-						<p:autoComplete value="#{purchaseTicketSearchBean.editEntity.associate}" id="associate" dropdown="true" completeMethod="#{purchaseTicketSearchBean.autocompleteAssociate}" var="var"
-							itemLabel="#{var.enrollment +' - '+ var.name}" itemValue="#{var}" minQueryLength="" scrollHeight="200" size="40">
-							<o:converter converterId="omnifaces.ListConverter" list="#{purchaseTicketSearchBean.associateList}" />
-						</p:autoComplete>
-					</div>
-
-					<p:outputLabel value="Estabelecimento Comercial" for="company" styleClass="ui-g-2" />
-					<div class="ui-g-4">
-						<p:autoComplete value="#{purchaseTicketSearchBean.editEntity.company}" id="company" dropdown="true" completeMethod="#{purchaseTicketSearchBean.autocompleteCompany}" var="var"
-							itemLabel="#{var.cnpj +' - '+ var.name}" itemValue="#{var}" minQueryLength="" scrollHeight="200" size="40">
-							<o:converter converterId="omnifaces.ListConverter" list="#{purchaseTicketSearchBean.companyList}" />
-						</p:autoComplete>
-					</div>
-				</div>
-				<div class="ui-g">
-					<p:outputLabel value="Valor" for="ticketValue" styleClass="ui-g-2" />
-					<p:inputNumber value="#{purchaseTicketSearchBean.editEntity.ticketValue}" id="ticketValue" decimalSeparator="," thousandSeparator="." symbol="R$ " symbolPosition="p" class="ui-g-4"
-						required="true" />
-				</div>
-
-				<div class="ui-g">
-					<p:outputLabel value="Descrição" for="description" styleClass="ui-g-2" />
-					<p:inputTextarea value="#{purchaseTicketSearchBean.editEntity.description}" id="description" styleClass="ui-g-4" />
-
-					<p:outputLabel value="Observação" for="observation" styleClass="ui-g-2" />
-					<p:inputTextarea value="#{purchaseTicketSearchBean.editEntity.observation}" id="observation" styleClass="ui-g-4" />
-				</div>
-			</p:panel>
-
-			<div class="buttons">
-				<p:commandButton action="#{purchaseTicketSearchBean.clear}" value="Limpar" styleClass="span2" process="@form" update="@form" />
-				<p:commandButton action="#{purchaseTicketSearchBean.save}" value="Salvar" styleClass="span2" process="@form" update="@form" />
+	<h:form id="editForm">
+		<p:panel header="Dados do Cheque de Compra" style="text-align:center;" styleClass="left-label" toggleable="true">
+			<div class="ui-g">
+				<p:outputLabel value="Código" for="code" styleClass="ui-g-2" />
+				<p:inputText value="#{purchaseTicketSearchBean.editEntity.code}" id="code" styleClass="ui-g-4" required="true" />
 			</div>
-		</h:form>
+			<div class="ui-g">
+				<p:outputLabel value="Período" for="period" styleClass="ui-g-2" />
+				<div class="ui-g-4">
+					<p:autoComplete value="#{purchaseTicketSearchBean.editEntity.period}" id="period" dropdown="true" completeMethod="#{purchaseTicketBean.autocompletePeriod}" var="var" itemLabel="#{var.description}"
+						itemValue="#{var}" minQueryLength="" scrollHeight="200" size="40">
+						<o:converter converterId="omnifaces.ListConverter" list="#{purchaseTicketSearchBean.periodList}" />
+					</p:autoComplete>
+				</div>
 
-	</ui:define>
+				<p:outputLabel value="Data de Uso" for="usageDate" styleClass="ui-g-2" />
+				<div class="ui-g-4">
+					<p:calendar value="#{purchaseTicketSearchBean.editEntity.usageDate}" id="usageDate" pattern="dd/MM/yyyy" converter="localDateConverter" size="40"/>
+				</div>
+			</div>
+			<div class="ui-g">
+				<p:outputLabel value="Associado" for="associate" styleClass="ui-g-2" />
+				<div class="ui-g-4">
+					<p:autoComplete value="#{purchaseTicketSearchBean.editEntity.associate}" id="associate" dropdown="true" completeMethod="#{purchaseTicketSearchBean.autocompleteAssociate}" var="var"
+						itemLabel="#{var.enrollment.concat(' - ').concat(var.name)}" itemValue="#{var}" minQueryLength="" scrollHeight="200" size="40">
+						<o:converter converterId="omnifaces.ListConverter" list="#{purchaseTicketSearchBean.associateList}" />
+					</p:autoComplete>
+				</div>
+
+				<p:outputLabel value="Estabelecimento Comercial" for="company" styleClass="ui-g-2" />
+				<div class="ui-g-4">
+					<p:autoComplete value="#{purchaseTicketSearchBean.editEntity.company}" id="company" dropdown="true" completeMethod="#{purchaseTicketSearchBean.autocompleteCompany}" var="var"
+						itemLabel="#{var.cnpj.concat(' - ').concat(var.name)}" itemValue="#{var}" minQueryLength="" scrollHeight="200" size="40">
+						<o:converter converterId="omnifaces.ListConverter" list="#{purchaseTicketSearchBean.companyList}" />
+					</p:autoComplete>
+				</div>
+			</div>
+			<div class="ui-g">
+				<p:outputLabel value="Valor" for="ticketValue" styleClass="ui-g-2" />
+				<p:inputNumber value="#{purchaseTicketSearchBean.editEntity.ticketValue}" id="ticketValue" decimalSeparator="," thousandSeparator="." symbol="R$ " symbolPosition="p" class="ui-g-4" required="true" />
+			</div>
+
+			<div class="ui-g">
+				<p:outputLabel value="Descrição" for="description" styleClass="ui-g-2" />
+				<p:inputTextarea value="#{purchaseTicketSearchBean.editEntity.description}" id="description" styleClass="ui-g-4" />
+
+				<p:outputLabel value="Observação" for="observation" styleClass="ui-g-2" />
+				<p:inputTextarea value="#{purchaseTicketSearchBean.editEntity.observation}" id="observation" styleClass="ui-g-4" />
+			</div>
+		</p:panel>
+
+		<div class="buttons">
+			<p:commandButton action="#{purchaseTicketSearchBean.clear}" value="Limpar" styleClass="span2" process="@form" update="@form" />
+			<p:commandButton action="#{purchaseTicketSearchBean.save}" value="Salvar" styleClass="span2" process="@form" update="@form" />
+		</div>
+	</h:form>
 
 </ui:composition>

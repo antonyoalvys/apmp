@@ -23,12 +23,18 @@
 
 		<converter>
 			<converter-id>localDateConverter</converter-id>
-			<converter-class>br.com.apmp.ccompras.converters.LocalDateConverter</converter-class>
+			<converter-class>br.com.apmp.ccompras.jsf.converters.LocalDateConverter</converter-class>
 		</converter>
 		<converter>
 			<converter-id>localDateTimeConverter</converter-id>
-			<converter-class>br.com.apmp.ccompras.converters.LocalDateTimeConverter</converter-class>
+			<converter-class>br.com.apmp.ccompras.jsf.converters.LocalDateTimeConverter</converter-class>
 		</converter>		
 	</application>
+	
+	<factory>
+        <exception-handler-factory>
+            br.com.apmp.ccompras.jsf.exceptionhandler.CustomExceptionHandlerFactory
+        </exception-handler-factory>
+    </factory>    	
 
 </faces-config>

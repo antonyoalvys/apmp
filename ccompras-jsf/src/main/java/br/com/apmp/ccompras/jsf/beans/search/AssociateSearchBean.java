@@ -1,4 +1,4 @@
-package br.com.apmp.ccompras.beans.search;
+package br.com.apmp.ccompras.jsf.beans.search;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,23 +14,23 @@ import javax.inject.Named;
 import org.primefaces.component.tabview.Tab;
 
 import br.com.apmp.ccompras.domain.entities.Address;
-import br.com.apmp.ccompras.domain.entities.Company;
+import br.com.apmp.ccompras.domain.entities.Associate;
 import br.com.apmp.ccompras.domain.exceptions.RepositoryException;
-import br.com.apmp.ccompras.service.CompanyService;
+import br.com.apmp.ccompras.service.AssociateService;
 import br.com.apmp.ccompras.service.exceptions.ServiceException;
 
 @Named
 @ViewScoped
-public class CompanySearchBean extends BaseBeanSearch<Company> {
+public class AssociateSearchBean extends BaseBeanSearch<Associate> {
 
 	private static final long serialVersionUID = 8374277006321260557L;
 
 	@Inject
-	private CompanyService companyService;
+	private AssociateService associateService;
 
-	private Company companySearch;
+	private Associate associateSearch;
 
-	private List<Company> companyList;
+	private List<Associate> associateList;
 
 	private Tab searchTab;
 
@@ -40,17 +40,17 @@ public class CompanySearchBean extends BaseBeanSearch<Company> {
 	}
 
 	public void findByEntity() throws ServiceException {
-		this.companyList = (List) companyService.findByEntity( this.companySearch );
+		this.associateList = (List) associateService.findByEntity( this.associateSearch );
 	}
 
-	public void show( Company company ) {
-		setShowEntity( company );
+	public void show( Associate associate ) {
+		setShowEntity( associate );
 		super.show();
 	}
 
 	public void save() {
-		companyService.save( getEditEntity() );
-		String message = String.format( "O estabelecimento comercial %s foi atualizado.", getEditEntity().getName() );
+		associateService.save( getEditEntity() );
+		String message = String.format( "O associado %s foi atualizado.", getEditEntity().getName() );
 		closeEdit();
 		FacesMessage facesMessage = new FacesMessage( FacesMessage.SEVERITY_INFO, message, null );
 		FacesContext.getCurrentInstance().addMessage( null, facesMessage );
@@ -63,8 +63,8 @@ public class CompanySearchBean extends BaseBeanSearch<Company> {
 	}
 
 	public void disable() throws ServiceException {
-		companyService.disable( getRemoveEntity() );
-		String message = String.format( "O estabelecimento comercial %s foi desativado.", getRemoveEntity().getName() );
+		associateService.disable( getRemoveEntity() );
+		String message = String.format( "O associado %s foi desativado.", getRemoveEntity().getName() );
 		FacesMessage facesMessage = new FacesMessage( FacesMessage.SEVERITY_INFO, message, null );
 		FacesContext.getCurrentInstance().addMessage( null, facesMessage );
 	}
@@ -77,44 +77,36 @@ public class CompanySearchBean extends BaseBeanSearch<Company> {
 	}
 
 	public void closeShow() {
-		setShowEntity( new Company() );
+		setShowEntity( new Associate() );
 		closeTab( getShowTab() );
 	}
 
 	public void closeEdit() {
-		setEditEntity( new Company() );
+		setEditEntity( new Associate() );
 		closeTab( getEditTab() );
 	}
 
 	public void clear() {
-		this.companySearch = new Company();
-		this.companyList = new ArrayList<Company>();
+		this.associateSearch = new Associate();
+		this.associateList = new ArrayList<Associate>();
 	}
 
 	@Override
-	protected List<Company> getList() throws ServiceException, RepositoryException {
-		return companyService.findAll();
+	protected List<Associate> getList() throws ServiceException, RepositoryException {
+		return associateService.findAll();
 	}
 
 	@Override
-	protected Class<Company> searchEntityClass() {
-		return Company.class;
+	protected Class<Associate> searchEntityClass() {
+		return Associate.class;
 	}
 
-	public Company getCompanySearch() {
-		return companySearch;
+	public List<Associate> getAssociateList() {
+		return associateList;
 	}
 
-	public void setCompanySearch( Company companySearch ) {
-		this.companySearch = companySearch;
-	}
-
-	public List<Company> getCompanyList() {
-		return companyList;
-	}
-
-	public void setCompanyList( List<Company> companyList ) {
-		this.companyList = companyList;
+	public void setAssociateList( List<Associate> associateList ) {
+		this.associateList = associateList;
 	}
 
 	public Tab getSearchTab() {

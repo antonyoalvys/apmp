@@ -20,4 +20,6 @@ public interface PeriodService extends Serializable {
 
 	public void validatePeriod( Period entity );
 
+	public List<Period> findByDescription( String queryPeriod );
+
 }

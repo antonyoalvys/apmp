@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions">
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions">
 
 
 	<h:form id="searchForm">
@@ -16,27 +16,30 @@
 					<p:outputLabel value="Associado" styleClass="ui-g-2" />
 					<div class="ui-g-4">
 						<p:autoComplete value="#{purchaseTicketSearchBean.searchEntity.associate}" id="associate" dropdown="true" completeMethod="#{purchaseTicketSearchBean.autocompleteAssociate}" var="var"
-							itemLabel="#{var.enrollment +' - '+ var.name}" itemValue="#{var}" minQueryLength="" scrollHeight="200" size="40">
+							itemLabel="#{var.enrollment.concat(' - ').concat(var.name)}" itemValue="#{var}" minQueryLength="" scrollHeight="200" size="40">
+							<o:converter converterId="omnifaces.ListConverter" list="#{purchaseTicketSearchBean.associateList}" />
 						</p:autoComplete>
 					</div>
 
 					<p:outputLabel value="Estabelecimento Comercial" styleClass="ui-g-2" />
 					<div class="ui-g-4">
 						<p:autoComplete value="#{purchaseTicketSearchBean.searchEntity.company}" id="company" dropdown="true" completeMethod="#{purchaseTicketSearchBean.autocompleteCompany}" var="var"
-							itemLabel="#{var.cnpj +' - '+ var.name}" itemValue="#{var}" minQueryLength="" scrollHeight="200" size="40">
+							itemLabel="#{var.cnpj.concat(' - ').concat(var.name)}" itemValue="#{var}" minQueryLength="" scrollHeight="200" size="40">
+
+							<o:converter converterId="omnifaces.ListConverter" list="#{purchaseTicketSearchBean.companyList}" />
 						</p:autoComplete>
 					</div>
 				</div>
 				<div class="ui-g">
-					<p:outputLabel value="Período de Uso" styleClass="ui-g-2" />
-					<p:calendar value="#{purchaseTicketSearchBean.period.beginDate}" id="beginDate" class="ui-g-4" pattern="dd/MM/yyyy" />
-					-
-					<p:calendar value="#{purchaseTicketSearchBean.period.endDate}" id="endDate" class="ui-g-4" pattern="dd/MM/yyyy" />
+					<p:outputLabel value="Período" styleClass="ui-g-2" />
+					<p:calendar value="#{purchaseTicketSearchBean.searchEntity.period.beginDate}" id="beginDate" styleClass="ui-g-4" pattern="dd/MM/yyyy" converter="localDateConverter" />
+					<h:outputText value="Até" styleClass="ui-g-1" />
+					<p:calendar value="#{purchaseTicketSearchBean.searchEntity.period.endDate}" id="endDate" class="ui-g-4" pattern="dd/MM/yyyy" converter="localDateConverter" />
 				</div>
 				<p:spacer />
 				<div class="buttons">
 					<p:commandButton action="#{purchaseTicketSearchBean.clear}" value="Limpar" styleClass="span2" process="@form" update="@form" />
-					<p:commandButton id="searchBtn" action="#{purchaseTicketSearchBean.findByEntity()}" value="Consultar" styleClass="span2" process="@form" update="@form">
+					<p:commandButton id="searchBtn" action="#{purchaseTicketSearchBean.findByEntity()}" value="Consultar" styleClass="span2" process="@form" update="resultsDataTable">
 						<p:blockUI block="resultsDataTable" trigger="searchBtn">
 			                            #{wds['blockui.processing.txt']}<br />
 							<h:graphicImage library="images" name="#{wds['blockui.loading.img']}" />
@@ -44,7 +47,6 @@
 					</p:commandButton>
 
 				</div>
-				<p:spacer />
 				<p:spacer />
 				<p:dataTable id="resultsDataTable" value="#{purchaseTicketSearchBean.purchaseTicketList}" emptyMessage="Nenhum cheque de compra registrado." var="ticket">
 					<f:facet name="header">Cheques de Compra</f:facet>
@@ -65,13 +67,16 @@
 						<h:outputText value="#{ticket.code}" />
 					</p:column>
 					<p:column headerText="Associado">
-						<h:outputText value="#{ticket.associate.enrollment + ' - ' + ticket.associate.name}" />
+						<h:outputText value="#{ticket.associate.enrollment.concat(' - ').concat(ticket.associate.name)}" />
 					</p:column>
 					<p:column headerText="Estabelecimento Comercial">
-						<h:outputText value="#{ticket.company.cnpj + ' - ' + ticket.company.name}" />
+						<h:outputText value="#{ticket.company.cnpj.concat(' - ').concat(ticket.company.name)}" />
 					</p:column>
 					<p:column headerText="Data de Uso">
 						<h:outputText value="#{ticket.usageDate}" />
+					</p:column>
+					<p:column headerText="Período">
+						<h:outputText value="#{ticket.period.description}" />
 					</p:column>
 					<p:column headerText="Valor">
 						<h:outputText value="#{ticket.ticketValue}" />

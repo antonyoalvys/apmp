@@ -15,27 +15,30 @@
 			<div class="ui-g">
 				<p:outputLabel value="Data de Uso: " styleClass="ui-g-2" />
 				<h:outputText value="#{purchaseTicketSearchBean.showEntity.usageDate}" styleClass="ui-g-4" />
+
+				<p:outputLabel value="Período: " styleClass="ui-g-2" />
+				<h:outputText value="#{purchaseTicketSearchBean.showEntity.period.description}" styleClass="ui-g-4" />
 			</div>
 
 			<div class="ui-g">
 				<p:outputLabel value="Associado: " styleClass="ui-g-2" />
-				<h:outputText value="#{purchaseTicketSearchBean.showEntity.associate.enrollment +' - ' +purchaseTicketSearchBean.showEntity.associate.name}" styleClass="ui-g-4" />
+				<h:outputText value="#{purchaseTicketSearchBean.showEntity.associate.enrollment.concat(' - ').concat(purchaseTicketSearchBean.showEntity.associate.name)}" styleClass="ui-g-4" />
 
 				<p:outputLabel value="Estabelecimento Comercial: " styleClass="ui-g-2" />
-				<h:outputText value="#{purchaseTicketSearchBean.showEntity.company.cnpj +' - ' +purchaseTicketSearchBean.showEntity.company.name}" styleClass="ui-g-4" />
+				<h:outputText value="#{purchaseTicketSearchBean.showEntity.company.cnpj.concat(' - ').concat(purchaseTicketSearchBean.showEntity.company.name)}" styleClass="ui-g-4" />
 			</div>
 
 			<div class="ui-g">
-				<p:outputLabel value="Valor" for="ticketValue" styleClass="ui-g-2" />
-				<h:outputText value="#{purchaseTicketSearchBean.editEntity.ticketValue}" styleClass="ui-g-4" />
+				<p:outputLabel value="Valor: " styleClass="ui-g-2" />
+				<h:outputText value="#{purchaseTicketSearchBean.showEntity.ticketValue}" styleClass="ui-g-4" />
 			</div>
 
 			<div class="ui-g">
-				<p:outputLabel value="Descrição" styleClass="ui-g-2" />
-				<p:inputTextarea value="#{purchaseTicketSearchBean.editEntity.description}" id="description" styleClass="ui-g-4" disabled="true" />
+				<p:outputLabel value="Descrição: " styleClass="ui-g-2" />
+				<p:inputTextarea value="#{purchaseTicketSearchBean.showEntity.description}" id="description" styleClass="ui-g-4" disabled="true" />
 
-				<p:outputLabel value="Observação" styleClass="ui-g-2" />
-				<p:inputTextarea value="#{purchaseTicketSearchBean.editEntity.observation}" id="observation" styleClass="ui-g-4" />
+				<p:outputLabel value="Observação: " styleClass="ui-g-2" />
+				<p:inputTextarea value="#{purchaseTicketSearchBean.showEntity.observation}" id="observation" styleClass="ui-g-4" disabled="true"/>
 			</div>
 
 		</p:panel>

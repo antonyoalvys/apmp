@@ -26,26 +26,33 @@ public class FileCovenantRepositoryImpl extends BaseRepositoryImpl<FileCovenant>
 	private EntityManager em;
 
 	@Override
-	public List<FileCovenant> findByPeriod( Period beginPeriod, Period endPeriod ) {
+	public List<FileCovenant> findByPeriod( Period period ) {
 		QFileCovenant qFileCovenant = QFileCovenant.fileCovenant;
 		BooleanBuilder bb = new BooleanBuilder();
 		JPQLQuery<FileCovenant> query = new JPAQuery<FileCovenant>( em );
 
-		if ( beginPeriod != null ) {
-			if ( beginPeriod.getBeginDate() != null )
-				bb.and( qFileCovenant.period.beginDate.goe( beginPeriod.getBeginDate() ) );
-			if ( beginPeriod.getEndDate() != null )
-				bb.and( qFileCovenant.period.endDate.goe( beginPeriod.getEndDate() ) );
+		if ( period != null ) {
+			if ( period.getBeginDate() != null )
+				bb.and( qFileCovenant.period.beginDate.goe( period.getBeginDate() ) );
+			if ( period.getEndDate() != null )
+				bb.and( qFileCovenant.period.endDate.loe( period.getEndDate() ) );
 		}
 
-		if ( endPeriod != null ) {
-			if ( endPeriod.getBeginDate() != null )
-				bb.and( qFileCovenant.period.beginDate.loe( endPeriod.getBeginDate() ) );
-			if ( endPeriod.getEndDate() != null )
-				bb.and( qFileCovenant.period.endDate.loe( endPeriod.getEndDate() ) );
-		}
+		return query.from( qFileCovenant ).where( bb ).orderBy( qFileCovenant.period.endDate.desc() ).fetch();
+	}
 
-		return query.from( qFileCovenant ).orderBy( qFileCovenant.period.endDate.desc() ).fetch();
+	@Override
+	public FileCovenant findByPeriodId( Long id ) {
+		QFileCovenant qFileCovenant = QFileCovenant.fileCovenant;
+		BooleanBuilder bb = new BooleanBuilder();
+		JPQLQuery<FileCovenant> query = new JPAQuery<FileCovenant>( em );
+
+		if ( id == null )
+			return null;
+
+		bb.and( qFileCovenant.period.id.eq( id ) );
+
+		return query.from( qFileCovenant ).where( bb ).fetchOne();
 	}
 
 	@Override

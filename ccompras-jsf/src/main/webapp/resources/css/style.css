@@ -71,12 +71,12 @@
 	text-align: left;
 	font-weight: bold;
 }
+
 .show-label span {
 	text-align: left;
 }
 
 /*primefaces override /* Footer	:::::::::::::::::::::::::::::::::::: */
-	   
 .ui-layout-center .ui-layout-unit-content.ui-widget-content {
 	margin-bottom: 0;
 }
@@ -104,6 +104,8 @@
 	display: flex !important;
 }
 
+/*
+
 .ui-panel-titlebar {
 	text-align: center;
 }
@@ -127,4 +129,4 @@
 .ui-state-hover .ui-icon {
 	background-image: url("../resources/images/ui-icons_222222_256x240.png")
 		!important;
-}
+}*/

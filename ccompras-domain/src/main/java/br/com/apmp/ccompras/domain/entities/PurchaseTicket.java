@@ -41,6 +41,11 @@ public class PurchaseTicket implements BaseEntity {
 	private Company company;
 
 	@ManyToOne
+	@JoinColumn( name = "fk_period" )
+	@NotNull
+	private Period period;
+
+	@ManyToOne
 	@JoinColumn( name = "fk_associate" )
 	@NotNull
 	private Associate associate;
@@ -59,8 +64,7 @@ public class PurchaseTicket implements BaseEntity {
 	@Column( name = "observation" )
 	@Size( max = 255 )
 	private String observation;
-	
-	
+
 	public PurchaseTicket() {
 		this.registerDate = LocalDateTime.now();
 	}
@@ -137,6 +141,14 @@ public class PurchaseTicket implements BaseEntity {
 
 	public void setObservation( String observation ) {
 		this.observation = observation;
+	}
+
+	public Period getPeriod() {
+		return period;
+	}
+
+	public void setPeriod( Period period ) {
+		this.period = period;
 	}
 
 	@Override

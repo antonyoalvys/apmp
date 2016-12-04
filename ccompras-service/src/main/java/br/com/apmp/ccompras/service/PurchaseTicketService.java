@@ -5,7 +5,6 @@ import java.util.List;
 
 import br.com.apmp.ccompras.domain.entities.Associate;
 import br.com.apmp.ccompras.domain.entities.Company;
-import br.com.apmp.ccompras.domain.entities.Period;
 import br.com.apmp.ccompras.domain.entities.PurchaseTicket;
 
 public interface PurchaseTicketService extends Serializable {
@@ -19,11 +18,13 @@ public interface PurchaseTicketService extends Serializable {
 	public List<PurchaseTicket> findByAssociate( Associate associate );
 
 	public List<PurchaseTicket> findAll();
-	
-	public List<PurchaseTicket> findByEntity( PurchaseTicket entity, Period period );
+
+	public List<PurchaseTicket> findByEntity( PurchaseTicket entity );
 
 	public void save( PurchaseTicket entity );
 
 	public void delete( PurchaseTicket entity );
+
+	public List<PurchaseTicket> findByPeriodId( Long id );
 
 }

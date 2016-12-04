@@ -1,4 +1,4 @@
-package br.com.apmp.ccompras.enums;
+package br.com.apmp.ccompras.jsf.enums;
 
 public enum MaskOptions {
 

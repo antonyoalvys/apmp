@@ -1,4 +1,4 @@
-package br.com.apmp.ccompras.beans;
+package br.com.apmp.ccompras.jsf.beans;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,9 +12,11 @@ import javax.inject.Named;
 
 import br.com.apmp.ccompras.domain.entities.Associate;
 import br.com.apmp.ccompras.domain.entities.Company;
+import br.com.apmp.ccompras.domain.entities.Period;
 import br.com.apmp.ccompras.domain.entities.PurchaseTicket;
 import br.com.apmp.ccompras.service.AssociateService;
 import br.com.apmp.ccompras.service.CompanyService;
+import br.com.apmp.ccompras.service.PeriodService;
 import br.com.apmp.ccompras.service.PurchaseTicketService;
 
 @Named
@@ -29,9 +31,13 @@ public class PurchaseTicketBean implements Serializable {
 	private AssociateService associateService;
 	@Inject
 	private CompanyService companyService;
+	@Inject
+	private PeriodService periodService;
 	private PurchaseTicket entity;
 	private List<Associate> associateList;
 	private List<Company> companyList;
+
+	private List<Period> periodList;
 
 	@PostConstruct
 	public void init() {
@@ -55,6 +61,12 @@ public class PurchaseTicketBean implements Serializable {
 		queryCompany = queryCompany.trim();
 		this.companyList = companyService.findByNameOrCnpj( queryCompany );
 		return this.companyList;
+	}
+
+	public List<Period> autocompletePeriod( String queryPeriod ) {
+		queryPeriod = queryPeriod.trim();
+		this.periodList = periodService.findByDescription( queryPeriod );
+		return this.periodList;
 	}
 
 	public void entityClear() {
@@ -87,6 +99,14 @@ public class PurchaseTicketBean implements Serializable {
 
 	public void setCompanyList( List<Company> companyList ) {
 		this.companyList = companyList;
+	}
+
+	public List<Period> getPeriodList() {
+		return periodList;
+	}
+
+	public void setPeriodList( List<Period> periodList ) {
+		this.periodList = periodList;
 	}
 
 }

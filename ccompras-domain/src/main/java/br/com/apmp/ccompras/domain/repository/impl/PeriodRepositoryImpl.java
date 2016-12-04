@@ -14,6 +14,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 
 import br.com.apmp.ccompras.domain.entities.Period;
 import br.com.apmp.ccompras.domain.entities.QPeriod;
+import br.com.apmp.ccompras.domain.enums.PeriodStatus;
 import br.com.apmp.ccompras.domain.repository.PeriodRepository;
 
 @Named
@@ -84,7 +85,7 @@ public class PeriodRepositoryImpl extends BaseRepositoryImpl<Period> implements 
 		return query.from( qPeriod ).where( bb ).fetchOne();
 
 	}
-	
+
 	@Override
 	public Period findByEndDate( Period entity ) {
 		QPeriod qPeriod = QPeriod.period;
@@ -98,6 +99,22 @@ public class PeriodRepositoryImpl extends BaseRepositoryImpl<Period> implements 
 		bb.and( qPeriod.endDate.goe( entity.getEndDate() ) );
 
 		return query.from( qPeriod ).where( bb ).fetchOne();
+	}
+
+	@Override
+	public List<Period> findByDescription( String queryPeriod ) {
+		QPeriod qPeriod = QPeriod.period;
+		BooleanBuilder bb = new BooleanBuilder();
+		JPQLQuery<Period> query = new JPAQuery<Period>( em );
+
+		if ( queryPeriod == null || queryPeriod.isEmpty() )
+			return query.from( qPeriod ).orderBy( qPeriod.endDate.desc() ).fetch();
+
+		bb.and( qPeriod.description.containsIgnoreCase( queryPeriod ) );
+		bb.and( qPeriod.periodStatus.eq( PeriodStatus.OPEN ) );
+
+		return query.from( qPeriod ).where( bb ).orderBy( qPeriod.endDate.desc() ).fetch();
+
 	}
 
 }

@@ -12,7 +12,6 @@ import com.querydsl.jpa.impl.JPAQuery;
 
 import br.com.apmp.ccompras.domain.entities.Associate;
 import br.com.apmp.ccompras.domain.entities.Company;
-import br.com.apmp.ccompras.domain.entities.Period;
 import br.com.apmp.ccompras.domain.entities.PurchaseTicket;
 import br.com.apmp.ccompras.domain.entities.QPurchaseTicket;
 import br.com.apmp.ccompras.domain.repository.PurchaseTicketRepository;
@@ -52,7 +51,7 @@ public class PurchaseTicketRepositoryImpl extends BaseRepositoryImpl<PurchaseTic
 	}
 
 	@Override
-	public List<PurchaseTicket> findByEntity( PurchaseTicket entity, Period period ) {
+	public List<PurchaseTicket> findByEntity( PurchaseTicket entity ) {
 		QPurchaseTicket qPurchaseTicket = QPurchaseTicket.purchaseTicket;
 		BooleanBuilder bb = new BooleanBuilder();
 		JPAQuery<PurchaseTicket> query = new JPAQuery<PurchaseTicket>( em );
@@ -64,14 +63,28 @@ public class PurchaseTicketRepositoryImpl extends BaseRepositoryImpl<PurchaseTic
 		if ( entity.getCompany() != null ) {
 			bb.and( qPurchaseTicket.company.id.eq( entity.getCompany().getId() ) );
 		}
-		if ( period != null ) {
-			if ( period.getBeginDate() != null )
-				bb.and( qPurchaseTicket.usageDate.goe( period.getBeginDate() ) );
-			if ( period.getEndDate() != null )
-				bb.and( qPurchaseTicket.usageDate.loe( period.getEndDate() ) );
+		if ( entity.getPeriod() != null ) {
+			if ( entity.getPeriod().getBeginDate() != null )
+				bb.and( qPurchaseTicket.usageDate.goe( entity.getPeriod().getBeginDate() ) );
+			if ( entity.getPeriod().getEndDate() != null )
+				bb.and( qPurchaseTicket.usageDate.loe( entity.getPeriod().getEndDate() ) );
 		}
 
 		return query.from( qPurchaseTicket ).where( bb ).orderBy( qPurchaseTicket.usageDate.desc() ).fetch();
+	}
+
+	@Override
+	public List<PurchaseTicket> findByPeriodId( Long periodId ) {
+		QPurchaseTicket qPurchaseTicket = QPurchaseTicket.purchaseTicket;
+		BooleanBuilder bb = new BooleanBuilder();
+		JPAQuery<PurchaseTicket> query = new JPAQuery<PurchaseTicket>( em );
+
+		if ( periodId == null )
+			return null;
+
+		bb.and( qPurchaseTicket.period.id.eq( periodId ) );
+
+		return query.from( qPurchaseTicket ).where( bb ).fetch();
 	}
 
 }

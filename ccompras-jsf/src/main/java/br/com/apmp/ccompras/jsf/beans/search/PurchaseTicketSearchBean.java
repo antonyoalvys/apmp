@@ -1,5 +1,6 @@
-package br.com.apmp.ccompras.beans.search;
+package br.com.apmp.ccompras.jsf.beans.search;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -18,6 +19,7 @@ import br.com.apmp.ccompras.domain.entities.PurchaseTicket;
 import br.com.apmp.ccompras.domain.exceptions.RepositoryException;
 import br.com.apmp.ccompras.service.AssociateService;
 import br.com.apmp.ccompras.service.CompanyService;
+import br.com.apmp.ccompras.service.PeriodService;
 import br.com.apmp.ccompras.service.PurchaseTicketService;
 import br.com.apmp.ccompras.service.exceptions.ServiceException;
 
@@ -35,6 +37,9 @@ public class PurchaseTicketSearchBean extends BaseBeanSearch<PurchaseTicket> {
 	@Inject
 	private AssociateService associateService;
 
+	@Inject
+	private PeriodService periodService;
+
 	private PurchaseTicket purchaseTicketSearch;
 
 	private List<PurchaseTicket> purchaseTicketList;
@@ -43,17 +48,22 @@ public class PurchaseTicketSearchBean extends BaseBeanSearch<PurchaseTicket> {
 
 	private List<Company> companyList;
 
+	private List<Period> periodList;
+
 	private Period period;
 
 	private Tab searchTab;
 
 	@PostConstruct
 	public void init() {
+		this.companyList = new ArrayList<Company>();
+		this.associateList = new ArrayList<Associate>();
+		this.periodList = new ArrayList<Period>();
 		clear();
 	}
 
 	public void findByEntity() throws ServiceException {
-		this.purchaseTicketList = (List) purchaseTicketService.findByEntity( this.purchaseTicketSearch, period );
+		this.purchaseTicketList = (List<PurchaseTicket>) purchaseTicketService.findByEntity( getSearchEntity() );
 	}
 
 	public void show( PurchaseTicket purchaseTicket ) {
@@ -65,6 +75,7 @@ public class PurchaseTicketSearchBean extends BaseBeanSearch<PurchaseTicket> {
 		purchaseTicketService.save( getEditEntity() );
 		String message = String.format( "O cheque de compra %s foi atualizado.", getEditEntity().getCode() );
 		closeEdit();
+
 		FacesMessage facesMessage = new FacesMessage( FacesMessage.SEVERITY_INFO, message, null );
 		FacesContext.getCurrentInstance().addMessage( null, facesMessage );
 	}
@@ -88,6 +99,12 @@ public class PurchaseTicketSearchBean extends BaseBeanSearch<PurchaseTicket> {
 		return this.companyList;
 	}
 
+	public List<Period> autocompletePeriod( String queryPeriod ) {
+		queryPeriod = queryPeriod.trim();
+		this.periodList = periodService.findByDescription( queryPeriod );
+		return this.periodList;
+	}
+
 	public void closeShow() {
 		setShowEntity( new PurchaseTicket() );
 		closeTab( getShowTab() );
@@ -99,8 +116,15 @@ public class PurchaseTicketSearchBean extends BaseBeanSearch<PurchaseTicket> {
 	}
 
 	public void clear() {
-		this.purchaseTicketSearch = new PurchaseTicket();
-		this.period = new Period();
+		setSearchEntity( new PurchaseTicket() );
+		getSearchEntity().setPeriod( new Period() );
+	}
+
+	public void edit() {
+		this.associateList.add( getEditEntity().getAssociate() );
+		this.companyList.add( getEditEntity().getCompany() );
+		this.periodList.add( getEditEntity().getPeriod() );
+		super.edit();
 	}
 
 	@Override
@@ -159,6 +183,14 @@ public class PurchaseTicketSearchBean extends BaseBeanSearch<PurchaseTicket> {
 
 	public void setCompanyList( List<Company> companyList ) {
 		this.companyList = companyList;
+	}
+
+	public List<Period> getPeriodList() {
+		return periodList;
+	}
+
+	public void setPeriodList( List<Period> periodList ) {
+		this.periodList = periodList;
 	}
 
 }

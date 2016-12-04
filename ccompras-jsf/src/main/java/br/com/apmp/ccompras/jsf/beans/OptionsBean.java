@@ -1,4 +1,4 @@
-package br.com.apmp.ccompras.beans;
+package br.com.apmp.ccompras.jsf.beans;
 
 import java.io.Serializable;
 
@@ -6,7 +6,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
 import br.com.apmp.ccompras.domain.enums.PhoneType;
-import br.com.apmp.ccompras.enums.MaskOptions;
+import br.com.apmp.ccompras.jsf.enums.MaskOptions;
 
 @Named
 @ApplicationScoped

@@ -1,6 +1,7 @@
 package br.com.apmp.ccompras.service.impl;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -34,6 +35,7 @@ public class PeriodServiceImpl implements PeriodService {
 	@TransactionAttribute( TransactionAttributeType.REQUIRED )
 	public void save( Period entity ) {
 		validatePeriod( entity );
+		setDescription( entity );
 		periodRepository.save( entity );
 	}
 
@@ -54,21 +56,31 @@ public class PeriodServiceImpl implements PeriodService {
 	public List<Period> findAll() {
 		return periodRepository.findAll();
 	}
-	
+
 	@Override
 	public void validatePeriod( Period entity ) {
-		if (entity.getBeginDate().isAfter( entity.getEndDate() ))
-			throw new  ServiceException("Data Inicial não pode ser posterior a Data Final");
-		
-		Period otherPeriod = periodRepository.findByBeginDate( entity ); 
-		if ( otherPeriod != null )
-			throw new  ServiceException("Data Inicial já coberta pelo período " + otherPeriod.toString() );
-		
+		if ( entity.getBeginDate().isAfter( entity.getEndDate() ) )
+			throw new ServiceException( "Data Inicial não pode ser posterior a Data Final" );
 
-		otherPeriod = periodRepository.findByEndDate( entity ); 
+		Period otherPeriod = periodRepository.findByBeginDate( entity );
 		if ( otherPeriod != null )
-			throw new  ServiceException("Data Final já coberta pelo período " + otherPeriod.toString() );
-		
+			throw new ServiceException( "Data Inicial já coberta pelo período " + otherPeriod.toString() );
+
+		otherPeriod = periodRepository.findByEndDate( entity );
+		if ( otherPeriod != null )
+			throw new ServiceException( "Data Final já coberta pelo período " + otherPeriod.toString() );
+
+	}
+
+	@Override
+	public List<Period> findByDescription( String queryPeriod ) {
+		return periodRepository.findByDescription( queryPeriod );
+	}
+
+	private void setDescription( Period entity ) {
+		String beginDate = entity.getBeginDate().format( DateTimeFormatter.ofPattern( "dd/MM/yyyy" ) );
+		String endDate = entity.getEndDate().format( DateTimeFormatter.ofPattern( "dd/MM/yyyy" ) );
+		entity.setDescription( beginDate + " - " + endDate );
 	}
 
 }

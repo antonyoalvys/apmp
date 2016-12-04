@@ -1,4 +1,4 @@
-package br.com.apmp.ccompras.converters;
+package br.com.apmp.ccompras.jsf.converters;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

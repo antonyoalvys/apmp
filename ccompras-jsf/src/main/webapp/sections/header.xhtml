@@ -1,35 +1,49 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core">
 
-    <div id="header-logo">
-        <h:graphicImage library="images" name="logo.png" />
-    </div>
-    <div class="menu-bar">
-        <h:form>
-            <p:menubar autoDisplay="true">
-                <p:submenu label="Associado">
-                    <p:menuitem value="Cadastrar" url="/views/associado/Cadastro.xhtml" />
-                    <p:menuitem value="Consultar" url="/views/associado/Associado.xhtml"/>
-                </p:submenu>
-                <p:submenu label="Cheque Compra">
-                    <p:menuitem value="Cadastrar" url="/views/chequeCompra/Cadastro.xhtml" />
-                    <p:menuitem value="Consultar" url="/views/chequeCompra/ChequeCompra.xhtml"/>
-                </p:submenu>                
-                <p:submenu label="Estabelecimento Comercial">
-                    <p:menuitem value="Cadastrar" url="/views/estabelecimento/Cadastro.xhtml" />
-                    <p:menuitem value="Consultar" url="/views/estabelecimento/Estabelecimento.xhtml"/>
-                </p:submenu>
-                <p:submenu label="Período">
-                    <p:menuitem value="Cadastrar" url="/views/periodo/Cadastro.xhtml" />
-                    <p:menuitem value="Consultar" url="/views/periodo/Periodo.xhtml"/>
-                </p:submenu>
-                <p:submenu label="Relatórios">
-                </p:submenu>                             
-                <p:submenu label="Administração">
-                    <p:menuitem value="Gerar Arquivo" url="/views/arquivoconvenio/GerarArquivo.xhtml" />
-                    <p:menuitem value="Consultar Arquivo" url="#"/>
-                </p:submenu>                             
-            </p:menubar>
-        </h:form>
-    </div>
+	<div id="header-logo">
+		<h:graphicImage library="images" name="logo.png" />
+	</div>
+	<div id="header-title">Sistema de Controle de Cheques de Compra</div>
+	<div id="header-user">
+		<div class="ui-g">
+			<h:outputText value="Usuário: " style="color: #990000;" styleClass="ui-g-2" />
+			<h:outputText value="Antõnio Alves" styleClass="ui-g-3" style="text-align:left;"/>
+
+			<h:outputText value="Perfil: " style="color: #990000;" styleClass="ui-g-2" />
+			<h:outputText value="Administrador" styleClass="ui-g-3" style="text-align:left;" />
+			
+			<h:outputLink styleClass="ui-g-2" style="color: #990000;">Sair</h:outputLink>
+		</div>
+
+	</div>
+	<div class="clear" />
+	<div class="menu-bar">
+		<h:form>
+			<p:menubar autoDisplay="true">
+				<p:submenu label="Associado">
+					<p:menuitem value="Cadastrar" url="/views/associado/Cadastro.xhtml" />
+					<p:menuitem value="Consultar" url="/views/associado/Associado.xhtml" />
+				</p:submenu>
+				<p:submenu label="Cheque Compra">
+					<p:menuitem value="Cadastrar" url="/views/chequeCompra/Cadastro.xhtml" />
+					<p:menuitem value="Consultar" url="/views/chequeCompra/ChequeCompra.xhtml" />
+				</p:submenu>
+				<p:submenu label="Estabelecimento Comercial">
+					<p:menuitem value="Cadastrar" url="/views/estabelecimento/Cadastro.xhtml" />
+					<p:menuitem value="Consultar" url="/views/estabelecimento/Estabelecimento.xhtml" />
+				</p:submenu>
+				<p:submenu label="Período">
+					<p:menuitem value="Cadastrar" url="/views/periodo/Cadastro.xhtml" />
+					<p:menuitem value="Consultar" url="/views/periodo/Periodo.xhtml" />
+				</p:submenu>
+				<p:submenu label="Relatórios">
+				</p:submenu>
+				<p:submenu label="Administração">
+					<p:menuitem value="Gerar Arquivo" url="/views/arquivoconvenio/GerarArquivo.xhtml" />
+					<p:menuitem value="Consultar Arquivo" url="#" />
+				</p:submenu>
+			</p:menubar>
+		</h:form>
+	</div>
 </ui:composition>

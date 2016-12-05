@@ -12,7 +12,9 @@
 				</div>
 				<div class="ui-g">
 					<p:outputLabel value="Data de Uso" for="usageDate" styleClass="ui-g-2" />
-					<p:calendar value="#{purchaseTicketBean.entity.usageDate}" id="usageDate" styleClass="ui-g-4" pattern="dd/MM/yyyy" converter="localDateConverter" />
+					<div class="ui-g-4">
+						<p:calendar value="#{purchaseTicketBean.entity.usageDate}" id="usageDate" size="40" pattern="dd/MM/yyyy" converter="localDateConverter" />
+					</div>
 					<p:outputLabel value="Período" for="period" styleClass="ui-g-2" />
 					<div class="ui-g-4">
 						<p:autoComplete value="#{purchaseTicketBean.entity.period}" id="period" dropdown="true" completeMethod="#{purchaseTicketBean.autocompletePeriod}" var="var" itemLabel="#{var.description}"
@@ -40,7 +42,8 @@
 				</div>
 				<div class="ui-g">
 					<p:outputLabel value="Valor" for="ticketValue" styleClass="ui-g-2" />
-					<p:inputNumber value="#{purchaseTicketBean.entity.ticketValue}" id="ticketValue" decimalSeparator="," thousandSeparator="." symbol="R$ " symbolPosition="p" styleClass="ui-g-4" required="true" />
+					<p:inputNumber value="#{purchaseTicketBean.entity.ticketValue}" size="40" id="ticketValue" decimalSeparator="," thousandSeparator="." symbol="R$ " symbolPosition="p" styleClass="ui-g-4"
+						required="true" />
 				</div>
 
 				<div class="ui-g">
@@ -51,7 +54,7 @@
 					<p:inputTextarea value="#{purchaseTicketBean.entity.observation}" id="observation" styleClass="ui-g-4" />
 				</div>
 			</p:panel>
-
+			<p:spacer />
 			<div class="buttons">
 				<p:commandButton action="#{purchaseTicketBean.clear}" value="Limpar" styleClass="span2" process="@form" update="@form" />
 				<p:commandButton action="#{purchaseTicketBean.register}" value="Salvar" styleClass="span2" process="@form" update="@form" />

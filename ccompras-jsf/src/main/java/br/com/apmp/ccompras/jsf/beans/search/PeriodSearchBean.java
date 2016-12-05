@@ -1,6 +1,5 @@
 package br.com.apmp.ccompras.jsf.beans.search;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +48,7 @@ public class PeriodSearchBean extends BaseBeanSearch<Period> {
 
 	public void save() {
 		periodService.save( getEditEntity() );
-		String message = String.format( "O período %s - %s foi atualizado.", this.getEditEntity().getBeginDate().format( DateTimeFormatter.ofPattern( "dd/MM/yyyy" ) ), getEditEntity().getEndDate().format( DateTimeFormatter.ofPattern( "dd/MM/yyyy" ) ) );
+		String message = String.format( "O período %s foi atualizado.", this.getEditEntity().getDescription());
 		closeEdit();
 		FacesMessage facesMessage = new FacesMessage( FacesMessage.SEVERITY_INFO, message, null );
 		FacesContext.getCurrentInstance().addMessage( null, facesMessage );
@@ -57,7 +56,7 @@ public class PeriodSearchBean extends BaseBeanSearch<Period> {
 
 	public void delete() throws ServiceException {
 		periodService.delete( getRemoveEntity() );
-		String message = String.format( "O período %s - %s foi removido.", this.getRemoveEntity().getBeginDate().format( DateTimeFormatter.ofPattern( "dd/MM/yyyy" ) ), getRemoveEntity().getEndDate().format( DateTimeFormatter.ofPattern( "dd/MM/yyyy" ) ) );
+		String message = String.format( "O período %s removido.", this.getRemoveEntity().getDescription() );
 		FacesMessage facesMessage = new FacesMessage( FacesMessage.SEVERITY_INFO, message, null );
 		FacesContext.getCurrentInstance().addMessage( null, facesMessage );
 	}

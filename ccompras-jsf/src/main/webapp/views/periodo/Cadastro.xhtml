@@ -9,21 +9,13 @@
 
 			<p:panel header="Dados do Período" style="text-align:center;" styleClass="left-label" toggleable="true">
 				<div class="ui-g">
-					<p:outputLabel value="Data Inicial" for="beginDate" styleClass="ui-g-2" />
+					<p:outputLabel value="Descrição (Mês/Ano)" for="description" styleClass="ui-g-2" />
 					<div class="ui-g-4">
-						<p:calendar value="#{periodBean.entity.beginDate}" id="beginDate" styleClass="ui-g-12" pattern="dd/MM/yyyy" converter="localDateConverter" />
+						<p:inputMask mask="99/9999" value="#{periodBean.entity.description}" id="description" size="40"/>
 					</div>
-				</div>
-				<div class="ui-g">
-					<p:outputLabel value="Data Final" for="endDate" styleClass="ui-g-2" />
-					<div class="ui-g-4">
-						<p:calendar value="#{periodBean.entity.endDate}" id="endDate" styleClass="ui-g-12" pattern="dd/MM/yyyy" converter="localDateConverter" />
-					</div>
-				</div>
 
-				<div class="ui-g">
 					<p:outputLabel value="Status" for="periodStatus" styleClass="ui-g-2" />
-					<div class="ui-g-2">
+					<div class="ui-g-4">
 						<p:selectOneMenu value="#{periodBean.entity.periodStatus}" id="periodStatus">
 							<f:selectItems value="#{PeriodStatus}" var="enum" itemLabel="#{enum.description}" />
 						</p:selectOneMenu>
@@ -32,8 +24,8 @@
 			</p:panel>
 
 			<div class="buttons">
-				<p:commandButton action="#{periodBean.clear}" value="Limpar" styleClass="span2" process="@form" update="@form" onclick="PF(javascript:window.location='#registerForm')"/>
-				<p:commandButton action="#{periodBean.save}" value="Salvar" styleClass="span2" process="@form" update="@form" onclick="javascript:window.location='#registerForm'"/>
+				<p:commandButton action="#{periodBean.clear}" value="Limpar" styleClass="span2" process="@form" update="@form" onclick="PF(javascript:window.location='#registerForm')" />
+				<p:commandButton action="#{periodBean.save}" value="Salvar" styleClass="span2" process="@form" update="@form" onclick="javascript:window.location='#registerForm'" />
 			</div>
 		</h:form>
 

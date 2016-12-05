@@ -47,8 +47,6 @@ public class PurchaseTicketServiceImpl implements PurchaseTicketService {
 	@Override
 	@TransactionAttribute( TransactionAttributeType.REQUIRED )
 	public void save( PurchaseTicket entity ) {
-		if ( entity.getUsageDate().isBefore( entity.getPeriod().getBeginDate() ) || entity.getUsageDate().isAfter( entity.getPeriod().getEndDate() ) )
-			throw new ServiceException( "A data de uso deve está no período " + entity.getPeriod().getDescription() );
 		if ( entity.getPeriod().getPeriodStatus().equals( PeriodStatus.CLOSE ) )
 			throw new ServiceException( "O período " + entity.getPeriod().getDescription() + " encontra-se fechado." );
 		this.purchaseTicketRepository.save( entity );

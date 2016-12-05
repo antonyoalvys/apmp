@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
@@ -9,15 +10,11 @@
 			<o:importConstants type="br.com.apmp.ccompras.domain.enums.PeriodStatus" />
 			<p:panel header="Dados da Consulta" style="text-align:center;">
 				<div class="ui-g">
-					<p:outputLabel value="Data Inicial" for="beginDate" styleClass="ui-g-2" />
-					<p:calendar value="#{periodSearchBean.searchEntity.beginDate}" id="beginDate" styleClass="ui-g-4" pattern="dd/MM/yyyy" converter="localDateConverter" />
-					<p:outputLabel value="Data Final" for="endDate" styleClass="ui-g-2" />
-					<p:calendar value="#{periodSearchBean.searchEntity.endDate}" id="endDate" styleClass="ui-g-4" pattern="dd/MM/yyyy" converter="localDateConverter" />
-				</div>
+					<p:outputLabel value="Descrição (Mês/Ano)" for="description" styleClass="ui-g-2" />
+					<p:inputMask mask="99/9999" value="#{periodSearchBean.searchEntity.description}" id="description" styleClass="ui-g-4" />
 
-				<div class="ui-g">
 					<p:outputLabel value="Status" for="periodStatus" styleClass="ui-g-2" />
-					<div class="ui-g-2">
+					<div class="ui-g-4">
 						<p:selectOneMenu value="#{periodSearchBean.searchEntity.periodStatus}" id="periodStatus">
 							<f:selectItems value="#{PeriodStatus}" var="enum" itemLabel="#{enum.description}" />
 						</p:selectOneMenu>
@@ -50,14 +47,14 @@
 							<f:setPropertyActionListener target="#{periodSearchBean.removeEntity}" value="#{period}" />
 						</p:commandButton>
 					</p:column>
-					<p:column headerText="Data Inicial">
-						<h:outputText value="#{period.beginDate}" />
-					</p:column>
-					<p:column headerText="Data Final">
-						<h:outputText value="#{period.endDate}" />
+					<p:column headerText="Descrição (Mês/Ano)">
+						<h:outputText value="#{period.description}" />
 					</p:column>
 					<p:column headerText="Status">
 						<h:outputText value="#{period.periodStatus.description}" />
+					</p:column>
+					<p:column headerText="Tem Arquivo Gerado">
+						<h:outputText value="#{period.hasFileCovenant? 'Sim' : 'Não'}" />
 					</p:column>
 				</p:dataTable>
 

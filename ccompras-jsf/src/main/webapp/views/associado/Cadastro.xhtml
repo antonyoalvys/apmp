@@ -13,7 +13,6 @@
 					<p:outputLabel value="Nome" for="name" styleClass="ui-g-2" />
 					<p:inputText value="#{associateBean.entity.name}" id="name" class="ui-g-10" required="true" />
 				</div>
-				<p:spacer />
 				<div class="ui-g">
 					<p:outputLabel value="Matricula" for="enrollment" styleClass="ui-g-2" />
 					<p:inputText value="#{associateBean.entity.enrollment}" id="enrollment" styleClass="ui-g-4" required="true" />
@@ -21,7 +20,6 @@
 					<p:outputLabel value="CPF" for="cpf" styleClass="ui-g-2" />
 					<p:inputMask mask="999.999.999-99" value="#{associateBean.entity.cpf}" id="cpf" styleClass="ui-g-4" required="true" />
 				</div>
-				<p:spacer />
 				<div class="ui-g">
 					<p:outputLabel value="Tipo de Associado" for="associateType" styleClass="ui-g-2" />
 					<div class="ui-g-4">
@@ -69,7 +67,6 @@
 					<p:outputLabel value="CEP" for="zipCode" styleClass="ui-g-2" />
 					<p:inputMask mask="99999-999" value="#{associateBean.entity.address.zipCode}" id="zipCode" styleClass="ui-g-10" />
 				</div>
-				<p:spacer />
 				<div class="ui-g">
 					<p:outputLabel value="Estado" for="state" styleClass="ui-g-2" />
 					<div class="ui-g-4">
@@ -88,19 +85,16 @@
 					</div>
 				</div>
 
-				<p:spacer />
 				<div class="ui-g">
 					<p:outputLabel value="Logradouro" for="street" styleClass="ui-g-2" />
 					<p:inputText value="#{associateBean.entity.address.street}" id="street" styleClass="ui-g-6" />
 					<p:outputLabel value="Número" for="number" styleClass="ui-g-2" />
 					<p:inputText value="#{associateBean.entity.address.number}" id="number" styleClass="ui-g-2" />
 				</div>
-				<p:spacer />
 				<div class="ui-g">
 					<p:outputLabel value="Bairro" for="neighborhood" styleClass="ui-g-2" />
 					<p:inputText value="#{associateBean.entity.address.neighborhood}" id="neighborhood" styleClass="ui-g-10" />
 				</div>
-				<p:spacer />
 				<div class="ui-g">
 					<p:outputLabel value="Complemento" for="complement" styleClass="ui-g-2" />
 					<p:inputText value="#{associateBean.entity.address.complement}" id="complement" styleClass="ui-g-10" />

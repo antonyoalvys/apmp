@@ -64,10 +64,8 @@ public class PurchaseTicketRepositoryImpl extends BaseRepositoryImpl<PurchaseTic
 			bb.and( qPurchaseTicket.company.id.eq( entity.getCompany().getId() ) );
 		}
 		if ( entity.getPeriod() != null ) {
-			if ( entity.getPeriod().getBeginDate() != null )
-				bb.and( qPurchaseTicket.usageDate.goe( entity.getPeriod().getBeginDate() ) );
-			if ( entity.getPeriod().getEndDate() != null )
-				bb.and( qPurchaseTicket.usageDate.loe( entity.getPeriod().getEndDate() ) );
+			if ( entity.getPeriod().getDescription() != null && !entity.getPeriod().getDescription().isEmpty() )
+				bb.and( qPurchaseTicket.period.description.eq( entity.getPeriod().getDescription() ) );
 		}
 
 		return query.from( qPurchaseTicket ).where( bb ).orderBy( qPurchaseTicket.usageDate.desc() ).fetch();

@@ -1,7 +1,6 @@
 package br.com.apmp.ccompras.jsf.beans;
 
 import java.io.Serializable;
-import java.time.format.DateTimeFormatter;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -31,7 +30,7 @@ public class PeriodBean implements Serializable {
 
 	public void save() {
 		periodService.save( this.entity );
-		String message = String.format( "O período %s - %s foi registrado com sucesso.", this.entity.getBeginDate().format( DateTimeFormatter.ofPattern( "dd/MM/yyyy" ) ), this.entity.getEndDate().format( DateTimeFormatter.ofPattern( "dd/MM/yyyy" ) ) );
+		String message = String.format( "O período %s foi registrado com sucesso.", this.entity.getDescription() );
 		FacesContext.getCurrentInstance().addMessage( null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, null ) );
 		entityClear();
 	}

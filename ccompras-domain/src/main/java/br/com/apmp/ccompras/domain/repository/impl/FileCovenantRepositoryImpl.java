@@ -32,13 +32,11 @@ public class FileCovenantRepositoryImpl extends BaseRepositoryImpl<FileCovenant>
 		JPQLQuery<FileCovenant> query = new JPAQuery<FileCovenant>( em );
 
 		if ( period != null ) {
-			if ( period.getBeginDate() != null )
-				bb.and( qFileCovenant.period.beginDate.goe( period.getBeginDate() ) );
-			if ( period.getEndDate() != null )
-				bb.and( qFileCovenant.period.endDate.loe( period.getEndDate() ) );
+			if ( period.getDescription() != null && !period.getDescription().isEmpty() )
+				bb.and( qFileCovenant.period.description.eq( period.getDescription() ) );
 		}
 
-		return query.from( qFileCovenant ).where( bb ).orderBy( qFileCovenant.period.endDate.desc() ).fetch();
+		return query.from( qFileCovenant ).where( bb ).orderBy( qFileCovenant.period.description.desc() ).fetch();
 	}
 
 	@Override

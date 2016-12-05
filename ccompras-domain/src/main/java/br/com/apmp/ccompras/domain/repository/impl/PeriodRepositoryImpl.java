@@ -1,6 +1,5 @@
 package br.com.apmp.ccompras.domain.repository.impl;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.enterprise.context.Dependent;
@@ -27,21 +26,6 @@ public class PeriodRepositoryImpl extends BaseRepositoryImpl<Period> implements 
 	private EntityManager em;
 
 	@Override
-	public Period findByDate( LocalDate date ) {
-		QPeriod qPeriod = QPeriod.period;
-		BooleanBuilder bb = new BooleanBuilder();
-		JPQLQuery<Period> query = new JPAQuery<Period>( em );
-
-		if ( date == null )
-			return null;
-
-		bb.and( qPeriod.beginDate.loe( date ) );
-		bb.and( qPeriod.endDate.goe( date ) );
-
-		return query.from( qPeriod ).fetchOne();
-	}
-
-	@Override
 	public EntityManager getEntityManager() {
 		return em;
 	}
@@ -58,47 +42,14 @@ public class PeriodRepositoryImpl extends BaseRepositoryImpl<Period> implements 
 		JPQLQuery<Period> query = new JPAQuery<Period>( em );
 
 		if ( entity == null )
-			return query.from( qPeriod ).orderBy( qPeriod.endDate.desc() ).fetch();
+			return query.from( qPeriod ).orderBy( qPeriod.description.desc() ).fetch();
 
-		if ( entity.getBeginDate() != null )
-			bb.and( qPeriod.beginDate.goe( entity.getBeginDate() ) );
-		if ( entity.getEndDate() != null )
-			bb.and( qPeriod.endDate.loe( entity.getEndDate() ) );
+		if ( entity.getDescription() != null && !entity.getDescription().trim().isEmpty() )
+			bb.and( qPeriod.description.containsIgnoreCase( entity.getDescription() ) );
 		if ( entity.getPeriodStatus() != null )
 			bb.and( qPeriod.periodStatus.eq( entity.getPeriodStatus() ) );
 
-		return query.from( qPeriod ).where( bb ).orderBy( qPeriod.endDate.desc() ).fetch();
-	}
-
-	@Override
-	public Period findByBeginDate( Period entity ) {
-		QPeriod qPeriod = QPeriod.period;
-		BooleanBuilder bb = new BooleanBuilder();
-		JPQLQuery<Period> query = new JPAQuery<Period>( em );
-
-		if ( entity == null || entity.getBeginDate() == null )
-			throw new NullPointerException();
-
-		bb.and( qPeriod.beginDate.loe( entity.getBeginDate() ) );
-		bb.and( qPeriod.endDate.goe( entity.getBeginDate() ) );
-
-		return query.from( qPeriod ).where( bb ).fetchOne();
-
-	}
-
-	@Override
-	public Period findByEndDate( Period entity ) {
-		QPeriod qPeriod = QPeriod.period;
-		BooleanBuilder bb = new BooleanBuilder();
-		JPQLQuery<Period> query = new JPAQuery<Period>( em );
-
-		if ( entity == null || entity.getEndDate() == null )
-			throw new NullPointerException();
-
-		bb.and( qPeriod.beginDate.loe( entity.getEndDate() ) );
-		bb.and( qPeriod.endDate.goe( entity.getEndDate() ) );
-
-		return query.from( qPeriod ).where( bb ).fetchOne();
+		return query.from( qPeriod ).where( bb ).orderBy( qPeriod.description.desc() ).fetch();
 	}
 
 	@Override
@@ -107,13 +58,10 @@ public class PeriodRepositoryImpl extends BaseRepositoryImpl<Period> implements 
 		BooleanBuilder bb = new BooleanBuilder();
 		JPQLQuery<Period> query = new JPAQuery<Period>( em );
 
-		if ( queryPeriod == null || queryPeriod.isEmpty() )
-			return query.from( qPeriod ).orderBy( qPeriod.endDate.desc() ).fetch();
-
 		bb.and( qPeriod.description.containsIgnoreCase( queryPeriod ) );
 		bb.and( qPeriod.periodStatus.eq( PeriodStatus.OPEN ) );
 
-		return query.from( qPeriod ).where( bb ).orderBy( qPeriod.endDate.desc() ).fetch();
+		return query.from( qPeriod ).where( bb ).orderBy( qPeriod.description.desc() ).fetch();
 
 	}
 

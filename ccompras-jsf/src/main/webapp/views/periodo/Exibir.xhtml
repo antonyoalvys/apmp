@@ -8,16 +8,16 @@
 
 		<p:panel header="Dados do Período" style="text-align:center;" styleClass="show-label" toggleable="true">
 			<div class="ui-g">
-				<p:outputLabel value="Data Inicial: " styleClass="ui-g-2" />
-				<h:outputText value="#{periodSearchBean.showEntity.beginDate}" styleClass="ui-g-4" />
-				<p:outputLabel value="Data Final: " styleClass="ui-g-2" />
-				<h:outputText value="#{periodSearchBean.showEntity.endDate}" styleClass="ui-g-4" />
+				<p:outputLabel value="Descrição (Mês/Ano): " styleClass="ui-g-2" />
+				<h:outputText value="#{periodSearchBean.showEntity.description}" styleClass="ui-g-4" />
+				<p:outputLabel value="Status: " styleClass="ui-g-2" />
+				<h:outputText value="#{periodSearchBean.showEntity.periodStatus.description}" styleClass="ui-g-4" />
 			</div>
 
 			<div class="ui-g">
-				<p:outputLabel value="Status: " styleClass="ui-g-2" />
-				<h:outputText value="#{periodSearchBean.showEntity.periodStatus.description}" styleClass="ui-g-4" />
-			</div>			
+				<p:outputLabel value="Tem Arquivo Gerado: " styleClass="ui-g-2" />
+				<h:outputText value="#{periodSearchBean.showEntity.hasFileCovenant? 'Sim' : 'Não'}" styleClass="ui-g-4" />
+			</div>
 
 		</p:panel>
 

@@ -44,8 +44,11 @@ public class FileCovenant implements BaseEntity {
 	@Column( name = "name" )
 	private String name;
 
+	private Boolean emailed;
+
 	public FileCovenant() {
 		this.generateDate = LocalDateTime.now();
+		this.emailed = false;
 	}
 
 	@Override
@@ -57,7 +60,7 @@ public class FileCovenant implements BaseEntity {
 	public void setId( Long id ) {
 		this.id = id;
 	}
-	
+
 	public byte[] getFile() {
 		return file;
 	}
@@ -88,6 +91,14 @@ public class FileCovenant implements BaseEntity {
 
 	public void setName( String name ) {
 		this.name = name;
+	}
+
+	public Boolean getEmailed() {
+		return emailed;
+	}
+
+	public void setEmailed( Boolean emailed ) {
+		this.emailed = emailed;
 	}
 
 	@Override

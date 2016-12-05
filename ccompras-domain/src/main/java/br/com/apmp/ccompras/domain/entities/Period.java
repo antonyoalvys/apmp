@@ -1,7 +1,5 @@
 package br.com.apmp.ccompras.domain.entities;
 
-import java.time.LocalDate;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,16 +28,8 @@ public class Period implements BaseEntity {
 
 	@NotBlank
 	@Size( max = 23 )
-	@Column( name = "description" )
+	@Column( name = "description", unique = true )
 	private String description;
-
-	@NotNull
-	@Column( name = "begin_date" )
-	private LocalDate beginDate;
-
-	@NotNull
-	@Column( name = "end_date" )
-	private LocalDate endDate;
 
 	@NotNull
 	@Column( name = "period_status" )
@@ -61,22 +51,6 @@ public class Period implements BaseEntity {
 	@Override
 	public void setId( Long id ) {
 		this.id = id;
-	}
-
-	public LocalDate getBeginDate() {
-		return beginDate;
-	}
-
-	public void setBeginDate( LocalDate beginDate ) {
-		this.beginDate = beginDate;
-	}
-
-	public LocalDate getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate( LocalDate endDate ) {
-		this.endDate = endDate;
 	}
 
 	public PeriodStatus getPeriodStatus() {
@@ -104,10 +78,7 @@ public class Period implements BaseEntity {
 	}
 
 	public String nameForPath() {
-		String name = this.description.replaceAll( "/", "" );
-		name = name.replaceAll( " ", "" );
-		name = name.replaceAll( "-", "_" );
-		return name;
+		return this.description.replaceAll( "/", "" );
 	}
 
 	@Override
@@ -119,8 +90,7 @@ public class Period implements BaseEntity {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ( ( beginDate == null ) ? 0 : beginDate.hashCode() );
-		result = prime * result + ( ( endDate == null ) ? 0 : endDate.hashCode() );
+		result = prime * result + ( ( description == null ) ? 0 : description.hashCode() );
 		return result;
 	}
 
@@ -133,15 +103,10 @@ public class Period implements BaseEntity {
 		if ( getClass() != obj.getClass() )
 			return false;
 		Period other = (Period) obj;
-		if ( beginDate == null ) {
-			if ( other.beginDate != null )
+		if ( description == null ) {
+			if ( other.description != null )
 				return false;
-		} else if ( !beginDate.equals( other.beginDate ) )
-			return false;
-		if ( endDate == null ) {
-			if ( other.endDate != null )
-				return false;
-		} else if ( !endDate.equals( other.endDate ) )
+		} else if ( !description.equals( other.description ) )
 			return false;
 		return true;
 	}

@@ -15,9 +15,12 @@ import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.inject.Inject;
 
+import com.querydsl.core.Tuple;
+
 import br.com.apmp.ccompras.domain.entities.FileCovenant;
 import br.com.apmp.ccompras.domain.entities.Period;
 import br.com.apmp.ccompras.domain.entities.PurchaseTicket;
+import br.com.apmp.ccompras.domain.entities.QPurchaseTicket;
 import br.com.apmp.ccompras.domain.repository.FileCovenantRepository;
 import br.com.apmp.ccompras.service.FileCovenantService;
 import br.com.apmp.ccompras.service.PeriodService;
@@ -56,7 +59,6 @@ public class FileCovenantServiceImpl implements FileCovenantService {
 	@Override
 	@TransactionAttribute( TransactionAttributeType.NEVER )
 	public List<FileCovenant> findByPeriod( Period period ) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -74,21 +76,21 @@ public class FileCovenantServiceImpl implements FileCovenantService {
 		newFileCovenant.setName( nameFile );
 		Path path = Paths.get( "/tmp/" + nameFile );
 
-		List<PurchaseTicket> purchaseTickets = purchaseTicketService.findByPeriodId( newFileCovenant.getPeriod().getId() );
+		List<Tuple> tuples = purchaseTicketService.findForFile( newFileCovenant.getPeriod().getId() );
 
 		try (BufferedWriter writer = Files.newBufferedWriter( path )) {
 			boolean isBegin = true;
-			for ( PurchaseTicket purchaseTicket : purchaseTickets ) {
+			for ( Tuple tuple : tuples ) {
 				if ( !isBegin )
 					writer.newLine();
 				else
 					isBegin = false;
 
-				writer.write( formatField( purchaseTicket.getAssociate().getEnrollment(), String.class, 5, SideFit.RIGHT ) );
-				writer.write( formatField( purchaseTicket.getTicketValue(), BigDecimal.class, 13, SideFit.LEFT ) );
+				writer.write( formatField( tuple.get( 0, String.class ), String.class, 5, SideFit.RIGHT ) );
+				writer.write( formatField( tuple.get( 1, BigDecimal.class ), BigDecimal.class, 13, SideFit.LEFT ) );
 			}
 			writer.close();
-			newFileCovenant.setFile( Files.readAllBytes( path )  );
+			newFileCovenant.setFile( Files.readAllBytes( path ) );
 		} catch ( IOException e ) {
 			e.printStackTrace();
 			throw new ServiceException( "Falha de entrada/saída ao gerar tentar gerar o arquivo." );

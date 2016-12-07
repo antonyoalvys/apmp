@@ -9,6 +9,8 @@ import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.inject.Inject;
 
+import com.querydsl.core.Tuple;
+
 import br.com.apmp.ccompras.domain.entities.Associate;
 import br.com.apmp.ccompras.domain.entities.Company;
 import br.com.apmp.ccompras.domain.entities.PurchaseTicket;
@@ -80,6 +82,11 @@ public class PurchaseTicketServiceImpl implements PurchaseTicketService {
 	@TransactionAttribute( TransactionAttributeType.NOT_SUPPORTED )
 	public List<PurchaseTicket> findByPeriodId( Long periodId ) {
 		return this.purchaseTicketRepository.findByPeriodId( periodId );
+	}
+
+	@Override
+	public List<Tuple> findForFile( Long periodId ) {
+		return this.purchaseTicketRepository.findForFile( periodId );
 	}
 
 }

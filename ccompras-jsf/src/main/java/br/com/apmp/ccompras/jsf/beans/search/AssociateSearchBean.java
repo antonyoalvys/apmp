@@ -28,8 +28,6 @@ public class AssociateSearchBean extends BaseBeanSearch<Associate> {
 	@Inject
 	private AssociateService associateService;
 
-	private Associate associateSearch;
-
 	private List<Associate> associateList;
 
 	private Tab searchTab;
@@ -40,7 +38,7 @@ public class AssociateSearchBean extends BaseBeanSearch<Associate> {
 	}
 
 	public void findByEntity() throws ServiceException {
-		this.associateList = (List) associateService.findByEntity( this.associateSearch );
+		this.associateList = (List<Associate>) associateService.findByEntity( getSearchEntity() );
 	}
 
 	public void show( Associate associate ) {
@@ -87,7 +85,7 @@ public class AssociateSearchBean extends BaseBeanSearch<Associate> {
 	}
 
 	public void clear() {
-		this.associateSearch = new Associate();
+		setSearchEntity( new Associate() );
 		this.associateList = new ArrayList<Associate>();
 	}
 

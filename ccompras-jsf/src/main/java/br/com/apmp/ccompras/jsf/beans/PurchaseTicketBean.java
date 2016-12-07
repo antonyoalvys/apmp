@@ -71,6 +71,7 @@ public class PurchaseTicketBean implements Serializable {
 
 	public void entityClear() {
 		this.entity = new PurchaseTicket();
+		this.entity.setPeriod( autocompletePeriod( "11/2016" ).get( 0 ) );
 	}
 
 	public PurchaseTicket getEntity() {

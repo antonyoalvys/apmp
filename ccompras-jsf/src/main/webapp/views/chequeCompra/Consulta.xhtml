@@ -31,10 +31,14 @@
 					</div>
 				</div>
 				<div class="ui-g">
+
 					<p:outputLabel value="Período" styleClass="ui-g-2" />
-					<p:calendar value="#{purchaseTicketSearchBean.searchEntity.period.beginDate}" id="beginDate" styleClass="ui-g-4" pattern="dd/MM/yyyy" converter="localDateConverter" />
-					<h:outputText value="Até" styleClass="ui-g-1" />
-					<p:calendar value="#{purchaseTicketSearchBean.searchEntity.period.endDate}" id="endDate" class="ui-g-4" pattern="dd/MM/yyyy" converter="localDateConverter" />
+					<div class="ui-g-4">
+						<p:autoComplete value="#{purchaseTicketSearchBean.searchEntity.period}" id="period" dropdown="true" completeMethod="#{purchaseTicketBean.autocompletePeriod}" var="var"
+							itemLabel="#{var.description}" itemValue="#{var}" minQueryLength="" scrollHeight="200" size="40">
+							<o:converter converterId="omnifaces.ListConverter" list="#{purchaseTicketBean.periodList}" />
+						</p:autoComplete>
+					</div>
 				</div>
 				<p:spacer />
 				<div class="buttons">

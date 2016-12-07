@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQuery;
 
 import br.com.apmp.ccompras.domain.entities.Associate;
@@ -83,6 +84,16 @@ public class PurchaseTicketRepositoryImpl extends BaseRepositoryImpl<PurchaseTic
 		bb.and( qPurchaseTicket.period.id.eq( periodId ) );
 
 		return query.from( qPurchaseTicket ).where( bb ).fetch();
+	}
+
+	@Override
+	public List<Tuple> findForFile( Long periodId ) {
+		QPurchaseTicket qPurchaseTicket = QPurchaseTicket.purchaseTicket;
+		BooleanBuilder bb = new BooleanBuilder();
+		JPAQuery<PurchaseTicket> query = new JPAQuery<PurchaseTicket>( em );
+		bb.and(qPurchaseTicket.period.id.eq( periodId ));
+
+		return query.from( qPurchaseTicket ).where( bb ).groupBy( qPurchaseTicket.associate.enrollment ).select( qPurchaseTicket.associate.enrollment, qPurchaseTicket.ticketValue.sum() ).fetch();
 	}
 
 }

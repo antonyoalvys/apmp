@@ -42,7 +42,6 @@ public class Associate implements BaseEntity {
 	@Column( name = "enrollment", unique = true )
 	private String enrollment;
 
-	@NotBlank
 	@Size( max = 14 )
 	@Column( name = "cpf" )
 	private String cpf;

@@ -65,8 +65,13 @@ public class PurchaseTicket implements BaseEntity {
 	@Size( max = 255 )
 	private String observation;
 
+	@Column( name = "serie" )
+	@Size( max = 10 )
+	private String serie;
+
 	public PurchaseTicket() {
 		this.registerDate = LocalDateTime.now();
+		this.serie = "SÉRIE A";
 	}
 
 	@Override
@@ -149,6 +154,14 @@ public class PurchaseTicket implements BaseEntity {
 
 	public void setPeriod( Period period ) {
 		this.period = period;
+	}
+
+	public String getSerie() {
+		return serie;
+	}
+
+	public void setSerie( String serie ) {
+		this.serie = serie;
 	}
 
 	@Override

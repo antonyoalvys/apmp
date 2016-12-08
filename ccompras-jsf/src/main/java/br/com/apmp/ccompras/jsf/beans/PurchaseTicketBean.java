@@ -6,14 +6,17 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.com.apmp.ccompras.domain.entities.Agreement;
 import br.com.apmp.ccompras.domain.entities.Associate;
 import br.com.apmp.ccompras.domain.entities.Company;
 import br.com.apmp.ccompras.domain.entities.Period;
 import br.com.apmp.ccompras.domain.entities.PurchaseTicket;
+import br.com.apmp.ccompras.service.AgreementService;
 import br.com.apmp.ccompras.service.AssociateService;
 import br.com.apmp.ccompras.service.CompanyService;
 import br.com.apmp.ccompras.service.PeriodService;
@@ -33,9 +36,12 @@ public class PurchaseTicketBean implements Serializable {
 	private CompanyService companyService;
 	@Inject
 	private PeriodService periodService;
+	@Inject
+	private AgreementService agreementService;
 	private PurchaseTicket entity;
 	private List<Associate> associateList;
 	private List<Company> companyList;
+	private List<Agreement> agreementList;
 
 	private List<Period> periodList;
 
@@ -67,6 +73,24 @@ public class PurchaseTicketBean implements Serializable {
 		queryPeriod = queryPeriod.trim();
 		this.periodList = periodService.findByDescription( queryPeriod );
 		return this.periodList;
+	}
+
+	public List<Agreement> autocompleteAgreement( String queryAgreement ) {
+		queryAgreement = queryAgreement.trim();
+		this.agreementList = agreementService.findByName( queryAgreement );
+		return this.agreementList;
+	}
+
+	public Boolean getShowTicketDatas() {
+		return this.entity.getAgreement() != null && entity.getAgreement().getName().equals( "Convênio Compras" );
+	}
+
+	public void changeAgreement( ValueChangeEvent event ) {
+		if ( event != null && event.getNewValue() != null ) {
+			this.entity.setAgreement( (Agreement) event.getNewValue() );
+			this.entity.setUsageDate( null );
+			this.entity.setCode( null );
+		}
 	}
 
 	public void entityClear() {
@@ -108,6 +132,14 @@ public class PurchaseTicketBean implements Serializable {
 
 	public void setPeriodList( List<Period> periodList ) {
 		this.periodList = periodList;
+	}
+
+	public List<Agreement> getAgreementList() {
+		return agreementList;
+	}
+
+	public void setAgreementList( List<Agreement> agreementList ) {
+		this.agreementList = agreementList;
 	}
 
 }

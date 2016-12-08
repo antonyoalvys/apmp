@@ -7,11 +7,24 @@
 	<h:form id="searchForm">
 		<f:validateBean disabled="true">
 
-			<p:panel header="Dados da Consulta" style="text-align:center;">
+			<p:panel header="Dados da Consulta"  style="text-align:center;" styleClass="left-label">
 				<div class="ui-g">
-					<p:outputLabel value="Código" styleClass="ui-g-2" />
-					<p:inputText value="#{purchaseTicketSearchBean.searchEntity.code}" id="code" class="ui-g-4" />
+					<p:outputLabel value="Convênio" styleClass="ui-g-2" />
+					<div class="ui-g-4">
+						<p:autoComplete value="#{purchaseTicketSearchBean.searchEntity.agreement}" id="agreement" dropdown="true" completeMethod="#{purchaseTicketSearchBean.autocompleteAgreement}" var="var"
+							itemLabel="#{var.name}" itemValue="#{var}" minQueryLength="" scrollHeight="200" size="40" valueChangeListener="#{purchaseTicketSearchBean.changeAgreement}">
+							<o:converter converterId="omnifaces.ListConverter" list="#{purchaseTicketSearchBean.agreementList}" />
+							<f:attribute name="viewName" value="consulta" />
+							<p:ajax event="itemSelect" update="codePanel" />
+						</p:autoComplete>
+					</div>
 				</div>
+				<p:outputPanel id="codePanel">
+					<div class="ui-g">
+						<p:outputLabel value="Código" styleClass="ui-g-2" rendered="#{purchaseTicketSearchBean.showCode}" />
+						<p:inputText value="#{purchaseTicketSearchBean.searchEntity.code}" id="code" styleClass="ui-g-4" rendered="#{purchaseTicketSearchBean.showCode}" />
+					</div>
+				</p:outputPanel>
 				<div class="ui-g">
 					<p:outputLabel value="Associado" styleClass="ui-g-2" />
 					<div class="ui-g-4">
@@ -34,9 +47,9 @@
 
 					<p:outputLabel value="Período" styleClass="ui-g-2" />
 					<div class="ui-g-4">
-						<p:autoComplete value="#{purchaseTicketSearchBean.searchEntity.period}" id="period" dropdown="true" completeMethod="#{purchaseTicketBean.autocompletePeriod}" var="var"
+						<p:autoComplete value="#{purchaseTicketSearchBean.searchEntity.period}" id="period" dropdown="true" completeMethod="#{purchaseTicketSearchBean.autocompletePeriod}" var="var"
 							itemLabel="#{var.description}" itemValue="#{var}" minQueryLength="" scrollHeight="200" size="40">
-							<o:converter converterId="omnifaces.ListConverter" list="#{purchaseTicketBean.periodList}" />
+							<o:converter converterId="omnifaces.ListConverter" list="#{purchaseTicketSearchBean.periodList}" />
 						</p:autoComplete>
 					</div>
 				</div>
@@ -53,7 +66,7 @@
 				</div>
 				<p:spacer />
 				<p:dataTable id="resultsDataTable" value="#{purchaseTicketSearchBean.purchaseTicketList}" emptyMessage="Nenhum cheque de compra registrado." var="ticket">
-					<f:facet name="header">Cheques de Compra</f:facet>
+					<f:facet name="header">Descontos de Convênio</f:facet>
 
 					<p:column headerText="Opções">
 						<p:commandButton id="showCommandButton" icon="ui-icon-search" action="#{purchaseTicketSearchBean.show(ticket)}" title="Exibir" update=":purchaseTicketTv"

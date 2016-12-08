@@ -6,10 +6,13 @@
 
 	<h:form id="showForm">
 
-		<p:panel header="Dados do Cheque de Convênio de Compra" style="text-align:center;" styleClass="show-label" toggleable="true">
+		<p:panel header="Dados do Desconto de Convênio" style="text-align:center;" styleClass="show-label" toggleable="true">
 			<div class="ui-g">
+				<p:outputLabel value="Convênio: " styleClass="ui-g-2" />
+				<h:outputText value="#{purchaseTicketSearchBean.showEntity.agreement.name }" styleClass="ui-g-4" />
+
 				<p:outputLabel value="Código: " styleClass="ui-g-2" />
-				<h:outputText value="#{purchaseTicketSearchBean.showEntity.code}" styleClass="ui-g-10" />
+				<h:outputText value="#{purchaseTicketSearchBean.showEntity.code}" styleClass="ui-g-4" />
 			</div>
 
 			<div class="ui-g">
@@ -38,7 +41,7 @@
 				<p:inputTextarea value="#{purchaseTicketSearchBean.showEntity.description}" id="description" styleClass="ui-g-4" disabled="true" />
 
 				<p:outputLabel value="Observação: " styleClass="ui-g-2" />
-				<p:inputTextarea value="#{purchaseTicketSearchBean.showEntity.observation}" id="observation" styleClass="ui-g-4" disabled="true"/>
+				<p:inputTextarea value="#{purchaseTicketSearchBean.showEntity.observation}" id="observation" styleClass="ui-g-4" disabled="true" />
 			</div>
 
 		</p:panel>

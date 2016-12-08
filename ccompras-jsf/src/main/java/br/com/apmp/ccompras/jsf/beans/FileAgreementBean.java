@@ -10,17 +10,17 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.apmp.ccompras.domain.entities.Period;
-import br.com.apmp.ccompras.service.FileCovenantService;
+import br.com.apmp.ccompras.service.FileAgreementService;
 import br.com.apmp.ccompras.service.PeriodService;
 
 @Named
 @ViewScoped
-public class FileCovenantBean implements Serializable {
+public class FileAgreementBean implements Serializable {
 
 	private static final long serialVersionUID = 2487962749468137946L;
 
 	@Inject
-	private FileCovenantService fileCovenantService;
+	private FileAgreementService fileAgreementService;
 	@Inject
 	private PeriodService periodService;
 	private Period period;
@@ -33,7 +33,7 @@ public class FileCovenantBean implements Serializable {
 	}
 
 	public void generate() {
-		fileCovenantService.generate( period );
+		fileAgreementService.generate( period );
 	}
 
 	public List<Period> autocompletePeriod( String queryPeriod ) {

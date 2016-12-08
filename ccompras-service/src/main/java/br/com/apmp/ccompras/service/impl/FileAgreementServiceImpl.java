@@ -17,24 +17,22 @@ import javax.inject.Inject;
 
 import com.querydsl.core.Tuple;
 
-import br.com.apmp.ccompras.domain.entities.FileCovenant;
+import br.com.apmp.ccompras.domain.entities.FileAgreement;
 import br.com.apmp.ccompras.domain.entities.Period;
-import br.com.apmp.ccompras.domain.entities.PurchaseTicket;
-import br.com.apmp.ccompras.domain.entities.QPurchaseTicket;
-import br.com.apmp.ccompras.domain.repository.FileCovenantRepository;
-import br.com.apmp.ccompras.service.FileCovenantService;
+import br.com.apmp.ccompras.domain.repository.FileAgreementRepository;
+import br.com.apmp.ccompras.service.FileAgreementService;
 import br.com.apmp.ccompras.service.PeriodService;
 import br.com.apmp.ccompras.service.PurchaseTicketService;
 import br.com.apmp.ccompras.service.exceptions.ServiceException;
 
 @Stateless
 @TransactionManagement( TransactionManagementType.CONTAINER )
-public class FileCovenantServiceImpl implements FileCovenantService {
+public class FileAgreementServiceImpl implements FileAgreementService {
 
 	private static final long serialVersionUID = 3175158112059892738L;
 
 	@Inject
-	private FileCovenantRepository fileCovenantRepository;
+	private FileAgreementRepository fileAgreementRepository;
 
 	@Inject
 	private PeriodService periodService;
@@ -46,32 +44,32 @@ public class FileCovenantServiceImpl implements FileCovenantService {
 	@TransactionAttribute( TransactionAttributeType.REQUIRED )
 	public void generate( Period period ) {
 		if ( period.getHasFileCovenant() ) {
-			FileCovenant fileCovenant = this.fileCovenantRepository.findByPeriodId( period.getId() );
+			FileAgreement fileCovenant = this.fileAgreementRepository.findByPeriodId( period.getId() );
 			delete( fileCovenant );
 		}
-		FileCovenant newFileCovenant = new FileCovenant();
+		FileAgreement newFileCovenant = new FileAgreement();
 		newFileCovenant.setPeriod( period );
 		writeFile( newFileCovenant );
-		this.fileCovenantRepository.save( newFileCovenant );
+		this.fileAgreementRepository.save( newFileCovenant );
 
 	}
 
 	@Override
 	@TransactionAttribute( TransactionAttributeType.NEVER )
-	public List<FileCovenant> findByPeriod( Period period ) {
+	public List<FileAgreement> findByPeriod( Period period ) {
 		return null;
 	}
 
 	@Override
 	@TransactionAttribute( TransactionAttributeType.REQUIRED )
-	public void delete( FileCovenant entity ) {
+	public void delete( FileAgreement entity ) {
 		Period period = entity.getPeriod();
-		this.fileCovenantRepository.delete( entity );
+		this.fileAgreementRepository.delete( entity );
 		period.setHasFileCovenant( false );
 		this.periodService.save( period );
 	}
 
-	private void writeFile( FileCovenant newFileCovenant ) {
+	private void writeFile( FileAgreement newFileCovenant ) {
 		String nameFile = "apmp_ccompra_" + newFileCovenant.getPeriod().nameForPath();
 		newFileCovenant.setName( nameFile );
 		Path path = Paths.get( "/tmp/" + nameFile );

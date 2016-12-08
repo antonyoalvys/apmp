@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/views/index.xhtml">
+	<ui:define name="content">
+		<p:tabView id="agreementTv" widgetVar="agreementTabs">
+			<p:ajax event="tabClose" update="agreementTv" listener="#{agreementSearchBean.onTabClose}" process="@all" />
+
+			<p:tab title="Concultar" closable="false">
+				<ui:include src="Consulta.xhtml" />
+			</p:tab>
+
+			<p:tab title="Exibir" closable="true" rendered="false" binding="#{agreementSearchBean.showTab}">
+				<ui:include src="Exibir.xhtml" />
+			</p:tab>
+
+			<p:tab title="Editar" closable="true" rendered="false" binding="#{agreementSearchBean.editTab}">
+				<ui:include src="Editar.xhtml" />
+			</p:tab>
+		</p:tabView>
+	</ui:define>
+</ui:composition>

@@ -64,6 +64,9 @@ public class PurchaseTicketRepositoryImpl extends BaseRepositoryImpl<PurchaseTic
 		if ( entity.getCompany() != null ) {
 			bb.and( qPurchaseTicket.company.id.eq( entity.getCompany().getId() ) );
 		}
+		if ( entity.getAgreement() != null ) {
+			bb.and( qPurchaseTicket.agreement.id.eq( entity.getAgreement().getId() ) );
+		}
 		if ( entity.getPeriod() != null ) {
 			if ( entity.getPeriod().getDescription() != null && !entity.getPeriod().getDescription().isEmpty() )
 				bb.and( qPurchaseTicket.period.description.eq( entity.getPeriod().getDescription() ) );
@@ -91,7 +94,7 @@ public class PurchaseTicketRepositoryImpl extends BaseRepositoryImpl<PurchaseTic
 		QPurchaseTicket qPurchaseTicket = QPurchaseTicket.purchaseTicket;
 		BooleanBuilder bb = new BooleanBuilder();
 		JPAQuery<PurchaseTicket> query = new JPAQuery<PurchaseTicket>( em );
-		bb.and(qPurchaseTicket.period.id.eq( periodId ));
+		bb.and( qPurchaseTicket.period.id.eq( periodId ) );
 
 		return query.from( qPurchaseTicket ).where( bb ).groupBy( qPurchaseTicket.associate.enrollment ).select( qPurchaseTicket.associate.enrollment, qPurchaseTicket.ticketValue.sum() ).fetch();
 	}

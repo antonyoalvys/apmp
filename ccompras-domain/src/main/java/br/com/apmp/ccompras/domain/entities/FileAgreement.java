@@ -15,8 +15,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table( name = "file_covenant" )
-public class FileCovenant implements BaseEntity {
+@Table( name = "file_agreement" )
+public class FileAgreement implements BaseEntity {
 
 	private static final long serialVersionUID = -2736736591183532705L;
 
@@ -46,7 +46,7 @@ public class FileCovenant implements BaseEntity {
 
 	private Boolean emailed;
 
-	public FileCovenant() {
+	public FileAgreement() {
 		this.generateDate = LocalDateTime.now();
 		this.emailed = false;
 	}
@@ -118,7 +118,7 @@ public class FileCovenant implements BaseEntity {
 			return false;
 		if ( getClass() != obj.getClass() )
 			return false;
-		FileCovenant other = (FileCovenant) obj;
+		FileAgreement other = (FileAgreement) obj;
 		if ( generateDate == null ) {
 			if ( other.generateDate != null )
 				return false;

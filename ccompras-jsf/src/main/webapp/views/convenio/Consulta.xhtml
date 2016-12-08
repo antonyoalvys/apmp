@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<h:form id="searchForm">
+		<f:validateBean disabled="true">
+			<p:panel header="Dados da Consulta" style="text-align:center;">
+				<div class="ui-g">
+					<p:outputLabel value="Nome" styleClass="ui-g-2" />
+					<p:inputText value="#{agreementSearchBean.searchEntity.name}" styleClass="ui-g-6" id="name" />
+				</div>
+				<p:spacer />
+				<div class="buttons">
+					<p:commandButton action="#{agreementSearchBean.clear}" value="Limpar" styleClass="span2" process="@form" update="@form" />
+					<p:commandButton id="searchBtn" action="#{agreementSearchBean.findByEntity()}" value="Consultar" styleClass="span2" process="@form" update="@form">
+						<p:blockUI block="resultsDataTable" trigger="searchBtn">
+			                            #{wds['blockui.processing.txt']}<br />
+							<h:graphicImage library="images" name="#{wds['blockui.loading.img']}" />
+						</p:blockUI>
+					</p:commandButton>
+
+				</div>
+				<p:spacer />
+				<p:dataTable id="resultsDataTable" value="#{agreementSearchBean.agreementList}" emptyMessage="Nenhum convênio registrado." var="agreement">
+					<f:facet name="header">Períodos</f:facet>
+
+					<p:column headerText="Opções">
+						<p:commandButton id="showCommandButton" icon="ui-icon-search" action="#{agreementSearchBean.show(agreement)}" title="Exibir" update=":agreementTv"
+							oncomplete="javascript:window.location='#agreementTv'" process="@this" />
+						<p:commandButton id="editCommandButton" icon="ui-icon-pencil" action="#{agreementSearchBean.edit()}" title="#{wds['table.columns.options.edit.hint']}" update=":agreementTv"
+							oncomplete="javascript:window.location='#agreementTv'" process="@this">
+							<f:setPropertyActionListener target="#{agreementSearchBean.editEntity}" value="#{agreement}" />
+						</p:commandButton>
+
+						<p:commandButton id="deleteCommandButton" icon="ui-icon-trash" title="#{wds['table.columns.options.delete.hint']}" oncomplete="PF('confirmation').show();">
+							<f:setPropertyActionListener target="#{agreementSearchBean.removeEntity}" value="#{agreement}" />
+						</p:commandButton>
+					</p:column>
+					<p:column headerText="Nome">
+						<h:outputText value="#{agreement.name}" />
+					</p:column>
+				</p:dataTable>
+
+			</p:panel>
+		</f:validateBean>
+
+		<p:confirmDialog id="deleteConfirmDialog" message="#{wds['dialog.deleteConfirmation.message']}" header="#{wds['dialog.deleteConfirmation.header']}" widgetVar="confirmation" appendTo="@(body)">
+			<p:commandButton id="yesCommandButton" icon="ui-icon-check" value="#{wds['dialog.optionYes']}" onclick="PF('confirmation').hide();" actionListener="#{agreementSearchBean.delete()}" update="@form"
+				process="@this" />
+			<p:commandButton id="noCommandButton" onclick="PF('confirmation').hide();" icon="ui-icon-cancel" value="#{wds['dialog.optionNo']}" type="button" />
+		</p:confirmDialog>
+
+	</h:form>
+
+
+</ui:composition>

@@ -5,18 +5,22 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.primefaces.component.tabview.Tab;
 
+import br.com.apmp.ccompras.domain.entities.Agreement;
 import br.com.apmp.ccompras.domain.entities.Associate;
 import br.com.apmp.ccompras.domain.entities.Company;
 import br.com.apmp.ccompras.domain.entities.Period;
 import br.com.apmp.ccompras.domain.entities.PurchaseTicket;
 import br.com.apmp.ccompras.domain.exceptions.RepositoryException;
+import br.com.apmp.ccompras.service.AgreementService;
 import br.com.apmp.ccompras.service.AssociateService;
 import br.com.apmp.ccompras.service.CompanyService;
 import br.com.apmp.ccompras.service.PeriodService;
@@ -39,6 +43,8 @@ public class PurchaseTicketSearchBean extends BaseBeanSearch<PurchaseTicket> {
 
 	@Inject
 	private PeriodService periodService;
+	@Inject
+	private AgreementService agreementService;
 
 	private PurchaseTicket purchaseTicketSearch;
 
@@ -49,6 +55,8 @@ public class PurchaseTicketSearchBean extends BaseBeanSearch<PurchaseTicket> {
 	private List<Company> companyList;
 
 	private List<Period> periodList;
+
+	private List<Agreement> agreementList;
 
 	private Period period;
 
@@ -103,6 +111,30 @@ public class PurchaseTicketSearchBean extends BaseBeanSearch<PurchaseTicket> {
 		queryPeriod = queryPeriod.trim();
 		this.periodList = periodService.findByDescription( queryPeriod );
 		return this.periodList;
+	}
+
+	public List<Agreement> autocompleteAgreement( String queryAgreement ) {
+		queryAgreement = queryAgreement.trim();
+		this.agreementList = agreementService.findByName( queryAgreement );
+		return this.agreementList;
+	}
+
+	public void changeAgreement( ValueChangeEvent event ) {
+		if ( event != null && event.getNewValue() != null ) {
+			String viewName = (String) UIComponent.getCurrentComponent( FacesContext.getCurrentInstance() ).getAttributes().get( "viewName" );
+			if ( viewName.equals( "consulta" ) ) {
+				getSearchEntity().setAgreement( (Agreement) event.getNewValue() );
+				getSearchEntity().setCode( null );
+			} else if ( viewName.equals( "editar" ) ) {
+				getEditEntity().setAgreement( (Agreement) event.getNewValue() );
+				getEditEntity().setCode( null );
+				getEditEntity().setUsageDate( null );
+			}
+		}
+	}
+
+	public Boolean getShowCode() {
+		return getSearchEntity().getAgreement() != null && getSearchEntity().getAgreement().getName().equals( "Convênio Compras" );
 	}
 
 	public void closeShow() {
@@ -191,6 +223,14 @@ public class PurchaseTicketSearchBean extends BaseBeanSearch<PurchaseTicket> {
 
 	public void setPeriodList( List<Period> periodList ) {
 		this.periodList = periodList;
+	}
+
+	public List<Agreement> getAgreementList() {
+		return agreementList;
+	}
+
+	public void setAgreementList( List<Agreement> agreementList ) {
+		this.agreementList = agreementList;
 	}
 
 }

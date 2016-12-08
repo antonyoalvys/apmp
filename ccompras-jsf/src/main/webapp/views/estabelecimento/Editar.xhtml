@@ -1,97 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui" template="/views/index.xhtml">
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
 
-	<ui:define name="content">
-		<h:form id="form">
-			<o:importConstants type="br.com.apmp.ccompras.domain.enums.PhoneType" />
+	<h:form id="editForm">
+		<o:importConstants type="br.com.apmp.ccompras.domain.enums.PhoneType" />
 
-			<p:panel header="Dados do Estabelecimento Comercial" style="text-align:center;" styleClass="left-label" toggleable="true">
-				<div class="ui-g">
-					<p:outputLabel value="Nome" for="name" styleClass="ui-g-2" />
-					<p:inputText value="#{companySearchBean.companySearch.name}" id="name" class="ui-g-10" required="true" />
-				</div>
-				<div class="ui-g">
-					<p:outputLabel value="Nome Fantasia" for="fantasyName" styleClass="ui-g-2" />
-					<p:inputText value="#{companySearchBean.companySearch.fantasyName}" id="fantasyName" class="ui-g-10" />
-				</div>
-				<div class="ui-g">
-					<p:outputLabel value="CNPJ" for="cnpj" styleClass="ui-g-2" />
-					<p:inputMask mask="99.999.999/9999-99" value="#{companySearchBean.companySearch.cnpj}" id="cnpj" styleClass="ui-g-4" />
-
-				</div>
-			</p:panel>
-
-			<p:panel header="Informações Para Contato" toggleable="true" styleClass="left-label" style="text-align:center;">
-				<div class="ui-g">
-					<p:outputLabel value="Telefone" for="phone" styleClass="ui-g-2" />
-					<div class="ui-g-2">
-						<p:selectOneMenu value="#{companySearchBean.companySearch.phoneType}" id="phoneType">
-							<f:selectItems value="#{PhoneType}" var="enum" itemLabel="#{enum.description}" />
-							<p:ajax event="itemSelect" update="phone" />
-						</p:selectOneMenu>
-					</div>
-					<div class="ui-g-2">
-						<p:inputMask mask="#{optionsBean.phoneMask(companySearchBean.companySearch.phoneType)}" value="#{companySearchBean.companySearch.phone}" id="phone" />
-					</div>
-				</div>
-
-				<div class="ui-g">
-					<p:outputLabel value="Email" for="mail" styleClass="ui-g-2" />
-					<p:inputText value="#{companySearchBean.companySearch.mail}" id="mail" styleClass="ui-g-4" />
-				</div>
-
-			</p:panel>
-
-			<p:panel header="Endereço" style="text-align:center;" toggleable="true" styleClass="left-label">
-				<div class="ui-g">
-					<p:outputLabel value="CEP" for="zipCode" styleClass="ui-g-2" />
-					<p:inputMask mask="99999-999" value="#{companySearchBean.companySearch.address.zipCode}" id="zipCode" styleClass="ui-g-10" />
-				</div>
-				<p:spacer />
-				<div class="ui-g">
-					<p:outputLabel value="Estado" for="state" styleClass="ui-g-2" />
-					<div class="ui-g-4">
-						<p:autoComplete value="#{companySearchBean.companySearch.address.state}" id="state" dropdown="true" completeMethod="#{stateSearchBean.autocompleteStatesNames}" var="var" itemLabel="#{var}"
-							itemValue="#{var}" minQueryLength="" scrollHeight="200" valueChangeListener="#{companySearchBean.changeState}" size="40">
-							<p:ajax event="itemSelect" update="city" />
-						</p:autoComplete>
-					</div>
-					<p:outputLabel value="Cidade" for="city" styleClass="ui-g-1" />
-					<div class="ui-g-5">
-						<p:autoComplete value="#{companySearchBean.companySearch.address.city}" id="city" dropdown="true" completeMethod="#{citySearchBean.autocompleteCitiesNames}" var="var" itemLabel="#{var}"
-							itemValue="#{var}" minQueryLength="" scrollHeight="200" size="40">
-							<p:ajax event="itemSelect" process="city" />
-							<f:attribute name="stateName" value="#{companySearchBean.companySearch.address.state}" />
-						</p:autoComplete>
-					</div>
-				</div>
-				<p:spacer />
-				<div class="ui-g">
-					<p:outputLabel value="Logradouro" for="street" styleClass="ui-g-2" />
-					<p:inputText value="#{companySearchBean.companySearch.address.street}" id="street" styleClass="ui-g-6" />
-					<p:outputLabel value="Número" for="number" styleClass="ui-g-2" />
-					<p:inputText value="#{companySearchBean.companySearch.address.number}" id="number" styleClass="ui-g-2" />
-				</div>
-				<p:spacer />
-				<div class="ui-g">
-					<p:outputLabel value="Bairro" for="neighborhood" styleClass="ui-g-2" />
-					<p:inputText value="#{companySearchBean.companySearch.address.neighborhood}" id="neighborhood" styleClass="ui-g-10" />
-				</div>
-				<p:spacer />
-				<div class="ui-g">
-					<p:outputLabel value="Complemento" for="complement" styleClass="ui-g-2" />
-					<p:inputText value="#{companySearchBean.companySearch.address.complement}" id="complement" styleClass="ui-g-10" />
-				</div>
-			</p:panel>
-			<p:spacer />
-			<div class="buttons">
-				<p:commandButton action="#{companySearchBean.clear}" value="Limpar" styleClass="span2" process="@form" update="@form" />
-				<p:commandButton action="#{companySearchBean.save}" value="Salvar" styleClass="span2" process="@form" update="@form" />
+		<p:panel header="Dados do Estabelecimento Comercial" style="text-align:center;" styleClass="left-label" toggleable="true">
+			<div class="ui-g">
+				<p:outputLabel value="Nome" for="name" styleClass="ui-g-2" />
+				<p:inputText value="#{companySearchBean.editEntity.name}" id="name" class="ui-g-10" required="true" />
 			</div>
-		</h:form>
+			<div class="ui-g">
+				<p:outputLabel value="Nome Fantasia" for="fantasyName" styleClass="ui-g-2" />
+				<p:inputText value="#{companySearchBean.editEntity.fantasyName}" id="fantasyName" class="ui-g-10" />
+			</div>
+			<div class="ui-g">
+				<p:outputLabel value="CNPJ" for="cnpj" styleClass="ui-g-2" />
+				<p:inputMask mask="99.999.999/9999-99" value="#{companySearchBean.editEntity.cnpj}" id="cnpj" styleClass="ui-g-4" />
 
-	</ui:define>
+			</div>
+		</p:panel>
 
+		<p:panel header="Informações Para Contato" toggleable="true" styleClass="left-label" style="text-align:center;">
+			<div class="ui-g">
+				<p:outputLabel value="Telefone" for="phone" styleClass="ui-g-2" />
+				<div class="ui-g-2">
+					<p:selectOneMenu value="#{companySearchBean.editEntity.phoneType}" id="phoneType">
+						<f:selectItems value="#{PhoneType}" var="enum" itemLabel="#{enum.description}" />
+						<p:ajax event="itemSelect" update="phone" />
+					</p:selectOneMenu>
+				</div>
+				<div class="ui-g-2">
+					<p:inputMask mask="#{optionsBean.phoneMask(companySearchBean.editEntity.phoneType)}" value="#{companySearchBean.editEntity.phone}" id="phone" />
+				</div>
+			</div>
+
+			<div class="ui-g">
+				<p:outputLabel value="Email" for="mail" styleClass="ui-g-2" />
+				<p:inputText value="#{companySearchBean.editEntity.mail}" id="mail" styleClass="ui-g-4" />
+			</div>
+
+		</p:panel>
+
+		<p:panel header="Endereço" style="text-align:center;" toggleable="true" styleClass="left-label">
+			<div class="ui-g">
+				<p:outputLabel value="CEP" for="zipCode" styleClass="ui-g-2" />
+				<p:inputMask mask="99999-999" value="#{companySearchBean.editEntity.address.zipCode}" id="zipCode" styleClass="ui-g-10" />
+			</div>
+			<p:spacer />
+			<div class="ui-g">
+				<p:outputLabel value="Estado" for="state" styleClass="ui-g-2" />
+				<div class="ui-g-4">
+					<p:autoComplete value="#{companySearchBean.editEntity.address.state}" id="state" dropdown="true" completeMethod="#{stateSearchBean.autocompleteStatesNames}" var="var" itemLabel="#{var}"
+						itemValue="#{var}" minQueryLength="" scrollHeight="200" valueChangeListener="#{companySearchBean.changeState}" size="40">
+						<p:ajax event="itemSelect" update="city" />
+					</p:autoComplete>
+				</div>
+				<p:outputLabel value="Cidade" for="city" styleClass="ui-g-1" />
+				<div class="ui-g-5">
+					<p:autoComplete value="#{companySearchBean.editEntity.address.city}" id="city" dropdown="true" completeMethod="#{citySearchBean.autocompleteCitiesNames}" var="var" itemLabel="#{var}"
+						itemValue="#{var}" minQueryLength="" scrollHeight="200" size="40">
+						<p:ajax event="itemSelect" process="city" />
+						<f:attribute name="stateName" value="#{companySearchBean.editEntity.address.state}" />
+					</p:autoComplete>
+				</div>
+			</div>
+			<p:spacer />
+			<div class="ui-g">
+				<p:outputLabel value="Logradouro" for="street" styleClass="ui-g-2" />
+				<p:inputText value="#{companySearchBean.editEntity.address.street}" id="street" styleClass="ui-g-6" />
+				<p:outputLabel value="Número" for="number" styleClass="ui-g-2" />
+				<p:inputText value="#{companySearchBean.editEntity.address.number}" id="number" styleClass="ui-g-2" />
+			</div>
+			<p:spacer />
+			<div class="ui-g">
+				<p:outputLabel value="Bairro" for="neighborhood" styleClass="ui-g-2" />
+				<p:inputText value="#{companySearchBean.editEntity.address.neighborhood}" id="neighborhood" styleClass="ui-g-10" />
+			</div>
+			<p:spacer />
+			<div class="ui-g">
+				<p:outputLabel value="Complemento" for="complement" styleClass="ui-g-2" />
+				<p:inputText value="#{companySearchBean.editEntity.address.complement}" id="complement" styleClass="ui-g-10" />
+			</div>
+		</p:panel>
+		<p:spacer />
+		<div class="buttons">
+			<p:commandButton action="#{companySearchBean.clear}" value="Limpar" styleClass="span2" process="@form" update="@form" />
+			<p:commandButton action="#{companySearchBean.save}" value="Salvar" styleClass="span2" process="@form" update="@form" />
+		</div>
+	</h:form>
 </ui:composition>

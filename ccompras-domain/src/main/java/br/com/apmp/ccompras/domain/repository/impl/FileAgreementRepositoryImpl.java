@@ -11,14 +11,14 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQuery;
 
-import br.com.apmp.ccompras.domain.entities.FileCovenant;
+import br.com.apmp.ccompras.domain.entities.FileAgreement;
 import br.com.apmp.ccompras.domain.entities.Period;
-import br.com.apmp.ccompras.domain.entities.QFileCovenant;
-import br.com.apmp.ccompras.domain.repository.FileCovenantRepository;
+import br.com.apmp.ccompras.domain.entities.QFileAgreement;
+import br.com.apmp.ccompras.domain.repository.FileAgreementRepository;
 
 @Named
 @Dependent
-public class FileCovenantRepositoryImpl extends BaseRepositoryImpl<FileCovenant> implements FileCovenantRepository {
+public class FileAgreementRepositoryImpl extends BaseRepositoryImpl<FileAgreement> implements FileAgreementRepository {
 
 	private static final long serialVersionUID = -1438013831626247960L;
 
@@ -26,10 +26,10 @@ public class FileCovenantRepositoryImpl extends BaseRepositoryImpl<FileCovenant>
 	private EntityManager em;
 
 	@Override
-	public List<FileCovenant> findByPeriod( Period period ) {
-		QFileCovenant qFileCovenant = QFileCovenant.fileCovenant;
+	public List<FileAgreement> findByPeriod( Period period ) {
+		QFileAgreement qFileCovenant = QFileAgreement.fileAgreement;
 		BooleanBuilder bb = new BooleanBuilder();
-		JPQLQuery<FileCovenant> query = new JPAQuery<FileCovenant>( em );
+		JPQLQuery<FileAgreement> query = new JPAQuery<FileAgreement>( em );
 
 		if ( period != null ) {
 			if ( period.getDescription() != null && !period.getDescription().isEmpty() )
@@ -40,10 +40,10 @@ public class FileCovenantRepositoryImpl extends BaseRepositoryImpl<FileCovenant>
 	}
 
 	@Override
-	public FileCovenant findByPeriodId( Long id ) {
-		QFileCovenant qFileCovenant = QFileCovenant.fileCovenant;
+	public FileAgreement findByPeriodId( Long id ) {
+		QFileAgreement qFileCovenant = QFileAgreement.fileAgreement;
 		BooleanBuilder bb = new BooleanBuilder();
-		JPQLQuery<FileCovenant> query = new JPAQuery<FileCovenant>( em );
+		JPQLQuery<FileAgreement> query = new JPAQuery<FileAgreement>( em );
 
 		if ( id == null )
 			return null;
@@ -59,8 +59,8 @@ public class FileCovenantRepositoryImpl extends BaseRepositoryImpl<FileCovenant>
 	}
 
 	@Override
-	public Class<FileCovenant> getClassT() {
-		return FileCovenant.class;
+	public Class<FileAgreement> getClassT() {
+		return FileAgreement.class;
 	}
 
 }

@@ -32,6 +32,10 @@ public class PurchaseTicket implements BaseEntity {
 	@Size( max = 20 )
 	private String code;
 
+	@ManyToOne
+	@JoinColumn( name = "fk_agreement" )
+	private Agreement agreement;
+
 	@Column( name = "ticket_value" )
 	private BigDecimal ticketValue;
 
@@ -71,7 +75,6 @@ public class PurchaseTicket implements BaseEntity {
 
 	public PurchaseTicket() {
 		this.registerDate = LocalDateTime.now();
-		this.serie = "SÉRIE A";
 	}
 
 	@Override
@@ -162,6 +165,14 @@ public class PurchaseTicket implements BaseEntity {
 
 	public void setSerie( String serie ) {
 		this.serie = serie;
+	}
+
+	public Agreement getAgreement() {
+		return agreement;
+	}
+
+	public void setAgreement( Agreement agreement ) {
+		this.agreement = agreement;
 	}
 
 	@Override

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions">
+
+
+	<h:form id="showForm">
+
+		<p:panel header="Dados do Convênio" style="text-align:center;" styleClass="show-label" toggleable="true">
+			<div class="ui-g">
+				<p:outputLabel value="Nome: " styleClass="ui-g-2" />
+				<h:outputText value="#{agreementSearchBean.showEntity.name}" styleClass="ui-g-4" />
+			</div>
+
+		</p:panel>
+
+		<div class="buttons">
+			<p:commandButton id="closeButton" value="#{wds['button.return']}" action="#{agreementSearchBean.closeShow}" update=":agreementTv @form" process="@this" />
+		</div>
+
+	</h:form>
+
+</ui:composition>

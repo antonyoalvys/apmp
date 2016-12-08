@@ -9,17 +9,17 @@
 				<div class="ui-g">
 					<p:outputLabel value="Período" for="period" styleClass="ui-g-2" />
 					<div class="ui-g-4">
-						<p:autoComplete value="#{fileCovenantBean.period}" id="period" dropdown="true" completeMethod="#{fileCovenantBean.autocompletePeriod}" var="var" itemLabel="#{var.description}"
+						<p:autoComplete value="#{fileAgreementBean.period}" id="period" dropdown="true" completeMethod="#{fileAgreementBean.autocompletePeriod}" var="var" itemLabel="#{var.description}"
 							itemValue="#{var}" minQueryLength="" scrollHeight="200" size="40">
-							<o:converter converterId="omnifaces.ListConverter" list="#{fileCovenantBean.periodList}" />
+							<o:converter converterId="omnifaces.ListConverter" list="#{fileAgreementBean.periodList}" />
 						</p:autoComplete>
 					</div>
 				</div>
 			</p:panel>
 
 			<div class="buttons">
-				<p:commandButton action="#{fileCovenantBean.clear}" value="Limpar" styleClass="span2" process="@form" update="@form" onclick="PF(javascript:window.location='#generateFileForm')"/>
-				<p:commandButton action="#{fileCovenantBean.generate}" value="Gerar" styleClass="span2" process="@form" update="@form" onclick="javascript:window.location='#generateFileForm'"/>
+				<p:commandButton action="#{fileAgreementBean.clear}" value="Limpar" styleClass="span2" process="@form" update="@form" onclick="PF(javascript:window.location='#generateFileForm')"/>
+				<p:commandButton action="#{fileAgreementBean.generate}" value="Gerar" styleClass="span2" process="@form" update="@form" onclick="javascript:window.location='#generateFileForm'"/>
 			</div>
 		</h:form>
 

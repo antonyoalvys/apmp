@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/views/index.xhtml">
+
+	<ui:define name="content">
+		<h:form id="registerForm">
+			<p:panel header="Dados do Convênio" style="text-align:center;" styleClass="left-label" toggleable="true">
+				<div class="ui-g">
+					<p:outputLabel value="Nome" for="name" styleClass="ui-g-2" />
+					<p:inputText value="#{agreementBean.entity.name}" id="name" styleClass="ui-g-6"/>
+				</div>
+			</p:panel>
+
+			<div class="buttons">
+				<p:commandButton action="#{agreementBean.clear}" value="Limpar" styleClass="span2" process="@form" update="@form" onclick="PF(javascript:window.location='#registerForm')" />
+				<p:commandButton action="#{agreementBean.save}" value="Salvar" styleClass="span2" process="@form" update="@form" onclick="javascript:window.location='#registerForm'" />
+			</div>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

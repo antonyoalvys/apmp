@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2016-12-11T21:10:46 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="extDescForn" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7537054b-04c6-43d4-9f57-29820e5a6e94">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ApmpJdbcAdapter.xml"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="SUB_REPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PERIOD_ID" class="java.lang.Long"/>
+	<parameter name="PERIOD_DESC" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select c.pk_company, c.name, c.cnpj,
+(select sum(pt.ticket_value) as total_value from purchase_ticket pt  where pt.fk_period= $P{PERIOD_ID})
+from company c
+where 
+c.pk_company in (select distinct(pt1.fk_company) from purchase_ticket pt1 where pt1.fk_period=$P{PERIOD_ID})]]>
+	</queryString>
+	<field name="pk_company" class="java.lang.Long"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="cnpj" class="java.lang.String"/>
+	<field name="total_value" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="120" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<image>
+				<reportElement x="0" y="0" width="80" height="80" uuid="abfae075-d992-47f2-a793-cb336490ae9b">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<imageExpression><![CDATA["/home/antonio/JaspersoftWorkspace/logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="7" width="555" height="23" uuid="88a22d8e-b07b-4f33-a38d-7d657759d53b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[ASSOCIAÇÃO PIAUIENSE DO MINISTÉRIO PÚBLICO]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="374" y="98" width="58" height="15" uuid="0d359327-da9a-40f4-929a-3325cf3ea7aa">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format( new java.util.Date())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="39" width="555" height="21" uuid="9eece91d-c9ab-4220-9bef-f9f216668553"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[EXTRATO DE DESCONTOS DE CONVÊNIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="65" width="555" height="15" uuid="ce495d04-3db5-4a48-8cef-3ee6a79bb922"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[(POR FORNECEDOR)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="451" y="98" width="57" height="15" uuid="032437a2-abb5-4462-8327-98863f8f461b">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["PERÍODO: "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="512" y="98" width="39" height="15" uuid="c6631e5d-c2c5-4e62-8f47-e415eac21dbb">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PERIOD_DESC}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="321" y="98" width="57" height="15" uuid="688d61f1-d3ff-4d8d-b209-58e5e1f1a0d6">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[DT. EMISSÃO: ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="50" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+			<textField>
+				<reportElement x="0" y="0" width="555" height="25" uuid="09854b62-45e4-4d43-8a5e-d5714bf55911"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["FORNECEDOR: " + $F{cnpj}+" - "+$F{name}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="0" y="25" width="555" height="25" uuid="13e24466-daac-45bf-8fcc-f00d6ac2bc89"/>
+				<subreportParameter name="PK_COMPANY">
+					<subreportParameterExpression><![CDATA[$F{pk_company}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PERIOD_ID">
+					<subreportParameterExpression><![CDATA[$P{PERIOD_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUB_REPORT_DIR}+"extDescConvFornSubReport.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="31" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<textField>
+				<reportElement x="495" y="12" width="60" height="19" uuid="f2d75c86-6e9b-4e70-8e60-bc0b7bd9632e"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="15" uuid="6ba56f6c-e5e0-4a43-b8fc-8451741bfa61">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[AVENIDA SENADOR ÁREA LEÃO, Nº 1500 BAIRRO JÓQUEI CEP: 64.059-112 TERESINA - PIAUÍ
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="16" width="555" height="15" uuid="2fbd780e-ebc7-4720-b687-7033bbf3b615">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Fone: 86 3221-0575 ou 86 9411-3602 Fax: 86 3223-2001]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="31">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<textField>
+				<reportElement x="495" y="12" width="60" height="19" uuid="84469d33-dc13-47da-9729-9a22ef2dbaf7"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="15" uuid="42e093e1-22ea-4ab3-b4be-93474ebbccc4">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[AVENIDA SENADOR ÁREA LEÃO, Nº 1500 BAIRRO JÓQUEI CEP: 64.059-112 TERESINA - PIAUÍ
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="16" width="555" height="15" uuid="4ffc434e-6b36-49b1-bed7-f9fae03ad2a6">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Fone: 86 3221-0575 ou 86 9411-3602 Fax: 86 3223-2001]]></text>
+			</staticText>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band height="25" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<textField>
+				<reportElement mode="Opaque" x="420" y="0" width="74" height="25" backcolor="#F2F0F0" uuid="6419d665-407f-4433-97f6-a40c90c2bf2f">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{total_value}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="420" height="25" backcolor="#F2F0F0" uuid="f361ce8d-8a32-4590-8283-39b3393d759d">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[VALOR TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="494" y="0" width="61" height="25" backcolor="#F2F0F0" uuid="b8cd4651-2f97-4fe0-84b9-64a97092288d">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

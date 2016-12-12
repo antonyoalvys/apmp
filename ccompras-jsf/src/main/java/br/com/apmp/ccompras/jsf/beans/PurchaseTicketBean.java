@@ -1,6 +1,7 @@
 package br.com.apmp.ccompras.jsf.beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -95,7 +96,15 @@ public class PurchaseTicketBean implements Serializable {
 
 	public void entityClear() {
 		this.entity = new PurchaseTicket();
+		this.companyList = new ArrayList<Company>();
+		this.agreementList = new ArrayList<Agreement>();
+
+		// retirar
 		this.entity.setPeriod( autocompletePeriod( "11/2016" ).get( 0 ) );
+		this.entity.setAgreement( agreementService.findById( new Long( 7 ) ) );
+		this.agreementList.add( agreementService.findById( new Long( 7 ) ) );
+		this.entity.setCompany( companyService.findById( new Long( 15 ) ) );
+		this.companyList.add( companyService.findById( new Long( 15 ) ) );
 	}
 
 	public PurchaseTicket getEntity() {

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui" template="/views/index.xhtml">
+
+	<ui:define name="content">
+		<h:form id="reportForm">
+			<f:validateBean disabled="true">
+				<o:importConstants type="br.com.apmp.ccompras.domain.enums.ReportType" />
+				<p:panel header="Dados da Consulta" style="text-align:center;">
+					<div class="ui-g">
+						<p:outputLabel value="Relatório" for="reportType" styleClass="ui-g-2" />
+						<div class="ui-g-4">
+							<p:selectOneMenu value="#{reportBean.reportType}" id="reportType">
+								<f:selectItems value="#{ReportType}" var="enum" itemLabel="#{enum.description}" />
+							</p:selectOneMenu>
+						</div>
+					</div>
+					<div class="ui-g">
+						<p:outputLabel value="Período" styleClass="ui-g-2" />
+						<div class="ui-g-4">
+							<p:autoComplete value="#{reportBean.period}" id="period" dropdown="true" completeMethod="#{reportBean.autocompletePeriod}" var="var" itemLabel="#{var.description}" itemValue="#{var}"
+								minQueryLength="" scrollHeight="200" size="40">
+								<o:converter converterId="omnifaces.ListConverter" list="#{reportBean.periodList}" />
+							</p:autoComplete>
+						</div>
+					</div>
+					<p:spacer />
+					<div class="buttons">
+						<p:commandButton id="generateBtn" action="#{reportBean.generate()}" value="Consultar" styleClass="span2" process="@form" update="@form">
+							<p:blockUI block="reportForm" trigger="generateBtn">
+			                            #{wds['blockui.processing.txt']}<br />
+								<h:graphicImage library="images" name="#{wds['blockui.loading.img']}" />
+							</p:blockUI>
+						</p:commandButton>
+
+					</div>
+				</p:panel>
+			</f:validateBean>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

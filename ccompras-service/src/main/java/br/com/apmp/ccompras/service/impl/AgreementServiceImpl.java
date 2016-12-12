@@ -30,6 +30,7 @@ public class AgreementServiceImpl implements AgreementService, Serializable {
 	}
 
 	@Override
+	@TransactionAttribute( TransactionAttributeType.REQUIRED )
 	public void delete( Agreement entity ) {
 		this.agreementRepository.delete( entity );
 	}
@@ -47,6 +48,7 @@ public class AgreementServiceImpl implements AgreementService, Serializable {
 	}
 
 	@Override
+	@TransactionAttribute( TransactionAttributeType.NOT_SUPPORTED )
 	public List<Agreement> findAll() {
 		return this.agreementRepository.findAll();
 	}

@@ -45,7 +45,7 @@ public class AssociateRepositoryImpl extends BaseRepositoryImpl<Associate> imple
 
 		if ( associateSearch.getName() != null && !associateSearch.getName().trim().isEmpty() )
 			bb.and( qAssociate.name.containsIgnoreCase( associateSearch.getName() ) );
-		if ( associateSearch.getEnrollment() != null && !associateSearch.getName().trim().isEmpty() )
+		if ( associateSearch.getEnrollment() != null )
 			bb.and( qAssociate.enrollment.eq( associateSearch.getEnrollment() ) );
 		if ( associateSearch.getAssociateType() != null ) {
 			bb.and( qAssociate.associateType.eq( associateSearch.getAssociateType() ) );

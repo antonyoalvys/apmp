@@ -80,7 +80,7 @@ public class FileAgreementServiceImpl implements FileAgreementService {
 			boolean isBegin = true;
 			for ( Tuple tuple : tuples ) {
 				if ( !isBegin )
-					writer.newLine();
+					writer.write( "\r\n" );
 				else
 					isBegin = false;
 

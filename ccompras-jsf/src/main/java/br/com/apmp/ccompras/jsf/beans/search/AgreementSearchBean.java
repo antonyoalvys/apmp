@@ -53,8 +53,9 @@ public class AgreementSearchBean extends BaseBeanSearch<Agreement> {
 	}
 
 	public void delete() throws ServiceException {
-		agreementService.delete( getRemoveEntity() );
-		String message = String.format( "O convênio %s removido.", this.getRemoveEntity().getName() );
+		Agreement agreement = agreementService.findById( getRemoveEntity().getId() );
+		agreementService.delete( agreement );
+		String message = String.format( "O convênio %s removido.", agreement.getName() );
 		FacesMessage facesMessage = new FacesMessage( FacesMessage.SEVERITY_INFO, message, null );
 		FacesContext.getCurrentInstance().addMessage( null, facesMessage );
 	}

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2016-12-13T21:58:02 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="extDescConvAssocSubReport" pageWidth="555" pageHeight="90" orientation="Landscape" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="5d494912-0f4c-4180-8445-be80d45caf97">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ApmpJdbcAdapter.xml"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<parameter name="PK_ASSOCIATE" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[new Long(1)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PERIOD_ID" class="java.lang.Long"/>
+	<queryString>
+		<![CDATA[select p.fk_associate, a.name as agreement_name, c.name as company_name, p.ticket_value,
+(select count(*) as total_itens from purchase_ticket p1 where p1.fk_period= $P{PERIOD_ID}  and p1.fk_associate= $P{PK_ASSOCIATE}  ),
+case when p.code is not null then p.code else cast(p.pk_purchase_ticket as character varying(20) ) end as code
+ from purchase_ticket p, agreement a, company c
+where p.fk_period=$P{PERIOD_ID} 
+and p.fk_company=c.pk_company
+and p.fk_agreement=a.pk_agreement
+and p.fk_associate= $P{PK_ASSOCIATE} 
+order by code asc]]>
+	</queryString>
+	<field name="fk_associate" class="java.lang.Long"/>
+	<field name="agreement_name" class="java.lang.String"/>
+	<field name="company_name" class="java.lang.String"/>
+	<field name="ticket_value" class="java.math.BigDecimal"/>
+	<field name="total_itens" class="java.lang.Integer"/>
+	<field name="code" class="java.lang.String"/>
+	<variable name="ticket_value1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{ticket_value}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="18" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<staticText>
+				<reportElement x="0" y="3" width="80" height="15" uuid="a5ce2457-0d97-4c2c-bed6-63247a4078c9">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<text><![CDATA[COD. CHEQUE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="3" width="157" height="15" uuid="71478d1e-48f9-4d8b-8d5f-ad3e28432505">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<text><![CDATA[CONVÊNIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="490" y="3" width="60" height="15" uuid="bf8b7edf-39f3-4bc9-a363-bc9c4fbf92de">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[VALOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="237" y="0" width="253" height="18" uuid="159a0e84-4ade-40bd-a19d-d39de45cb46f">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[FORNECEDOR]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<textField>
+				<reportElement x="0" y="3" width="80" height="15" uuid="2fbb9114-af7e-46dc-a040-0c3d984cae7e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="4" width="157" height="15" uuid="0e5b3e47-a5e4-4072-958e-fa2ecd760380">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{agreement_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="490" y="4" width="60" height="15" uuid="f0171d80-1e06-49f1-9ea9-d7ff8302d1f8">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ticket_value}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="237" y="4" width="253" height="15" uuid="7f291829-f40c-4563-b80b-e6b4342291a1">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{company_name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="20" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<printWhenExpression><![CDATA[$V{REPORT_COUNT}==$F{total_itens}]]></printWhenExpression>
+			<staticText>
+				<reportElement x="373" y="0" width="105" height="15" uuid="0d722dbd-f586-4239-aff9-2de5139d78fb">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="490" y="0" width="60" height="15" uuid="18d846f3-f700-4d94-8bfe-d59d6d376ffb">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{ticket_value1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="15" uuid="54bfdfb9-fd5e-4605-af80-6445eda3cedf">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Dashed" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dashed" lineColor="rgba(0, 0, 0, 0.0)"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+		</band>
+	</summary>
+</jasperReport>

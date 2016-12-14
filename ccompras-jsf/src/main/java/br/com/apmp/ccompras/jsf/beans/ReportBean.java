@@ -39,7 +39,7 @@ public class ReportBean implements Serializable {
 
 	public void generate() {
 		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect( FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/relatorios/extratoDesconto" + "?periodoId=" + period.getId() + "&periodoDesc=" + period.getDescription() + "&faces-redirect=true" );
+			FacesContext.getCurrentInstance().getExternalContext().redirect( FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/relatorios/extratoDesconto" + "?periodoId=" + period.getId() + "&periodoDesc=" + period.getDescription()+"&codeRel="+reportType.getCode()+ "&faces-redirect=true" );
 		} catch ( IOException e ) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

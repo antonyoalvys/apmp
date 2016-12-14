@@ -31,7 +31,25 @@ public class ReportServlet extends HttpServlet {
 	
 		Long periodId = new Long( req.getParameter( "periodoId" ) );
 		String periodDesc = req.getParameter( "periodoDesc" );
-		InputStream jrxml = getClass().getClassLoader().getResourceAsStream( "reports/extDescConvFornReport.jrxml" );
+		String reportCode = req.getParameter( "codeRel" );
+		String reportName = "";
+		
+		switch ( reportCode ) {
+			case "1":
+				reportName="reports/extDescConvFornReport.jrxml";
+				break;
+			case "2":
+				reportName="reports/extDescConvAssocReport.jrxml";
+				break;
+			case "3":
+				reportName="reports/lancFolhaReportReport.jrxml";
+				break;				
+			default:
+				break;
+		}
+		
+		
+		InputStream jrxml = getClass().getClassLoader().getResourceAsStream( reportName );
 		Map<String, Object> parameters = new HashMap<>();
 		parameters.put( "PERIOD_ID", periodId );
 		parameters.put( "SUB_REPORT_DIR", "reports/" );

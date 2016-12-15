@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
-<!-- 2016-12-12T17:38:15 -->
+<!-- 2016-12-14T22:28:59 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="lancFolhaReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="7537054b-04c6-43d4-9f57-29820e5a6e94">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ApmpJdbcAdapter.xml"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -14,7 +14,8 @@ from purchase_ticket p, associate a
 where 
 p.fk_period= $P{PERIOD_ID} 
 and p.fk_associate=a.pk_associate
-group by a.enrollment, a.name]]>
+group by a.enrollment, a.name
+order by a.name]]>
 	</queryString>
 	<field name="enrollment" class="java.lang.String"/>
 	<field name="name" class="java.lang.String"/>

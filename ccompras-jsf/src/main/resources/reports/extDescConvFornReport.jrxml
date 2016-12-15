@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
-<!-- 2016-12-11T23:32:06 -->
+<!-- 2016-12-14T22:30:04 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="extDescForn" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7537054b-04c6-43d4-9f57-29820e5a6e94">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ApmpJdbcAdapter.xml"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -14,7 +14,8 @@
 (select sum(pt.ticket_value) as total_value from purchase_ticket pt  where pt.fk_period= $P{PERIOD_ID})
 from company c
 where 
-c.pk_company in (select distinct(pt1.fk_company) from purchase_ticket pt1 where pt1.fk_period=$P{PERIOD_ID})]]>
+c.pk_company in (select distinct(pt1.fk_company) from purchase_ticket pt1 where pt1.fk_period=$P{PERIOD_ID})
+order by c.name]]>
 	</queryString>
 	<field name="pk_company" class="java.lang.Long"/>
 	<field name="name" class="java.lang.String"/>

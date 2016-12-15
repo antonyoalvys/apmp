@@ -42,7 +42,7 @@ public class ReportServlet extends HttpServlet {
 				reportName="reports/extDescConvAssocReport.jrxml";
 				break;
 			case "3":
-				reportName="reports/lancFolhaReportReport.jrxml";
+				reportName="reports/lancFolhaReport.jrxml";
 				break;				
 			default:
 				break;

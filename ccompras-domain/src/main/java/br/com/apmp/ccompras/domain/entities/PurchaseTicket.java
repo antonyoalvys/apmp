@@ -72,7 +72,7 @@ public class PurchaseTicket implements BaseEntity {
 	@Column( name = "serie" )
 	@Size( max = 10 )
 	private String serie;
-
+	
 	public PurchaseTicket() {
 		this.registerDate = LocalDateTime.now();
 	}
@@ -174,7 +174,7 @@ public class PurchaseTicket implements BaseEntity {
 	public void setAgreement( Agreement agreement ) {
 		this.agreement = agreement;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

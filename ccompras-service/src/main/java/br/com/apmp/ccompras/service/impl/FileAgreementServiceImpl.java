@@ -57,7 +57,7 @@ public class FileAgreementServiceImpl implements FileAgreementService {
 	@Override
 	@TransactionAttribute( TransactionAttributeType.NEVER )
 	public List<FileAgreement> findByPeriod( Period period ) {
-		return null;
+		return fileAgreementRepository.findByPeriod( period );
 	}
 
 	@Override

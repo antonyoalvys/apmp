@@ -39,6 +39,7 @@ public class PurchaseTicketBean implements Serializable {
 	private PeriodService periodService;
 	@Inject
 	private AgreementService agreementService;
+	
 	private PurchaseTicket entity;
 	private List<Associate> associateList;
 	private List<Company> companyList;
@@ -93,7 +94,7 @@ public class PurchaseTicketBean implements Serializable {
 			this.entity.setCode( null );
 		}
 	}
-
+	
 	public void entityClear() {
 		this.entity = new PurchaseTicket();
 		this.companyList = new ArrayList<Company>();
@@ -150,5 +151,5 @@ public class PurchaseTicketBean implements Serializable {
 	public void setAgreementList( List<Agreement> agreementList ) {
 		this.agreementList = agreementList;
 	}
-
+	
 }

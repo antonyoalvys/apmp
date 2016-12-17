@@ -32,8 +32,7 @@ public class FileAgreementRepositoryImpl extends BaseRepositoryImpl<FileAgreemen
 		JPQLQuery<FileAgreement> query = new JPAQuery<FileAgreement>( em );
 
 		if ( period != null ) {
-			if ( period.getDescription() != null && !period.getDescription().isEmpty() )
-				bb.and( qFileCovenant.period.description.eq( period.getDescription() ) );
+				bb.and( qFileCovenant.period.id.eq( period.getId() ) );
 		}
 
 		return query.from( qFileCovenant ).where( bb ).orderBy( qFileCovenant.period.description.desc() ).fetch();

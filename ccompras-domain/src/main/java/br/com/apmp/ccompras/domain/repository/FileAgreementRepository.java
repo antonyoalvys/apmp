@@ -7,7 +7,7 @@ import br.com.apmp.ccompras.domain.entities.Period;
 
 public interface FileAgreementRepository extends BaseRepository<FileAgreement> {
 
-	public List<FileAgreement> findByPeriod( Period beginPeriod );
+	public List<FileAgreement> findByPeriod( Period period );
 
 	public FileAgreement findByPeriodId( Long id );
 

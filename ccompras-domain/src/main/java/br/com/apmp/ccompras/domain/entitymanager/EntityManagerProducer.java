@@ -7,7 +7,7 @@ import javax.persistence.PersistenceContext;
 public class EntityManagerProducer {
 
 	@Produces
-	@PersistenceContext( unitName = "ccomprasPU" )
+	@PersistenceContext( unitName = "apmpPU" )
 	private EntityManager entityManager;
 
 }

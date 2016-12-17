@@ -55,11 +55,20 @@
 						</p:autoComplete>
 					</div>
 				</div>
-				<div class="ui-g">
-					<p:outputLabel value="Valor" for="ticketValue" styleClass="ui-g-2" />
-					<p:inputNumber value="#{purchaseTicketBean.entity.ticketValue}" size="40" id="ticketValue" decimalSeparator="," thousandSeparator="." symbol="R$ " symbolPosition="p" styleClass="ui-g-4"
-						required="true" />
-				</div>
+				<p:outputPanel id="valuePanel">
+					<div class="ui-g">
+						<p:outputLabel value="Valor" for="ticketValue" styleClass="ui-g-2" />
+						<p:inputNumber value="#{purchaseTicketBean.entity.ticketValue}" size="40" id="ticketValue" decimalSeparator="," thousandSeparator="." symbol="R$ " symbolPosition="p" styleClass="ui-g-2"
+							required="true" />
+
+						<p:outputLabel value="Percentual de Desconto (%)" for="ticketRebate" styleClass="ui-g-2" />
+						<p:inputText value="#{purchaseTicketBean.entity.ticketRebate}" id="ticketRebate" styleClass="ui-g-2" disabled="true" />
+
+						<p:outputLabel value="Valor com Desconto" for="ticketRebateValue" styleClass="ui-g-2" />
+						<p:inputText value="#{purchaseTicketBean.entity.ticketRebateValue}" id="ticketRebateValue" styleClass="ui-g-2" disabled="true" />
+
+					</div>
+				</p:outputPanel>
 
 				<div class="ui-g">
 					<p:outputLabel value="Descrição" for="description" styleClass="ui-g-2" />

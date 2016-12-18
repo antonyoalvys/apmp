@@ -1,6 +1,7 @@
 package br.com.apmp.ccompras.domain.entities;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -135,6 +136,14 @@ public class Rebate implements BaseEntity {
 		} else if ( !percentage.equals( other.percentage ) )
 			return false;
 		return true;
+	}
+	
+	
+	public static void main( String[] args ) {
+		BigDecimal bruto = new BigDecimal( "52971.94" );
+//		BigDecimal liquido = bruto.multiply( new BigDecimal( 1 ).subtract( new BigDecimal( 2 ).divide( new BigDecimal( 10 ), RoundingMode.HALF_EVEN ) ) );
+		BigDecimal liquido = bruto.multiply( new BigDecimal( 1 ).subtract( new BigDecimal( 2 ).divide( new BigDecimal( 100 ) ) ));
+		System.out.println( liquido );
 	}
 
 }

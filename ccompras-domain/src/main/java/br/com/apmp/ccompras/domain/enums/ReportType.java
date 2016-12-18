@@ -4,7 +4,8 @@ public enum ReportType {
 
 	ANALYTICAL_REPORT_BY_COMPANY( "Analítico (Por Fornecedor)", "1" ),
 	ANALYTICAL_REPORT_BY_ASSOCIATE("Analítico (Por Associado)", "2"),
-	SYNTHETIC_REPORT_FOR_PAYROLL("Sintético (Para Folha)", "3");
+	SYNTHETIC_REPORT_FOR_PAYROLL("Sintético (Para Folha)", "3"),
+	SYNTHETIC_REPORT_FOR_LIQ_AND_COMIS("Sintético (Com Líquido e Comissão)", "4");
 
 	private final String description;
 	private final String code;

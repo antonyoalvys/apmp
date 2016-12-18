@@ -43,7 +43,10 @@ public class ReportServlet extends HttpServlet {
 				break;
 			case "3":
 				reportName="reports/lancFolhaReport.jrxml";
-				break;				
+				break;
+			case "4":
+				reportName="reports/fornBrutLiqReport.jrxml";
+				break;
 			default:
 				break;
 		}

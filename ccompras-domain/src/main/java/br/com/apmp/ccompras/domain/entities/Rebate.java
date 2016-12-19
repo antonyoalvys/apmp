@@ -1,7 +1,6 @@
 package br.com.apmp.ccompras.domain.entities;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;

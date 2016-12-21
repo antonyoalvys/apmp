@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions">
+
+
+	<h:form id="searchForm">
+		<f:validateBean disabled="true">
+
+			<p:panel header="Dados da Consulta" style="text-align:center;">
+				<div class="ui-g">
+					<p:outputLabel value="Nome" styleClass="ui-g-2" />
+					<p:inputText value="#{associateSearchBean.searchEntity.name}" id="name" class="ui-g-10" required="false" />
+				</div>
+				<p:spacer />
+				<div class="ui-g">
+					<p:outputLabel value="Matricula" styleClass="ui-g-2" />
+					<p:inputText value="#{associateSearchBean.searchEntity.enrollment}" id="enrollment" styleClass="ui-g-10" required="false" />
+				</div>
+				<div class="ui-g">
+					<p:outputLabel value="Tipo de Associado" styleClass="ui-g-2" />
+					<div class="ui-g-4">
+						<p:selectOneMenu value="#{associateSearchBean.searchEntity.associateType}" id="associateType">
+							<f:selectItems value="#{AssociateType}" var="enum" itemLabel="#{enum.description}" />
+						</p:selectOneMenu>
+					</div>
+					
+					<p:outputLabel value="Inativo (Aposentado)" for="retired" styleClass="ui-g-2" />
+					<div class="ui-g-4">
+						<p:selectBooleanButton id="retired" value="#{associateSearchBean.searchEntity.retired}" onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px" />
+					</div>					
+
+				</div>
+				<p:spacer />
+				<div class="buttons">
+					<p:commandButton action="#{associateSearchBean.clear}" value="Limpar" styleClass="span2" process="@form" update="@form" />
+					<p:commandButton id="searchBtn" action="#{associateSearchBean.findByEntity()}" value="Consultar" styleClass="span2" process="@form" update="@form">
+						<p:blockUI block="resultsDataTable" trigger="searchBtn">
+			                            #{wds['blockui.processing.txt']}<br />
+							<h:graphicImage library="images" name="#{wds['blockui.loading.img']}" />
+						</p:blockUI>
+					</p:commandButton>
+
+				</div>
+				<p:spacer />
+				<p:spacer />
+				<p:dataTable id="resultsDataTable" value="#{associateSearchBean.associateList}" emptyMessage="Nenhum associado ativo registrado." var="associate">
+					<f:facet name="header">Associados Ativos</f:facet>
+
+					<p:column headerText="Opções">
+						<p:commandButton id="showCommandButton" icon="ui-icon-search" action="#{associateSearchBean.show(associate)}" title="Exibir" update=":associateTv"
+							oncomplete="javascript:window.location='#associateTv'" process="@this" />
+						<p:commandButton id="editCommandButton" icon="ui-icon-pencil" action="#{associateSearchBean.edit()}" title="#{wds['table.columns.options.edit.hint']}" update=":associateTv"
+							oncomplete="javascript:window.location='#associateTv'" process="@this">
+							<f:setPropertyActionListener target="#{associateSearchBean.editEntity}" value="#{associate}" />
+						</p:commandButton>
+
+						<p:commandButton id="disableCommandButton" icon="ui-icon-trash" title="#{wds['table.columns.options.disable.hint']}" oncomplete="PF('confirmation').show();">
+							<f:setPropertyActionListener target="#{associateSearchBean.removeEntity}" value="#{associate}" />
+						</p:commandButton>
+					</p:column>
+					<p:column headerText="Matricula">
+						<h:outputText value="#{associate.enrollment}" />
+					</p:column>
+					<p:column headerText="Nome">
+						<h:outputText value="#{associate.name}" />
+					</p:column>
+					<p:column headerText="Telefone Principal">
+						<h:outputText value="#{associate.mainPhone}" />
+					</p:column>
+					<p:column headerText="Inativo (Aposentado)">
+						<h:outputText value="#{associate.retired ? 'Sim' : 'Não'}" />
+					</p:column>					
+				</p:dataTable>
+
+			</p:panel>
+		</f:validateBean>
+
+		<p:confirmDialog id="disableConfirmDialog" message="#{wds['dialog.disableConfirmation.message']}" header="#{wds['dialog.disableConfirmation.header']}" widgetVar="confirmation" appendTo="@(body)">
+			<p:commandButton id="yesCommandButton" icon="ui-icon-check" value="#{wds['dialog.optionYes']}" onclick="PF('confirmation').hide();" actionListener="#{associateSearchBean.disable}" update="@form"
+				process="@this" />
+			<p:commandButton id="noCommandButton" onclick="PF('confirmation').hide();" icon="ui-icon-cancel" value="#{wds['dialog.optionNo']}" type="button" />
+		</p:confirmDialog>
+
+	</h:form>
+
+
+</ui:composition>

@@ -1,5 +1,7 @@
 package br.com.apmp.ccompras.domain.repository.impl;
 
+import java.util.List;
+
 import javax.enterprise.context.Dependent;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -67,6 +69,36 @@ public class UserRepositoryImpl extends BaseRepositoryImpl<User> implements User
 	@Override
 	public Class<User> getClassT() {
 		return User.class;
+	}
+
+	@Override
+	public List<User> findByUsername( String username ) {
+		BooleanBuilder bb = new BooleanBuilder();
+		JPQLQuery<User> query = new JPAQuery<User>( this.em );
+		QUser qUser = QUser.user;
+
+		if ( username == null )
+			return null;
+
+		bb.and( qUser.active.isTrue() );
+		bb.and( qUser.username.eq( username ) );
+
+		return query.from( qUser ).where( bb ).orderBy( qUser.username.asc() ).fetch();
+	}
+
+	@Override
+	public List<User> findByEntity( User entity ) {
+		BooleanBuilder bb = new BooleanBuilder();
+		JPQLQuery<User> query = new JPAQuery<User>( this.em );
+		QUser qUser = QUser.user;
+
+		if ( entity != null && entity.getUsername() != null )
+			bb.and( qUser.username.containsIgnoreCase( entity.getUsername() ) );
+
+		if ( entity != null && entity.getMail() != null )
+			bb.and( qUser.mail.containsIgnoreCase( entity.getMail() ) );
+
+		return query.from( qUser ).where( bb ).orderBy( qUser.username.asc() ).fetch();
 	}
 
 }

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui" template="/views/index.xhtml">
+
+	<ui:define name="content">
+		<h:form id="form">
+			<p:panel header="Dados do Usuário" style="text-align:center;" styleClass="left-label" toggleable="true">
+				<div class="ui-g">
+					<p:outputLabel value="Login" for="username" styleClass="ui-g-2" />
+					<p:inputText value="#{userBean.entity.username}" id="username" class="ui-g-10" required="true" />
+				</div>
+				<div class="ui-g">
+					<p:outputLabel value="Email" for="mail" styleClass="ui-g-2" />
+					<p:inputText value="#{userBean.entity.mail}" id="mail" styleClass="ui-g-4" required="true" />
+
+					<p:outputLabel value="Confirmar Email" for="mailConfirmation" styleClass="ui-g-2" />
+					<p:inputText value="#{userBean.mailConfirmation}" id="mailConfirmation" styleClass="ui-g-4" required="true"/>
+				</div>
+				<div class="ui-g">
+					<p:outputLabel value="Senha" for="password" styleClass="ui-g-2" />
+					<p:password value="#{userBean.entity.password}" id="password" styleClass="ui-g-4" required="true"/>
+
+					<p:outputLabel value="Confirmar Senha" for="passwordConfirmation" styleClass="ui-g-2" />
+					<p:password value="#{userBean.passwordConfirmation}" id="passwordConfirmation" styleClass="ui-g-4" required="true"/>
+
+					<p:outputLabel value="Ativo" for="active" styleClass="ui-g-2" />
+					<div class="ui-g-4">
+						<p:selectBooleanButton id="active" value="#{userBean.entity.active}" onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px" required="true"/>
+					</div>
+				</div>
+
+			</p:panel>
+			<p:spacer />
+			<div class="buttons">
+				<p:commandButton action="#{userBean.clear}" value="Limpar" styleClass="span2" process="@form" update="@form" />
+				<p:commandButton action="#{userBean.register}" value="Salvar" styleClass="span2" process="@form" update="@form" />
+			</div>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

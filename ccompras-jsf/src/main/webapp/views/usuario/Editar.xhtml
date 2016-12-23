@@ -4,109 +4,36 @@
 	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
 
 	<h:form id="editForm">
-		<o:importConstants type="br.com.apmp.ccompras.domain.enums.AssociateType" />
-		<o:importConstants type="br.com.apmp.ccompras.domain.enums.PhoneType" />
-
-		<p:panel header="Dados Funcionais" style="text-align:center;" styleClass="left-label" toggleable="true">
+		<p:panel header="Dados do Usuário" style="text-align:center;" styleClass="left-label" toggleable="true">
 			<div class="ui-g">
-				<p:outputLabel value="Nome" for="name" styleClass="ui-g-2" />
-				<p:inputText value="#{associateSearchBean.editEntity.name}" id="name" class="ui-g-10" required="true" />
+				<p:outputLabel value="Login" for="username" styleClass="ui-g-2" />
+				<p:inputText value="#{userSearchBean.searchEntity.username}" id="username" class="ui-g-10" required="true" />
 			</div>
 			<div class="ui-g">
-				<p:outputLabel value="Matricula" for="enrollment" styleClass="ui-g-2" />
-				<p:inputText value="#{associateSearchBean.editEntity.enrollment}" id="enrollment" styleClass="ui-g-4" required="true" />
-
-				<p:outputLabel value="CPF" for="cpf" styleClass="ui-g-2" />
-				<p:inputMask mask="999.999.999-99" value="#{associateSearchBean.editEntity.cpf}" id="cpf" styleClass="ui-g-4" required="true" />
+				<p:outputLabel value="Email" for="mail" styleClass="ui-g-2" />
+				<p:inputText value="#{userSearchBean.searchEntity.mail}" id="mail" styleClass="ui-g-4" required="true" />
 			</div>
 			<div class="ui-g">
-				<p:outputLabel value="Tipo de Associado" for="associateType" styleClass="ui-g-2" />
+				<p:outputLabel value="Senha Atual" for="currentPassword" styleClass="ui-g-2" />
+				<p:password value="#{userSearchBean.currentPassword}" id="currentPassword" styleClass="ui-g-4" required="true" />
+
+				<p:outputLabel value="Nova Senha" for="newPassword" styleClass="ui-g-2" />
+				<p:password value="#{userSearchBean.newPassword}" id="newPassword" styleClass="ui-g-4" required="true" />
+
+				<p:outputLabel value="Confirmar Nova Senha" for="newPasswordConfirmation" styleClass="ui-g-2" />
+				<p:password value="#{userSearchBean.newPasswordConfirmation}" id="newPasswordConfirmation" styleClass="ui-g-4" required="true" />
+
+				<p:outputLabel value="Ativo" for="active" styleClass="ui-g-2" />
 				<div class="ui-g-4">
-					<p:selectOneMenu value="#{associateSearchBean.editEntity.associateType}" id="associateType">
-						<f:selectItems value="#{AssociateType}" var="enum" itemLabel="#{enum.description}" />
-					</p:selectOneMenu>
-				</div>
-				<p:outputLabel value="Inativo (Aposentado)" for="retired" styleClass="ui-g-2" />
-				<div class="ui-g-4">
-					<p:selectBooleanButton id="retired" value="#{associateSearchBean.editEntity.retired}" onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px" />
+					<p:selectBooleanButton id="active" value="#{userSearchBean.searchEntity.active}" onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px" required="true" />
 				</div>
 			</div>
 
-		</p:panel>
-
-		<p:panel header="Informações Para Contato" toggleable="true" styleClass="left-label" style="text-align:center;">
-			<div class="ui-g">
-				<p:outputLabel value="Telefone Principal" for="mainPhone" styleClass="ui-g-2" />
-				<div class="ui-g-2">
-					<p:selectOneMenu value="#{associateSearchBean.editEntity.mainPhoneType}" id="mainPhoneType">
-						<f:selectItems value="#{PhoneType}" var="enum" itemLabel="#{enum.description}" />
-						<p:ajax event="itemSelect" update="mainPhone" />
-					</p:selectOneMenu>
-				</div>
-				<div class="ui-g-2">
-					<p:inputMask mask="#{optionsBean.phoneMask(associateSearchBean.editEntity.mainPhoneType)}" value="#{associateSearchBean.editEntity.mainPhone}" id="mainPhone" />
-				</div>
-
-				<p:outputLabel value="Telefone Secundário" for="secondaryPhone" styleClass="ui-g-2" />
-				<div class="ui-g-2">
-					<p:selectOneMenu value="#{associateSearchBean.editEntity.secondaryPhoneType}" id="secondaryPhoneType">
-						<f:selectItems value="#{PhoneType}" var="enum" itemLabel="#{enum.description}" />
-						<p:ajax event="itemSelect" update="secondaryPhone" />
-					</p:selectOneMenu>
-				</div>
-				<div class="ui-g-2">
-					<p:inputMask mask="#{optionsBean.phoneMask(associateSearchBean.editEntity.secondaryPhoneType)}" value="#{associateSearchBean.editEntity.secondaryPhone}" id="secondaryPhone" />
-				</div>
-			</div>
-
-		</p:panel>
-
-		<p:panel header="Endereço" style="text-align:center;" toggleable="true" styleClass="left-label">
-			<div class="ui-g">
-				<p:outputLabel value="CEP" for="zipCode" styleClass="ui-g-2" />
-				<p:inputMask mask="99999-999" value="#{associateSearchBean.editEntity.address.zipCode}" id="zipCode" styleClass="ui-g-10" />
-			</div>
-			<p:spacer />
-			<div class="ui-g">
-				<p:outputLabel value="Estado" for="state" styleClass="ui-g-2" />
-				<div class="ui-g-4">
-					<p:autoComplete value="#{associateSearchBean.editEntity.address.state}" id="state" dropdown="true" completeMethod="#{stateSearchBean.autocompleteStatesNames}" var="var" itemLabel="#{var}"
-						itemValue="#{var}" minQueryLength="" scrollHeight="200" valueChangeListener="#{associateSearchBean.changeState}" size="40">
-						<p:ajax event="itemSelect" update="city" />
-					</p:autoComplete>
-				</div>
-				<p:outputLabel value="Cidade" for="city" styleClass="ui-g-1" />
-				<div class="ui-g-5">
-					<p:autoComplete value="#{associateSearchBean.editEntity.address.city}" id="city" dropdown="true" completeMethod="#{citySearchBean.autocompleteCitiesNames}" var="var" itemLabel="#{var}"
-						itemValue="#{var}" minQueryLength="" scrollHeight="200" size="40">
-						<p:ajax event="itemSelect" process="city" />
-						<f:attribute name="stateName" value="#{associateSearchBean.editEntity.address.state}" />
-					</p:autoComplete>
-				</div>
-			</div>
-
-			<p:spacer />
-			<div class="ui-g">
-				<p:outputLabel value="Logradouro" for="street" styleClass="ui-g-2" />
-				<p:inputText value="#{associateSearchBean.editEntity.address.street}" id="street" styleClass="ui-g-6" />
-				<p:outputLabel value="Número" for="number" styleClass="ui-g-2" />
-				<p:inputText value="#{associateSearchBean.editEntity.address.number}" id="number" styleClass="ui-g-2" />
-			</div>
-			<p:spacer />
-			<div class="ui-g">
-				<p:outputLabel value="Bairro" for="neighborhood" styleClass="ui-g-2" />
-				<p:inputText value="#{associateSearchBean.editEntity.address.neighborhood}" id="neighborhood" styleClass="ui-g-10" />
-			</div>
-			<p:spacer />
-			<div class="ui-g">
-				<p:outputLabel value="Complemento" for="complement" styleClass="ui-g-2" />
-				<p:inputText value="#{associateSearchBean.editEntity.address.complement}" id="complement" styleClass="ui-g-10" />
-			</div>
 		</p:panel>
 		<p:spacer />
 		<div class="buttons">
-			<p:commandButton action="#{associateSearchBean.closeEdit}" value="Voltar" styleClass="span2" process="@form" update=":associateTv @form" />
-			<p:commandButton action="#{associateSearchBean.save}" value="Salvar" styleClass="span2" process="@form" update=":associateTv @form" />
+			<p:commandButton action="#{associateSearchBean.closeEdit}" value="Voltar" styleClass="span2" process="@form" update=":userTv @form" />
+			<p:commandButton action="#{associateSearchBean.save}" value="Salvar" styleClass="span2" process="@form" update=":userTv @form" />
 		</div>
 	</h:form>
 

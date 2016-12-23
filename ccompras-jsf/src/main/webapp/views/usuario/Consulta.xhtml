@@ -9,32 +9,18 @@
 
 			<p:panel header="Dados da Consulta" style="text-align:center;">
 				<div class="ui-g">
-					<p:outputLabel value="Nome" styleClass="ui-g-2" />
-					<p:inputText value="#{associateSearchBean.searchEntity.name}" id="name" class="ui-g-10" required="false" />
+					<p:outputLabel value="Login" styleClass="ui-g-2" />
+					<p:inputText value="#{userSearchBean.searchEntity.username}" id="login" class="ui-g-10" required="false" />
 				</div>
 				<p:spacer />
 				<div class="ui-g">
-					<p:outputLabel value="Matricula" styleClass="ui-g-2" />
-					<p:inputText value="#{associateSearchBean.searchEntity.enrollment}" id="enrollment" styleClass="ui-g-10" required="false" />
-				</div>
-				<div class="ui-g">
-					<p:outputLabel value="Tipo de Associado" styleClass="ui-g-2" />
-					<div class="ui-g-4">
-						<p:selectOneMenu value="#{associateSearchBean.searchEntity.associateType}" id="associateType">
-							<f:selectItems value="#{AssociateType}" var="enum" itemLabel="#{enum.description}" />
-						</p:selectOneMenu>
-					</div>
-					
-					<p:outputLabel value="Inativo (Aposentado)" for="retired" styleClass="ui-g-2" />
-					<div class="ui-g-4">
-						<p:selectBooleanButton id="retired" value="#{associateSearchBean.searchEntity.retired}" onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px" />
-					</div>					
-
+					<p:outputLabel value="Email" styleClass="ui-g-2" />
+					<p:inputText value="#{userSearchBean.searchEntity.mail}" id="mail" styleClass="ui-g-10" required="false" />
 				</div>
 				<p:spacer />
 				<div class="buttons">
-					<p:commandButton action="#{associateSearchBean.clear}" value="Limpar" styleClass="span2" process="@form" update="@form" />
-					<p:commandButton id="searchBtn" action="#{associateSearchBean.findByEntity()}" value="Consultar" styleClass="span2" process="@form" update="@form">
+					<p:commandButton action="#{userSearchBean.clear}" value="Limpar" styleClass="span2" process="@form" update="@form" />
+					<p:commandButton id="searchBtn" action="#{userSearchBean.findByEntity()}" value="Consultar" styleClass="span2" process="@form" update="@form">
 						<p:blockUI block="resultsDataTable" trigger="searchBtn">
 			                            #{wds['blockui.processing.txt']}<br />
 							<h:graphicImage library="images" name="#{wds['blockui.loading.img']}" />
@@ -44,40 +30,37 @@
 				</div>
 				<p:spacer />
 				<p:spacer />
-				<p:dataTable id="resultsDataTable" value="#{associateSearchBean.associateList}" emptyMessage="Nenhum associado ativo registrado." var="associate">
-					<f:facet name="header">Associados Ativos</f:facet>
+				<p:dataTable id="resultsDataTable" value="#{userSearchBean.userList}" emptyMessage="Nenhum associado ativo registrado." var="user">
+					<f:facet name="header">Usuários</f:facet>
 
 					<p:column headerText="Opções">
-						<p:commandButton id="showCommandButton" icon="ui-icon-search" action="#{associateSearchBean.show(associate)}" title="Exibir" update=":associateTv"
-							oncomplete="javascript:window.location='#associateTv'" process="@this" />
-						<p:commandButton id="editCommandButton" icon="ui-icon-pencil" action="#{associateSearchBean.edit()}" title="#{wds['table.columns.options.edit.hint']}" update=":associateTv"
-							oncomplete="javascript:window.location='#associateTv'" process="@this">
-							<f:setPropertyActionListener target="#{associateSearchBean.editEntity}" value="#{associate}" />
+						<p:commandButton id="showCommandButton" icon="ui-icon-search" action="#{userSearchBean.show(user)}" title="Exibir" update=":userTv"
+							oncomplete="javascript:window.location='#userTv'" process="@this" />
+						<p:commandButton id="editCommandButton" icon="ui-icon-pencil" action="#{userSearchBean.edit()}" title="#{wds['table.columns.options.edit.hint']}" update=":userTv"
+							oncomplete="javascript:window.location='#userTv'" process="@this">
+							<f:setPropertyActionListener target="#{userSearchBean.editEntity}" value="#{user}" />
 						</p:commandButton>
 
 						<p:commandButton id="disableCommandButton" icon="ui-icon-trash" title="#{wds['table.columns.options.disable.hint']}" oncomplete="PF('confirmation').show();">
-							<f:setPropertyActionListener target="#{associateSearchBean.removeEntity}" value="#{associate}" />
+							<f:setPropertyActionListener target="#{userSearchBean.removeEntity}" value="#{user}" />
 						</p:commandButton>
 					</p:column>
-					<p:column headerText="Matricula">
-						<h:outputText value="#{associate.enrollment}" />
+					<p:column headerText="Login">
+						<h:outputText value="#{user.username}" />
 					</p:column>
-					<p:column headerText="Nome">
-						<h:outputText value="#{associate.name}" />
+					<p:column headerText="Email">
+						<h:outputText value="#{user.mail}" />
 					</p:column>
-					<p:column headerText="Telefone Principal">
-						<h:outputText value="#{associate.mainPhone}" />
+					<p:column headerText="Data de Registro">
+						<h:outputText value="#{user.registerDate}" />
 					</p:column>
-					<p:column headerText="Inativo (Aposentado)">
-						<h:outputText value="#{associate.retired ? 'Sim' : 'Não'}" />
-					</p:column>					
 				</p:dataTable>
 
 			</p:panel>
 		</f:validateBean>
 
 		<p:confirmDialog id="disableConfirmDialog" message="#{wds['dialog.disableConfirmation.message']}" header="#{wds['dialog.disableConfirmation.header']}" widgetVar="confirmation" appendTo="@(body)">
-			<p:commandButton id="yesCommandButton" icon="ui-icon-check" value="#{wds['dialog.optionYes']}" onclick="PF('confirmation').hide();" actionListener="#{associateSearchBean.disable}" update="@form"
+			<p:commandButton id="yesCommandButton" icon="ui-icon-check" value="#{wds['dialog.optionYes']}" onclick="PF('confirmation').hide();" actionListener="#{userSearchBean.disable}" update="@form"
 				process="@this" />
 			<p:commandButton id="noCommandButton" onclick="PF('confirmation').hide();" icon="ui-icon-cancel" value="#{wds['dialog.optionNo']}" type="button" />
 		</p:confirmDialog>

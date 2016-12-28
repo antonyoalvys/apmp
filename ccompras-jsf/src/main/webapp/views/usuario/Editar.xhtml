@@ -7,33 +7,33 @@
 		<p:panel header="Dados do Usuário" style="text-align:center;" styleClass="left-label" toggleable="true">
 			<div class="ui-g">
 				<p:outputLabel value="Login" for="username" styleClass="ui-g-2" />
-				<p:inputText value="#{userSearchBean.searchEntity.username}" id="username" class="ui-g-10" required="true" />
+				<p:inputText value="#{userSearchBean.editEntity.username}" id="username" styleClass="ui-g-4" required="true" />
+
+				<p:outputLabel value="Ativo" for="active" styleClass="ui-g-2" />
+				<div class="ui-g-4">
+					<p:selectBooleanButton id="active" value="#{userSearchBean.editEntity.active}" onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px" required="true" />
+				</div>
 			</div>
 			<div class="ui-g">
 				<p:outputLabel value="Email" for="mail" styleClass="ui-g-2" />
-				<p:inputText value="#{userSearchBean.searchEntity.mail}" id="mail" styleClass="ui-g-4" required="true" />
-			</div>
-			<div class="ui-g">
+				<p:inputText value="#{userSearchBean.editEntity.mail}" id="mail" styleClass="ui-g-4" required="true" />
+
 				<p:outputLabel value="Senha Atual" for="currentPassword" styleClass="ui-g-2" />
 				<p:password value="#{userSearchBean.currentPassword}" id="currentPassword" styleClass="ui-g-4" required="true" />
-
+			</div>
+			<div class="ui-g">
 				<p:outputLabel value="Nova Senha" for="newPassword" styleClass="ui-g-2" />
 				<p:password value="#{userSearchBean.newPassword}" id="newPassword" styleClass="ui-g-4" required="true" />
 
 				<p:outputLabel value="Confirmar Nova Senha" for="newPasswordConfirmation" styleClass="ui-g-2" />
 				<p:password value="#{userSearchBean.newPasswordConfirmation}" id="newPasswordConfirmation" styleClass="ui-g-4" required="true" />
-
-				<p:outputLabel value="Ativo" for="active" styleClass="ui-g-2" />
-				<div class="ui-g-4">
-					<p:selectBooleanButton id="active" value="#{userSearchBean.searchEntity.active}" onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px" required="true" />
-				</div>
 			</div>
 
 		</p:panel>
 		<p:spacer />
 		<div class="buttons">
-			<p:commandButton action="#{associateSearchBean.closeEdit}" value="Voltar" styleClass="span2" process="@form" update=":userTv @form" />
-			<p:commandButton action="#{associateSearchBean.save}" value="Salvar" styleClass="span2" process="@form" update=":userTv @form" />
+			<p:commandButton action="#{userSearchBean.closeEdit}" value="Voltar" styleClass="span2" process="@form" update=":userTv @form" />
+			<p:commandButton action="#{userSearchBean.save}" value="Salvar" styleClass="span2" process="@form" update=":userTv @form" />
 		</div>
 	</h:form>
 

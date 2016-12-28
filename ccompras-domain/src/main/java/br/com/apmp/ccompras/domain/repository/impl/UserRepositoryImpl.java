@@ -5,6 +5,7 @@ import java.util.List;
 import javax.enterprise.context.Dependent;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import com.querydsl.core.BooleanBuilder;
@@ -33,7 +34,7 @@ public class UserRepositoryImpl extends BaseRepositoryImpl<User> implements User
 		if ( username == null || password == null )
 			return null;
 
-		bb.and( qUser.active.isTrue() );
+		bb.and( qUser.enabled.isTrue() );
 		bb.and( qUser.username.eq( username ) );
 		bb.and( qUser.password.eq( password ) );
 
@@ -50,7 +51,7 @@ public class UserRepositoryImpl extends BaseRepositoryImpl<User> implements User
 		if ( username == null )
 			return null;
 
-		bb.and( qUser.active.isTrue() );
+		bb.and( qUser.enabled.isTrue() );
 		bb.and( qUser.username.eq( username ) );
 
 		User user = query.from( qUser ).where( bb ).fetchOne();
@@ -72,7 +73,7 @@ public class UserRepositoryImpl extends BaseRepositoryImpl<User> implements User
 	}
 
 	@Override
-	public List<User> findByUsername( String username ) {
+	public List<User> autocompleteByUsername( String username ) {
 		BooleanBuilder bb = new BooleanBuilder();
 		JPQLQuery<User> query = new JPAQuery<User>( this.em );
 		QUser qUser = QUser.user;
@@ -80,7 +81,7 @@ public class UserRepositoryImpl extends BaseRepositoryImpl<User> implements User
 		if ( username == null )
 			return null;
 
-		bb.and( qUser.active.isTrue() );
+		bb.and( qUser.enabled.isTrue() );
 		bb.and( qUser.username.eq( username ) );
 
 		return query.from( qUser ).where( bb ).orderBy( qUser.username.asc() ).fetch();
@@ -99,6 +100,19 @@ public class UserRepositoryImpl extends BaseRepositoryImpl<User> implements User
 			bb.and( qUser.mail.containsIgnoreCase( entity.getMail() ) );
 
 		return query.from( qUser ).where( bb ).orderBy( qUser.username.asc() ).fetch();
+	}
+
+	@Override
+	public User findByUsername( String username ) {
+		User result = null;
+		try {
+			result = this.em.createNamedQuery( "User.findByUsername", User.class ).setParameter( "username", username ).getSingleResult();
+		} catch ( NoResultException e ) {
+			// logger.info("UserService : No valid User was found for [" +
+			// username + "] : " + e);
+		} 
+		
+		return result;
 	}
 
 }

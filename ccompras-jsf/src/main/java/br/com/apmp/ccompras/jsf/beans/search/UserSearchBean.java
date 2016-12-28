@@ -14,6 +14,7 @@ import org.primefaces.component.tabview.Tab;
 
 import br.com.apmp.ccompras.domain.entities.User;
 import br.com.apmp.ccompras.domain.exceptions.RepositoryException;
+import br.com.apmp.ccompras.jsf.security.configuration.BCryptPasswordService;
 import br.com.apmp.ccompras.service.UserService;
 import br.com.apmp.ccompras.service.exceptions.ServiceException;
 
@@ -25,6 +26,8 @@ public class UserSearchBean extends BaseBeanSearch<User> {
 
 	@Inject
 	private UserService userService;
+	@Inject 
+	private BCryptPasswordService passwordService;
 
 	private List<User> userList;
 
@@ -67,9 +70,11 @@ public class UserSearchBean extends BaseBeanSearch<User> {
 				return;
 			}
 		}
+		String encryptedPassword = passwordService.encryptPassword( this.newPassword );
+		getEditEntity().setPassword( encryptedPassword );
 		userService.save( getEditEntity() );
 		message = String.format( "O usuário %s foi atualizado com sucesso.", getEditEntity().getUsername() );
-
+		facesMessage = new FacesMessage( FacesMessage.SEVERITY_INFO, message, null );
 		FacesContext.getCurrentInstance().addMessage( null, facesMessage );
 	}
 

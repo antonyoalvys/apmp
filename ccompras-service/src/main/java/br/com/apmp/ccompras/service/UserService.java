@@ -13,10 +13,12 @@ public interface UserService extends Serializable {
 
 	public List<User> findByEntity( User entity );
 
-	public List<User> findByUsername( String username );
+	public List<User> autocompleteByUsername( String username );
 
 	public void disable( User entity );
 
 	public User findById( Long id );
+
+	public User findByUsername( String username );
 
 }

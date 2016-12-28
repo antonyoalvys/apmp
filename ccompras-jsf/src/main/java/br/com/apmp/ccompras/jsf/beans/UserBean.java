@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.apmp.ccompras.domain.entities.User;
+import br.com.apmp.ccompras.jsf.security.configuration.BCryptPasswordService;
 import br.com.apmp.ccompras.service.UserService;
 
 @Named
@@ -20,10 +21,12 @@ public class UserBean implements Serializable {
 
 	@Inject
 	private UserService userService;
-
+	@Inject
+    private BCryptPasswordService passwordService;
+	
 	private User entity;
 
-	private String emailConfirmation;
+	private String mailConfirmation;
 	private String passwordConfirmation;
 
 	@PostConstruct
@@ -38,20 +41,25 @@ public class UserBean implements Serializable {
 		if ( !entity.getPassword().equals( this.passwordConfirmation ) ) {
 			message = String.format( "As senhas não são iguais." );
 			facesMessage = new FacesMessage( FacesMessage.SEVERITY_ERROR, message, null );
-		} else if ( !entity.getMail().equals( this.emailConfirmation ) ) {
+		} else if ( !entity.getMail().equals( this.mailConfirmation ) ) {
 			message = String.format( "Os emails não são iguais." );
 			facesMessage = new FacesMessage( FacesMessage.SEVERITY_ERROR, message, null );
 		} else {
+			this.entity.setPassword( passwordService.encryptPassword( this.entity.getPassword() ) );
 			userService.save( this.entity );
 			message = String.format( "O usuário %s foi registrado com sucesso.", this.entity.getUsername() );
+			facesMessage = new FacesMessage( FacesMessage.SEVERITY_INFO, message, null );
+			entityClear();
 		}
 
 		FacesContext.getCurrentInstance().addMessage( null, facesMessage );
-		entityClear();
+
 	}
 
 	public void entityClear() {
 		this.entity = new User();
+		this.mailConfirmation = "";
+		this.passwordConfirmation = "";
 	}
 
 	public User getEntity() {
@@ -64,6 +72,22 @@ public class UserBean implements Serializable {
 
 	public void clear() {
 		entityClear();
+	}
+
+	public String getMailConfirmation() {
+		return mailConfirmation;
+	}
+
+	public void setMailConfirmation( String mailConfirmation ) {
+		this.mailConfirmation = mailConfirmation;
+	}
+
+	public String getPasswordConfirmation() {
+		return passwordConfirmation;
+	}
+
+	public void setPasswordConfirmation( String passwordConfirmation ) {
+		this.passwordConfirmation = passwordConfirmation;
 	}
 
 }

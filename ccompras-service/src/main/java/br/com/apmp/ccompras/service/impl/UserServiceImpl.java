@@ -40,15 +40,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> findByUsername( String username ) {
-		return userRepository.findByUsername( username );
+	public List<User> autocompleteByUsername( String username ) {
+		return userRepository.autocompleteByUsername( username );
 	}
 
 	@Override
 	@TransactionAttribute( TransactionAttributeType.REQUIRED )
 	public void disable( User entity ) {
 		User disabreEntity = userRepository.findById( entity.getId() );
-		disabreEntity.setActive( false );
+		disabreEntity.setEnabled( false );
 		userRepository.save( disabreEntity );
 		entity = disabreEntity;
 	}
@@ -56,6 +56,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findById( Long id ) {
 		return userRepository.findById( id );
+	}
+
+	@Override
+	public User findByUsername( String username ) {
+		return userRepository.findByUsername( username );
 	}
 
 }

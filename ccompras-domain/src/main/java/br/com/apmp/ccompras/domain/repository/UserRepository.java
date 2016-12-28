@@ -12,7 +12,9 @@ public interface UserRepository extends BaseRepository<User> {
 
 	public String findCredentials( String username );
 
-	public List<User> findByUsername( String username );
+	public User findByUsername( String username );
 
 	public List<User> findByEntity( User entity );
+
+	public List<User> autocompleteByUsername( String username );
 }

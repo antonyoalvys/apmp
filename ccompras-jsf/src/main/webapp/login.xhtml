@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>#{wds['system.description']}</title>
+</h:head>
+
+<h:body styleClass="login-page">
+	<h:form id="formLogin" styleClass="login-container">
+		<p:focus />
+		<div class="login">
+			<div class="login-top"></div>
+			<div class="clear" />
+			<div class="login-form">
+				<p class="">APMP-PI &gt; Identificação do Usuário</p>
+
+				<p:outputLabel id="login_userName_label" value="#{wds['login.username']}" styleClass="login-label" />
+				<p:inputText id="login_userName_input" value="#{loginBean.user.username}" tabindex="1" styleClass="input-form" required="true" requiredMessage="#{wds['login.usernameRequired']}" />
+				<p:commandButton id="login_loginButton_button" action="#{loginBean.login}" tabindex="3" value="#{wds['login.actionName']}" update="messages" styleClass="bt-small" />
+
+				<div class="clear" />
+				<p:outputLabel id="login_password_label" value="#{wds['login.password']}" styleClass="login-label" />
+				<p:password id="login_password_input" value="#{loginBean.user.password}" tabindex="2" feedback="false" styleClass="input-form" required="true" requiredMessage="#{wds['login.passwordRequired']}" />
+				<div class="clean" />
+			</div>
+		</div>
+
+		<h:messages id="messages" layout="table" style="color:red;font-weight:bold;" />
+		
+	</h:form>
+	<!-- 12*60*1000 -->
+	<p:idleMonitor timeout="720000" onidle="window.location.href = 'login.xhtml';" />
+
+	<h:outputStylesheet name="layout.css" library="css" />
+
+</h:body>
+</html>

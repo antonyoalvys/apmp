@@ -3,6 +3,7 @@ package br.com.apmp.ccompras.jsf.beans;
 import java.io.IOException;
 import java.io.Serializable;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -23,13 +24,18 @@ public class LoginBean implements Serializable {
 
 	private User user;
 
+	@PostConstruct
+	public void init() {
+		this.user = new User();
+	}
+
 	public void login() throws IOException {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		UsernamePasswordToken token = new UsernamePasswordToken( user.getUsername(), user.getPassword() );
 		Subject currentUser = SecurityUtils.getSubject();
 		try {
 			currentUser.login( token );
-			ctx.getExternalContext().redirect( "/views/index.xhtml" );
+			//ctx.getExternalContext().redirect( ctx.getExternalContext().getApplicationContextPath()+ "/views/index.xhtml" );
 		} catch ( AuthenticationException ae ) {
 
 			ctx.addMessage( null, new FacesMessage( FacesMessage.SEVERITY_WARN, "Usuário/senha inválido(s)!", "Usuário/senha inválido(s)!" ) );
@@ -38,8 +44,14 @@ public class LoginBean implements Serializable {
 	}
 
 	public void logout() {
+		FacesContext ctx = FacesContext.getCurrentInstance();
 		Subject currentUser = SecurityUtils.getSubject();
 		currentUser.logout();
+		try {
+			ctx.getExternalContext().redirect( "/login.xhtml" );
+		} catch ( IOException e ) {
+			e.printStackTrace();
+		}
 	}
 
 	public User getUser() {

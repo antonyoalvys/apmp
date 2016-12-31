@@ -11,6 +11,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.primefaces.component.tabview.Tab;
 
 import br.com.apmp.ccompras.domain.entities.Address;
@@ -42,10 +44,12 @@ public class AssociateSearchBean extends BaseBeanSearch<Associate> {
 	}
 
 	public void show( Associate associate ) {
+		SecurityUtils.getSubject().checkPermission( "associado:exibir" );
 		setShowEntity( associate );
 		super.show();
 	}
 
+	@RequiresPermissions("associate:save")
 	public void save() {
 		associateService.save( getEditEntity() );
 		String message = String.format( "O associado %s foi atualizado.", getEditEntity().getName() );

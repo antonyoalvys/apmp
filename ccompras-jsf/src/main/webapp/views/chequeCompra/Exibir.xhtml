@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions">
+
+
+	<h:form id="showForm">
+
+		<p:panel header="Dados do Desconto de Convênio" style="text-align:center;" styleClass="show-label" toggleable="true">
+			<div class="ui-g">
+				<p:outputLabel value="Convênio: " styleClass="ui-g-2" />
+				<h:outputText value="#{purchaseTicketSearchBean.showEntity.agreement.name }" styleClass="ui-g-4" />
+
+				<p:outputLabel value="Código: " styleClass="ui-g-2" />
+				<h:outputText value="#{purchaseTicketSearchBean.showEntity.code}" styleClass="ui-g-4" />
+			</div>
+
+			<div class="ui-g">
+				<p:outputLabel value="Data de Uso: " styleClass="ui-g-2" />
+				<h:outputText value="#{purchaseTicketSearchBean.showEntity.usageDate}" styleClass="ui-g-4" />
+
+				<p:outputLabel value="Período: " styleClass="ui-g-2" />
+				<h:outputText value="#{purchaseTicketSearchBean.showEntity.period.description}" styleClass="ui-g-4" />
+			</div>
+
+			<div class="ui-g">
+				<p:outputLabel value="Associado: " styleClass="ui-g-2" />
+				<h:outputText value="#{purchaseTicketSearchBean.showEntity.associate.enrollment.concat(' - ').concat(purchaseTicketSearchBean.showEntity.associate.name)}" styleClass="ui-g-4" />
+
+				<p:outputLabel value="Estabelecimento Comercial: " styleClass="ui-g-2" />
+				<h:outputText value="#{purchaseTicketSearchBean.showEntity.company.cnpj.concat(' - ').concat(purchaseTicketSearchBean.showEntity.company.name)}" styleClass="ui-g-4" />
+			</div>
+
+			<div class="ui-g">
+				<p:outputLabel value="Valor: " styleClass="ui-g-2" />
+				<h:outputText value="#{purchaseTicketSearchBean.showEntity.ticketValue}" styleClass="ui-g-4" />
+			</div>
+
+			<div class="ui-g">
+				<p:outputLabel value="Descrição: " styleClass="ui-g-2" />
+				<p:inputTextarea value="#{purchaseTicketSearchBean.showEntity.description}" id="description" styleClass="ui-g-4" disabled="true" />
+
+				<p:outputLabel value="Observação: " styleClass="ui-g-2" />
+				<p:inputTextarea value="#{purchaseTicketSearchBean.showEntity.observation}" id="observation" styleClass="ui-g-4" disabled="true" />
+			</div>
+
+		</p:panel>
+
+		<div class="buttons">
+			<p:commandButton id="closeButton" value="#{wds['button.return']}" action="#{purchaseTicketSearchBean.closeShow}" update=":purchaseTicketTv @form" process="@this" />
+		</div>
+
+	</h:form>
+
+</ui:composition>

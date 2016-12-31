@@ -35,7 +35,7 @@ public class LoginBean implements Serializable {
 		Subject currentUser = SecurityUtils.getSubject();
 		try {
 			currentUser.login( token );
-			//ctx.getExternalContext().redirect( ctx.getExternalContext().getApplicationContextPath()+ "/views/index.xhtml" );
+			ctx.getExternalContext().redirect( ctx.getExternalContext().getApplicationContextPath() + "/views/index.xhtml?faces-redirect=true" );
 		} catch ( AuthenticationException ae ) {
 
 			ctx.addMessage( null, new FacesMessage( FacesMessage.SEVERITY_WARN, "Usuário/senha inválido(s)!", "Usuário/senha inválido(s)!" ) );
@@ -46,9 +46,11 @@ public class LoginBean implements Serializable {
 	public void logout() {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		Subject currentUser = SecurityUtils.getSubject();
-		currentUser.logout();
 		try {
-			ctx.getExternalContext().redirect( "/login.xhtml" );
+			if ( currentUser.isAuthenticated() ) {
+				currentUser.logout();
+				ctx.getExternalContext().redirect( ctx.getExternalContext().getApplicationContextPath() + "/login.xhtml?faces-redirect=true" );
+			}
 		} catch ( IOException e ) {
 			e.printStackTrace();
 		}

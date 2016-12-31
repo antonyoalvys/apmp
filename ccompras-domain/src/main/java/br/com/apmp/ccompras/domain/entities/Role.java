@@ -1,14 +1,21 @@
 package br.com.apmp.ccompras.domain.entities;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
@@ -37,8 +44,11 @@ public class Role implements BaseEntity {
 
 	@Column( name = "enabled", nullable = false )
 	private Boolean enabled;
-	
-	
+
+	@OneToMany( fetch = FetchType.EAGER )
+	@JoinTable( name = "role_permissions", joinColumns = @JoinColumn( name = "pk_role" ), inverseJoinColumns = @JoinColumn( name = "pk_permission" ) )
+	private List<Permission> permissions;
+
 	public Role() {
 		this.enabled = true;
 		this.creation = LocalDateTime.now();
@@ -76,6 +86,24 @@ public class Role implements BaseEntity {
 
 	public void setEnabled( Boolean enabled ) {
 		this.enabled = enabled;
+	}
+
+	public List<Permission> getPermissions() {
+		return permissions;
+	}
+
+	public void setPermissions( List<Permission> permissions ) {
+		this.permissions = permissions;
+	}
+
+	public Set<String> permissionsToSet() {
+		Set<String> permissions = new HashSet<String>();
+		if ( this.permissions != null ) {
+			for ( Permission permission : this.permissions ) {
+				permissions.add( permission.getRight() );
+			}
+		}
+		return permissions;
 	}
 
 }

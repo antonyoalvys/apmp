@@ -13,6 +13,7 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.web.filter.authc.AnonymousFilter;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.filter.authc.UserFilter;
+import org.apache.shiro.web.filter.authz.PermissionsAuthorizationFilter;
 import org.apache.shiro.web.filter.mgt.DefaultFilterChainManager;
 import org.apache.shiro.web.filter.mgt.FilterChainManager;
 import org.apache.shiro.web.filter.mgt.FilterChainResolver;
@@ -58,27 +59,59 @@ public class ShiroConfiguration {
 		FilterChainResolver filterChainResolver = null;
 		if ( filterChainResolver == null ) {
 			FormAuthenticationFilter authc = new FormAuthenticationFilter();
+			PermissionsAuthorizationFilter perms = new PermissionsAuthorizationFilter();
 			AnonymousFilter anon = new AnonymousFilter();
 			UserFilter user = new UserFilter();
-
+			
 			authc.setLoginUrl( "/login.xhtml" );
-			authc.setSuccessUrl( "/views/index.xhtml" );
+			perms.setLoginUrl( "/login.xhtml" );
 			user.setLoginUrl( "/login.xhtml" );
 
 			FilterChainManager fcMan = new DefaultFilterChainManager();
 			fcMan.addFilter( "authc", authc );
-			fcMan.addFilter("anon", anon);
+			fcMan.addFilter( "anon", anon );
 			fcMan.addFilter( "user", user );
-			
+			fcMan.addFilter( "perms", perms );
+
 			fcMan.createChain( "/views/usuario/Cadastro.xhtml", "anon" );
 			fcMan.createChain( "/*javax.faces.resource/**", "anon" );
-			fcMan.createChain( "/api/**", "anon" );
 			fcMan.createChain( "/login.xhtml", "authc" );
+			
+			//Associado
+			fcMan.addToChain( "/views/associado/Cadastro.xhtml", "perms", "associado:cadastro" );
+			fcMan.addToChain( "/views/associado/Associado.xhtml", "perms", "associado:associado" );
+			
+			//Desconto Convênio
+			fcMan.addToChain( "/views/chequeCompra/Cadastro.xhtml", "perms", "chequeCompra:cadastro" );
+			fcMan.addToChain( "/views/chequeCompra/ChequeCompra.xhtml", "perms", "chequeCompra:chequeCompra" );
+			
+			//Desconto Convênio
+			fcMan.addToChain( "/views/descontoConvenio/Cadastro.xhtml", "perms", "descontoConvenio:cadastro" );
+			fcMan.addToChain( "/views/descontoConvenio/DescontoConvenio.xhtml", "perms", "descontoConvenio:descontoConvenio" );
+			
+			//Fornecedor
+			fcMan.addToChain( "/views/fornecedor/Cadastro.xhtml", "perms", "fornecedor:cadastro" );
+			fcMan.addToChain( "/views/fornecedor/Fornecedor.xhtml", "perms", "fornecedor:fornecedor" );
+			
+			//Período
+			fcMan.addToChain( "/views/periodo/Cadastro.xhtml", "perms", "periodo:cadastro" );
+			fcMan.addToChain( "/views/periodo/Periodo.xhtml", "perms", "periodo:periodo" );
+			
+			//Convênio
+			fcMan.addToChain( "/views/convenio/Cadastro.xhtml", "perms", "convenio:cadastro" );
+			fcMan.addToChain( "/views/convenio/Convenio.xhtml", "perms", "convenio:convenio" );
+
+			//Geração de arquivo
+			fcMan.addToChain( "/views/arquivoconvenio/GerarArquivo.xhtml", "perms", "arquivoconvenio:gerarArquivo" );
+			fcMan.addToChain( "/views/arquivoconvenio/Consulta.xhtml", "perms", "arquivoconvenio:consulta" );
+			
+			
 			fcMan.createChain( "/**", "user" );
 
 			PathMatchingFilterChainResolver resolver = new PathMatchingFilterChainResolver();
 			resolver.setFilterChainManager( fcMan );
 			filterChainResolver = resolver;
+			
 		}
 		return filterChainResolver;
 

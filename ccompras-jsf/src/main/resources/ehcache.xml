@@ -1,5 +1,5 @@
 <ehcache name="shiro" updateCheck="false">
-    <diskStore path="/Users/nebrass/shiro-ehcache"/>
+    <diskStore path="/home/antonio/apmp/ehcache"/>
 
     <defaultCache
             maxElementsInMemory="10000"

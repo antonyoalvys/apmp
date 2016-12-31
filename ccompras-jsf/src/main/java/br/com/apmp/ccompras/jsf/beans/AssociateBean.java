@@ -10,6 +10,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+
 import br.com.apmp.ccompras.domain.entities.Associate;
 import br.com.apmp.ccompras.domain.enums.PhoneType;
 import br.com.apmp.ccompras.service.AssociateService;
@@ -29,6 +31,7 @@ public class AssociateBean implements Serializable {
 		entityClear();
 	}
 
+	@RequiresPermissions("associate:save")
 	public void register() {
 		associateService.save( this.entity );
 		String message = String.format( "O associado %s foi registrado com sucesso.", this.entity.getName() );

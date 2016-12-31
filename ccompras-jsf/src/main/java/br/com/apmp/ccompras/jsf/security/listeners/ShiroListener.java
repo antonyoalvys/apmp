@@ -13,12 +13,12 @@ import org.apache.shiro.web.mgt.WebSecurityManager;
 
 @WebListener
 public class ShiroListener extends EnvironmentLoaderListener {
-	
+
 	@Inject
 	WebSecurityManager webSecurityManager;
-	 
+
 	@Inject
-	FilterChainResolver filterChainResolver;	
+	FilterChainResolver filterChainResolver;
 
 	@Override
 	public void contextInitialized( ServletContextEvent sce ) {
@@ -30,9 +30,9 @@ public class ShiroListener extends EnvironmentLoaderListener {
 	protected WebEnvironment createEnvironment( ServletContext sc ) {
 
 		DefaultWebEnvironment webEnvironment = (DefaultWebEnvironment) super.createEnvironment( sc );
-		
-		webEnvironment.setSecurityManager(webSecurityManager);
-		webEnvironment.setFilterChainResolver(filterChainResolver);
+
+		webEnvironment.setSecurityManager( webSecurityManager );
+		webEnvironment.setFilterChainResolver( filterChainResolver );
 
 		return webEnvironment;
 	}

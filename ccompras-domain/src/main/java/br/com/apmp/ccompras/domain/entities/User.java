@@ -9,9 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Version;
@@ -47,7 +48,8 @@ public class User implements BaseEntity {
 	@Email
 	private String mail;
 
-	@OneToOne( cascade = CascadeType.PERSIST )
+	@ManyToOne( cascade = CascadeType.PERSIST )
+	@JoinColumn( name = "fk_role" )
 	private Role role;
 
 	@NotNull

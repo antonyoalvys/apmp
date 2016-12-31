@@ -4,75 +4,42 @@
 	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
 
 	<h:form id="editForm">
-		<p:panel header="Dados do Desconto de Convênio" style="text-align:center;" styleClass="left-label" toggleable="true">
+		<p:panel header="Dados do Desconto" style="text-align:center;" styleClass="left-label" toggleable="true">
 
-			<div class="ui-g">
-				<p:outputLabel value="Convênio" for="agreement" styleClass="ui-g-2" />
-				<div class="ui-g-4">
-					<p:autoComplete value="#{purchaseTicketSearchBean.editEntity.agreement}" id="agreement" dropdown="true" completeMethod="#{purchaseTicketSearchBean.autocompleteAgreement}" var="var"
-						itemLabel="#{var.name}" itemValue="#{var}" minQueryLength="" scrollHeight="200" size="40" valueChangeListener="#{purchaseTicketSearchBean.changeAgreement}">
-						<o:converter converterId="omnifaces.ListConverter" list="#{purchaseTicketSearchBean.agreementList}" />
-						<p:ajax event="itemSelect" update="ticketPanel" />
-					</p:autoComplete>
-				</div>
-				<p:outputLabel value="Período" for="period" styleClass="ui-g-2" />
-				<div class="ui-g-4">
-					<p:autoComplete value="#{purchaseTicketSearchBean.editEntity.period}" id="period" dropdown="true" completeMethod="#{purchaseTicketSearchBean.autocompletePeriod}" var="var"
-						itemLabel="#{var.description}" itemValue="#{var}" minQueryLength="" scrollHeight="200" size="40">
-						<o:converter converterId="omnifaces.ListConverter" list="#{purchaseTicketSearchBean.periodList}" />
-					</p:autoComplete>
-				</div>
-			</div>
-
-			<p:outputPanel id="ticketPanel">
-				<p:outputPanel rendered="#{purchaseTicketSearchBean.showCode}">
-					<div class="ui-g">
-						<p:outputLabel value="Código" for="code" styleClass="ui-g-2" />
-						<p:inputText value="#{purchaseTicketSearchBean.editEntity.code}" id="code" styleClass="ui-g-4" required="#{purchaseTicketSearchBean.showCode}" />
-
-						<p:outputLabel value="Data de Uso" for="usageDate" styleClass="ui-g-2" />
-						<div class="ui-g-4">
-							<p:calendar value="#{purchaseTicketSearchBean.editEntity.usageDate}" id="usageDate" size="40" pattern="dd/MM/yyyy" converter="localDateConverter" required="#{purchaseTicketSearchBean.showCode}" />
-						</div>
+				<div class="ui-g">
+					<p:outputLabel value="Convênio" for="agreement" styleClass="ui-g-2" />
+					<div class="ui-g-4">
+						<p:autoComplete value="#{rebateSearchBean.editEntity.agreement}" id="agreement" dropdown="true" completeMethod="#{rebateSearchBean.autocompleteAgreement}" var="var" itemLabel="#{var.name}"
+							itemValue="#{var}" minQueryLength="" scrollHeight="200" size="40">
+							<o:converter converterId="omnifaces.ListConverter" list="#{rebateSearchBean.agreementList}" />
+						</p:autoComplete>
 					</div>
-				</p:outputPanel>
-			</p:outputPanel>
 
-			<div class="ui-g">
-				<p:outputLabel value="Associado" for="associate" styleClass="ui-g-2" />
-				<div class="ui-g-4">
-					<p:autoComplete value="#{purchaseTicketSearchBean.editEntity.associate}" id="associate" dropdown="true" completeMethod="#{purchaseTicketSearchBean.autocompleteAssociate}" var="var"
-						itemLabel="#{var.enrollment.concat(' - ').concat(var.name)}" itemValue="#{var}" minQueryLength="" scrollHeight="200" size="40">
-						<o:converter converterId="omnifaces.ListConverter" list="#{purchaseTicketSearchBean.associateList}" />
-					</p:autoComplete>
+					<p:outputLabel value="Estabelecimento Comercial" for="company" styleClass="ui-g-2" />
+					<div class="ui-g-4">
+						<p:autoComplete value="#{rebateSearchBean.editEntity.company}" id="company" dropdown="true" completeMethod="#{rebateSearchBean.autocompleteCompany}" var="var" itemLabel="#{var.name}"
+							itemValue="#{var}" minQueryLength="" scrollHeight="200" size="40">
+							<o:converter converterId="omnifaces.ListConverter" list="#{rebateSearchBean.companyList}" />
+						</p:autoComplete>
+					</div>
 				</div>
 
-				<p:outputLabel value="Estabelecimento Comercial" for="company" styleClass="ui-g-2" />
-				<div class="ui-g-4">
-					<p:autoComplete value="#{purchaseTicketSearchBean.editEntity.company}" id="company" dropdown="true" completeMethod="#{purchaseTicketSearchBean.autocompleteCompany}" var="var"
-						itemLabel="#{var.cnpj.concat(' - ').concat(var.name)}" itemValue="#{var}" minQueryLength="" scrollHeight="200" size="40">
-						<o:converter converterId="omnifaces.ListConverter" list="#{purchaseTicketSearchBean.companyList}" />
-					</p:autoComplete>
+				<div class="ui-g">
+					<p:outputLabel value="Percentual" for="percentage" styleClass="ui-g-2" />
+					<p:inputNumber value="#{rebateSearchBean.editEntity.percentage}" size="40" id="percentage" decimalSeparator="," thousandSeparator="." symbol="%" symbolPosition="s" styleClass="ui-g-4"
+						required="true" />
 				</div>
-			</div>
-			<div class="ui-g">
-				<p:outputLabel value="Valor" for="ticketValue" styleClass="ui-g-2" />
-				<p:inputNumber value="#{purchaseTicketSearchBean.editEntity.ticketValue}" id="ticketValue" decimalSeparator="," thousandSeparator="." symbol="R$ " symbolPosition="p" class="ui-g-4" required="true" />
-			</div>
 
-			<div class="ui-g">
-				<p:outputLabel value="Descrição" for="description" styleClass="ui-g-2" />
-				<p:inputTextarea value="#{purchaseTicketSearchBean.editEntity.description}" id="description" styleClass="ui-g-4" />
-
-				<p:outputLabel value="Observação" for="observation" styleClass="ui-g-2" />
-				<p:inputTextarea value="#{purchaseTicketSearchBean.editEntity.observation}" id="observation" styleClass="ui-g-4" />
+				<div class="ui-g">
+					<p:outputLabel value="Observação" for="observation" styleClass="ui-g-2" />
+					<p:inputTextarea value="#{rebateSearchBean.editEntity.observation}" id="observation" styleClass="ui-g-4" />
+				</div>
+			</p:panel>
+			<p:spacer />
+			<div class="buttons">
+				<p:commandButton action="#{rebateSearchBean.clear}" value="Limpar" styleClass="span2" process="@form" update="@form" />
+				<p:commandButton action="#{rebateSearchBean.save}" value="Salvar" styleClass="span2" process="@form" update="@form" />
 			</div>
-		</p:panel>
-
-		<div class="buttons">
-			<p:commandButton action="#{purchaseTicketSearchBean.clear}" value="Limpar" styleClass="span2" process="@form" update="@form" />
-			<p:commandButton action="#{purchaseTicketSearchBean.save}" value="Salvar" styleClass="span2" process="@form" update="@form" />
-		</div>
 	</h:form>
 
 </ui:composition>

@@ -20,9 +20,9 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 
+import br.com.apmp.ccompras.domain.entities.Role;
 import br.com.apmp.ccompras.domain.entities.User;
 import br.com.apmp.ccompras.service.UserService;
-
 
 public class SecurityRealm extends AuthorizingRealm implements Serializable {
 
@@ -87,15 +87,15 @@ public class SecurityRealm extends AuthorizingRealm implements Serializable {
 		 * 
 		 * If you want to do Permission Based authorization, you can grab the
 		 * Permissions List associated to your user:
-		 * 
-		 * Set<String> permissions = new HashSet<>();
-		 *
-		 * 
-		 * permissions.add(this.userService.findByUsername(username).getRole().getPermissions());
-		 * 
-		 * ((SimpleAuthorizationInfo)info).setStringPermissions(permissions);
-		 * 
 		 */
+
+		Role role = this.userService.findByUsername( username ).getRole();
+		Set<String> permissions = new HashSet<String>();
+
+		if ( role != null )
+			permissions.addAll( role.permissionsToSet() );
+
+		( (SimpleAuthorizationInfo) info ).setStringPermissions( permissions );
 
 		return info;
 	}

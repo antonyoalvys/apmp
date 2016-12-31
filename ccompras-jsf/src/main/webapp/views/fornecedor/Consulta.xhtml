@@ -9,7 +9,7 @@
 
 			<p:panel header="Dados da Consulta" style="text-align:center;">
 				<div class="ui-g">
-					<p:outputLabel value="Nome" styleClass="ui-g-2" />
+					<p:outputLabel value="Razão Social" styleClass="ui-g-2" />
 					<p:inputText value="#{companySearchBean.searchEntity.name}" id="name" class="ui-g-10" required="false" />
 				</div>
 				<div class="ui-g">
@@ -47,7 +47,7 @@
 					<p:column headerText="CNPJ">
 						<h:outputText value="#{company.cnpj}" />
 					</p:column>
-					<p:column headerText="Nome">
+					<p:column headerText="Razão Social">
 						<h:outputText value="#{company.name}" />
 					</p:column>
 					<p:column headerText="Telefone">

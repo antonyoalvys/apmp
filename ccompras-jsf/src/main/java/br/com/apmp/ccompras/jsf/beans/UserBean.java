@@ -11,9 +11,10 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.shiro.authc.credential.PasswordService;
+
 import br.com.apmp.ccompras.domain.entities.Role;
 import br.com.apmp.ccompras.domain.entities.User;
-import br.com.apmp.ccompras.jsf.security.configuration.BCryptPasswordService;
 import br.com.apmp.ccompras.service.RoleService;
 import br.com.apmp.ccompras.service.UserService;
 
@@ -26,7 +27,7 @@ public class UserBean implements Serializable {
 	@Inject
 	private UserService userService;
 	@Inject
-	private BCryptPasswordService passwordService;
+	private PasswordService passwordService;
 	@Inject
 	private RoleService roleService;
 

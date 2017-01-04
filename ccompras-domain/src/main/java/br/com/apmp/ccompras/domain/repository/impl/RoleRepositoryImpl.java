@@ -19,21 +19,21 @@ import br.com.apmp.ccompras.domain.repository.RoleRepository;
 public class RoleRepositoryImpl extends BaseRepositoryImpl<Role> implements RoleRepository {
 
 	private static final long serialVersionUID = 2979472055244489400L;
-	
+
 	@PersistenceContext
 	private EntityManager em;
 
 	@Override
 	public List<Role> autocomplete( String name ) {
-		BooleanBuilder bb= new BooleanBuilder();
+		BooleanBuilder bb = new BooleanBuilder();
 		JPAQuery<Role> query = new JPAQuery<Role>( em );
 		QRole qRole = QRole.role;
-		
+
 		if ( name != null && !name.isEmpty() )
-			bb.and( qRole.name.containsIgnoreCase( name ));
-		
+			bb.and( qRole.name.containsIgnoreCase( name ) );
+
 		bb.and( qRole.enabled.isTrue() );
-		
+
 		return query.from( qRole ).where( bb ).orderBy( qRole.name.asc() ).fetch();
 	}
 
@@ -45,6 +45,20 @@ public class RoleRepositoryImpl extends BaseRepositoryImpl<Role> implements Role
 	@Override
 	public Class<Role> getClassT() {
 		return Role.class;
+	}
+
+	@Override
+	public Role findByName( String name ) {
+		BooleanBuilder bb = new BooleanBuilder();
+		JPAQuery<Role> query = new JPAQuery<Role>( em );
+		QRole qRole = QRole.role;
+
+		if ( name == null || name.trim().isEmpty() )
+			return null;
+
+		bb.and( qRole.name.containsIgnoreCase( name ) );
+
+		return query.from( qRole ).where( bb ).fetchOne();
 	}
 
 }

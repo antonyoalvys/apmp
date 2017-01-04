@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="apmpPU" transaction-type="JTA">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<jta-data-source>java:jboss/datasources/apmpDS-DEV</jta-data-source>
+		<jta-data-source>java:jboss/datasources/apmpDS-PROD</jta-data-source>
 		<properties>
 			<property name="hibernate.show.sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />

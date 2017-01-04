@@ -9,4 +9,8 @@ public interface RoleService extends Serializable {
 
 	public List<Role> autocomplete( String name );
 
+	public Role findByName( String name );
+
+	public void save( Role role );
+
 }

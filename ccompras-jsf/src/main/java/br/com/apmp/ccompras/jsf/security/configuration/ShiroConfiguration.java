@@ -22,6 +22,8 @@ import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.mgt.WebSecurityManager;
 
+import br.com.apmp.ccompras.service.security.BCryptPasswordService;
+
 public class ShiroConfiguration {
 
 	@Produces

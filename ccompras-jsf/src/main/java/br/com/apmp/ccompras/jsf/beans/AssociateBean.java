@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.credential.PasswordService;
 
 import br.com.apmp.ccompras.domain.entities.Associate;
 import br.com.apmp.ccompras.domain.entities.Role;
@@ -31,6 +32,8 @@ public class AssociateBean implements Serializable {
 	private AssociateService associateService;
 	@Inject
 	private RoleService roleService;
+	@Inject
+	private PasswordService passwordService;
 	private Associate entity;
 
 	private String mailConfirmation;
@@ -95,11 +98,11 @@ public class AssociateBean implements Serializable {
 			message = String.format( "As senhas não são iguais." );
 			facesMessage = new FacesMessage( FacesMessage.SEVERITY_ERROR, message, null );
 			FacesContext.getCurrentInstance().addMessage( null, facesMessage );
-		} else if ( !user.getMail().equals( this.mailConfirmation ) ) {
-			message = String.format( "Os emails não são iguais." );
-			facesMessage = new FacesMessage( FacesMessage.SEVERITY_ERROR, message, null );
-			FacesContext.getCurrentInstance().addMessage( null, facesMessage );
+			return;
 		}
+		
+		if ( !user.getPassword().isEmpty() )
+			user.setPassword( passwordService.encryptPassword( user.getPassword() ) );		
 
 	}
 	

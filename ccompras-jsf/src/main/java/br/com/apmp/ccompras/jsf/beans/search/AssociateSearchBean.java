@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.credential.PasswordService;
 import org.primefaces.component.tabview.Tab;
 
 import br.com.apmp.ccompras.domain.entities.Address;
@@ -20,7 +21,6 @@ import br.com.apmp.ccompras.domain.entities.Role;
 import br.com.apmp.ccompras.domain.entities.User;
 import br.com.apmp.ccompras.domain.enums.PhoneType;
 import br.com.apmp.ccompras.domain.exceptions.RepositoryException;
-import br.com.apmp.ccompras.jsf.security.configuration.BCryptPasswordService;
 import br.com.apmp.ccompras.service.AssociateService;
 import br.com.apmp.ccompras.service.RoleService;
 import br.com.apmp.ccompras.service.UserService;
@@ -37,7 +37,7 @@ public class AssociateSearchBean extends BaseBeanSearch<Associate> {
 	@Inject
 	private UserService userService;
 	@Inject
-	private BCryptPasswordService passwordService;
+	private PasswordService passwordService;
 	@Inject
 	private RoleService roleService;
 

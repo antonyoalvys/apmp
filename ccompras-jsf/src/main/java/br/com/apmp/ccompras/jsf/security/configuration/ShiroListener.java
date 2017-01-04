@@ -1,4 +1,4 @@
-package br.com.apmp.ccompras.jsf.security.listeners;
+package br.com.apmp.ccompras.jsf.security.configuration;
 
 import javax.inject.Inject;
 import javax.servlet.ServletContext;

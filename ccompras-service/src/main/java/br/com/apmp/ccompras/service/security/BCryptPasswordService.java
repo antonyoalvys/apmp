@@ -1,10 +1,13 @@
-package br.com.apmp.ccompras.jsf.security.configuration;
+package br.com.apmp.ccompras.service.security;
 
 import java.io.Serializable;
+
+import javax.ejb.Singleton;
 
 import org.apache.shiro.authc.credential.PasswordService;
 import org.mindrot.jbcrypt.BCrypt;
 
+@Singleton
 public class BCryptPasswordService implements PasswordService, Serializable {
 
 	private static final long serialVersionUID = 1485743846601800806L;

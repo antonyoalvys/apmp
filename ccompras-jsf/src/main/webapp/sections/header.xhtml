@@ -4,14 +4,14 @@
 	<div id="header-logo">
 		<h:graphicImage library="images" name="logo.png" />
 	</div>
-	<div id="header-title">Administração</div>
+	<div id="header-title">Administração APMP-PI</div>
 	<div id="header-user">
 		<div class="ui-g">
 			<h:outputText value="Usuário: " style="color: #990000;" styleClass="ui-g-2" />
-			<h:outputText value="Antõnio Alves" styleClass="ui-g-3" style="text-align:left;" />
+			<h:outputText value="#{loginBean.currentUser.username}" styleClass="ui-g-3" style="text-align:left;" />
 
 			<h:outputText value="Perfil: " style="color: #990000;" styleClass="ui-g-2" />
-			<h:outputText value="Administrador" styleClass="ui-g-3" style="text-align:left;" />
+			<h:outputText value="#{loginBean.currentUser.role != null ?loginBean.currentUser.role.name :''}" styleClass="ui-g-3" style="text-align:left;" />
 
 			<p:commandLink action="#{loginBean.logout()}" value="Sair" styleClass="ui-g-2" style="color: #990000;" />
 		</div>
@@ -33,26 +33,27 @@
 					<p:menuitem value="Cadastrar" url="/views/fornecedor/Cadastro.xhtml" />
 					<p:menuitem value="Consultar" url="/views/fornecedor/Fornecedor.xhtml" />
 				</p:submenu>
-				<p:submenu label="Período">
-					<p:menuitem value="Cadastrar" url="/views/periodo/Cadastro.xhtml" />
-					<p:menuitem value="Consultar" url="/views/periodo/Periodo.xhtml" />
-				</p:submenu>
 				<p:submenu label="Convênio">
 					<p:menuitem value="Cadastrar" url="/views/convenio/Cadastro.xhtml" />
 					<p:menuitem value="Consultar" url="/views/convenio/Convenio.xhtml" />
 				</p:submenu>
 
-				<p:submenu label="Relatórios">
-					<p:menuitem value="Extrato de Desconto" url="/views/relatorio/ExtratoDesconto.xhtml" />
-				</p:submenu>
+
 				<p:submenu label="Administração">
 					<p:menuitem value="Gerar Arquivo" url="/views/arquivoconvenio/GerarArquivo.xhtml" />
 					<p:menuitem value="Consultar Arquivo" url="/views/arquivoconvenio/Consulta.xhtml" />
 					<p:submenu label="Desconto Convênio">
-						<p:menuitem value="Cadastro" url="/views/descontoConvenio/Cadastro.xhtml"/>
-						<p:menuitem value="Consulta" url="/views/descontoConvenio/DescontoConvenio.xhtml"/>
+						<p:menuitem value="Cadastro" url="/views/descontoConvenio/Cadastro.xhtml" />
+						<p:menuitem value="Consulta" url="/views/descontoConvenio/DescontoConvenio.xhtml" />
+					</p:submenu>
+					<p:submenu label="Período">
+						<p:menuitem value="Cadastrar" url="/views/periodo/Cadastro.xhtml" />
+						<p:menuitem value="Consultar" url="/views/periodo/Periodo.xhtml" />
 					</p:submenu>
 				</p:submenu>
+				
+				<p:menuitem value="Relatórios" url="/views/relatorio/ChequeCompra.xhtml" />
+				
 			</p:menubar>
 		</h:form>
 	</div>

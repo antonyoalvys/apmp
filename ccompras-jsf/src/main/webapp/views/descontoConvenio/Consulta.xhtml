@@ -48,7 +48,7 @@
 							<f:setPropertyActionListener target="#{rebateSearchBean.editEntity}" value="#{rebate}" />
 						</p:commandButton>
 
-						<p:commandButton id="disableCommandButton" icon="ui-icon-trash" title="#{wds['table.columns.options.disable.hint']}" oncomplete="PF('confirmation').show();">
+						<p:commandButton id="disableCommandButton" icon="ui-icon-trash" title="#{wds['table.columns.options.delete.hint']}" oncomplete="PF('confirmation').show();">
 							<f:setPropertyActionListener target="#{rebateSearchBean.removeEntity}" value="#{rebate}" />
 						</p:commandButton>
 					</p:column>

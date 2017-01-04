@@ -68,6 +68,7 @@ public class RebateSearchBean extends BaseBeanSearch<Rebate> {
 
 	public void delete() throws ServiceException {
 		rebateService.delete( getRemoveEntity() );
+		this.rebateList.remove( getRemoveEntity() );
 		String message = String.format( "O desconto foi removido.");
 		FacesMessage facesMessage = new FacesMessage( FacesMessage.SEVERITY_INFO, message, null );
 		FacesContext.getCurrentInstance().addMessage( null, facesMessage );

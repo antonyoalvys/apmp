@@ -4,19 +4,19 @@ public class RepositoryException extends RuntimeException {
 
 	private static final long serialVersionUID = -1472878571855679579L;
 	
-	private String mensagem;
+	private String message;
 
 	public RepositoryException( String message ) {
 		super( message );
-		this.mensagem = message;
+		this.message = message;
 	}
 
 	public RepositoryException( String message, Throwable cause ) {
 		super( message, cause );
 	}
 
-	public String getMensagem() {
-		return this.mensagem;
+	public String getMessage() {
+		return this.message;
 	}	
 
 }

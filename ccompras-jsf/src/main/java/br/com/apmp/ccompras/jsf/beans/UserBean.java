@@ -1,6 +1,8 @@
 package br.com.apmp.ccompras.jsf.beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -9,8 +11,10 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.com.apmp.ccompras.domain.entities.Role;
 import br.com.apmp.ccompras.domain.entities.User;
 import br.com.apmp.ccompras.jsf.security.configuration.BCryptPasswordService;
+import br.com.apmp.ccompras.service.RoleService;
 import br.com.apmp.ccompras.service.UserService;
 
 @Named
@@ -22,12 +26,14 @@ public class UserBean implements Serializable {
 	@Inject
 	private UserService userService;
 	@Inject
-    private BCryptPasswordService passwordService;
-	
-	private User entity;
+	private BCryptPasswordService passwordService;
+	@Inject
+	private RoleService roleService;
 
+	private User entity;
 	private String mailConfirmation;
 	private String passwordConfirmation;
+	private List<Role> roleList;
 
 	@PostConstruct
 	public void init() {
@@ -58,8 +64,16 @@ public class UserBean implements Serializable {
 
 	public void entityClear() {
 		this.entity = new User();
+		this.entity.setRole( new Role() );
 		this.mailConfirmation = "";
 		this.passwordConfirmation = "";
+		this.roleList = new ArrayList<Role>();
+	}
+
+	public List<Role> autocompleteRole( String name ) {
+		name = name.trim();
+		this.roleList = roleService.autocomplete( name );
+		return this.roleList;
 	}
 
 	public User getEntity() {
@@ -90,4 +104,12 @@ public class UserBean implements Serializable {
 		this.passwordConfirmation = passwordConfirmation;
 	}
 
+	public List<Role> getRoleList() {
+		return roleList;
+	}
+
+	public void setRoleList( List<Role> roleList ) {
+		this.roleList = roleList;
+	}
+	
 }

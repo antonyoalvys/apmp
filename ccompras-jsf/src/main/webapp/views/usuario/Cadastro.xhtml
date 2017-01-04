@@ -29,6 +29,16 @@
 					<p:outputLabel value="Confirmar Senha" for="passwordConfirmation" styleClass="ui-g-2" />
 					<p:password value="#{userBean.passwordConfirmation}" id="passwordConfirmation" styleClass="ui-g-4" required="true"/>
 				</div>
+				
+				<div class="ui-g">
+					<p:outputLabel value="Perfil" for="role" styleClass="ui-g-2" />
+					<div class="ui-g-4">
+						<p:autoComplete value="#{userBean.entity.role}" id="period" dropdown="true" completeMethod="#{userBean.autocompleteRole}" var="var" itemLabel="#{var.name}"
+							itemValue="#{var}" minQueryLength="" scrollHeight="200" size="40">
+							<o:converter converterId="omnifaces.ListConverter" list="#{userBean.roleList}" />
+						</p:autoComplete>
+					</div>				
+				</div>
 
 			</p:panel>
 			<p:spacer />

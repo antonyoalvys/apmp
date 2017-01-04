@@ -56,6 +56,7 @@ public class PeriodSearchBean extends BaseBeanSearch<Period> {
 
 	public void delete() throws ServiceException {
 		periodService.delete( getRemoveEntity() );
+		this.periodList.remove( getRemoveEntity() );
 		String message = String.format( "O período %s removido.", this.getRemoveEntity().getDescription() );
 		FacesMessage facesMessage = new FacesMessage( FacesMessage.SEVERITY_INFO, message, null );
 		FacesContext.getCurrentInstance().addMessage( null, facesMessage );

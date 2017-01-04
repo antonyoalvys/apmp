@@ -105,6 +105,10 @@ public class ShiroConfiguration {
 			fcMan.addToChain( "/views/arquivoconvenio/GerarArquivo.xhtml", "perms", "arquivoconvenio:gerarArquivo" );
 			fcMan.addToChain( "/views/arquivoconvenio/Consulta.xhtml", "perms", "arquivoconvenio:consulta" );
 			
+	
+			//Relatório
+			fcMan.addToChain( "/views/relatorio/ChequeCompra.xhtml", "perms", "relatorio:chequeCompra" );
+						
 			
 			fcMan.createChain( "/**", "user" );
 

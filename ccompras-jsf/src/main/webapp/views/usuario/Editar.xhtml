@@ -11,7 +11,7 @@
 
 				<p:outputLabel value="Ativo" for="active" styleClass="ui-g-2" />
 				<div class="ui-g-4">
-					<p:selectBooleanButton id="active" value="#{userSearchBean.editEntity.active}" onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px" required="true" />
+					<p:selectBooleanButton id="active" value="#{userSearchBean.editEntity.enabled}" onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px" required="true" />
 				</div>
 			</div>
 			<div class="ui-g">
@@ -27,6 +27,16 @@
 
 				<p:outputLabel value="Confirmar Nova Senha" for="newPasswordConfirmation" styleClass="ui-g-2" />
 				<p:password value="#{userSearchBean.newPasswordConfirmation}" id="newPasswordConfirmation" styleClass="ui-g-4" required="true" />
+			</div>
+
+			<div class="ui-g">
+				<p:outputLabel value="Perfil" for="role" styleClass="ui-g-2" />
+				<div class="ui-g-4">
+					<p:autoComplete value="#{userSearchBean.editEntity.role}" id="period" dropdown="true" completeMethod="#{userSearchBean.autocompleteRole}" var="var" itemLabel="#{var.name}" itemValue="#{var}" minQueryLength=""
+						scrollHeight="200" size="40">
+						<o:converter converterId="omnifaces.ListConverter" list="#{userSearchBean.roleList}" />
+					</p:autoComplete>
+				</div>
 			</div>
 
 		</p:panel>

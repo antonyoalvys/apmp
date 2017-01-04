@@ -82,7 +82,8 @@ public class UserRepositoryImpl extends BaseRepositoryImpl<User> implements User
 			return null;
 
 		bb.and( qUser.enabled.isTrue() );
-		bb.and( qUser.username.eq( username ) );
+		if ( username != null && !username.isEmpty() )
+			bb.and( qUser.username.equalsIgnoreCase( username ) );
 
 		return query.from( qUser ).where( bb ).orderBy( qUser.username.asc() ).fetch();
 	}
@@ -110,8 +111,8 @@ public class UserRepositoryImpl extends BaseRepositoryImpl<User> implements User
 		} catch ( NoResultException e ) {
 			// logger.info("UserService : No valid User was found for [" +
 			// username + "] : " + e);
-		} 
-		
+		}
+
 		return result;
 	}
 

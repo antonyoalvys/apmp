@@ -19,6 +19,7 @@ import br.com.apmp.ccompras.domain.entities.Associate;
 import br.com.apmp.ccompras.domain.entities.Company;
 import br.com.apmp.ccompras.domain.entities.Period;
 import br.com.apmp.ccompras.domain.entities.PurchaseTicket;
+import br.com.apmp.ccompras.domain.enums.PeriodStatus;
 import br.com.apmp.ccompras.domain.exceptions.RepositoryException;
 import br.com.apmp.ccompras.service.AgreementService;
 import br.com.apmp.ccompras.service.AssociateService;
@@ -67,6 +68,7 @@ public class PurchaseTicketSearchBean extends BaseBeanSearch<PurchaseTicket> {
 		this.companyList = new ArrayList<Company>();
 		this.associateList = new ArrayList<Associate>();
 		this.periodList = new ArrayList<Period>();
+		this.agreementList = new ArrayList<Agreement>();
 		clear();
 	}
 
@@ -91,6 +93,7 @@ public class PurchaseTicketSearchBean extends BaseBeanSearch<PurchaseTicket> {
 	public void delete() throws ServiceException {
 		purchaseTicketService.delete( getRemoveEntity() );
 		String message = String.format( "O cheque de compra %s foi removido.", getRemoveEntity().getCode() );
+		this.purchaseTicketList.remove( getRemoveEntity() );
 		FacesMessage facesMessage = new FacesMessage( FacesMessage.SEVERITY_INFO, message, null );
 		FacesContext.getCurrentInstance().addMessage( null, facesMessage );
 	}
@@ -156,6 +159,7 @@ public class PurchaseTicketSearchBean extends BaseBeanSearch<PurchaseTicket> {
 		this.associateList.add( getEditEntity().getAssociate() );
 		this.companyList.add( getEditEntity().getCompany() );
 		this.periodList.add( getEditEntity().getPeriod() );
+		this.agreementList.add( getEditEntity().getAgreement() );
 		super.edit();
 	}
 

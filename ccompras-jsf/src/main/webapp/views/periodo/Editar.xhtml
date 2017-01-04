@@ -21,8 +21,8 @@
 		</p:panel>
 
 		<div class="buttons">
-			<p:commandButton action="#{periodSearchBean.clear}" value="Limpar" styleClass="span2" process="@form" update="@form" />
-			<p:commandButton action="#{periodSearchBean.save}" value="Salvar" styleClass="span2" process="@form" update="@form" />
+			<p:commandButton action="#{periodSearchBean.closeEdit()}" value="Voltar" styleClass="span2" process="@form" update=":periodTv @form" />
+			<p:commandButton action="#{periodSearchBean.save}" value="Salvar" styleClass="span2" process="@form" update=":periodTv @form" />
 		</div>
 	</h:form>
 

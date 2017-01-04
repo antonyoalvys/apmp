@@ -14,7 +14,6 @@ import javax.inject.Named;
 import br.com.apmp.ccompras.domain.entities.Period;
 import br.com.apmp.ccompras.domain.enums.ReportType;
 import br.com.apmp.ccompras.service.PeriodService;
-import br.com.apmp.ccompras.service.ReportService;
 
 @Named
 @ViewScoped
@@ -24,9 +23,6 @@ public class ReportBean implements Serializable {
 
 	@Inject
 	private PeriodService periodService;
-
-	@Inject
-	private ReportService reportService;
 
 	private List<Period> periodList;
 	private ReportType reportType;

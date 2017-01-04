@@ -18,7 +18,7 @@
 					<p:inputText value="#{associateBean.entity.enrollment}" id="enrollment" styleClass="ui-g-4" required="true" />
 
 					<p:outputLabel value="CPF" for="cpf" styleClass="ui-g-2" />
-					<p:inputMask mask="999.999.999-99" value="#{associateBean.entity.cpf}" id="cpf" styleClass="ui-g-4"/>
+					<p:inputMask mask="999.999.999-99" value="#{associateBean.entity.cpf}" id="cpf" styleClass="ui-g-4" />
 				</div>
 				<div class="ui-g">
 					<p:outputLabel value="Tipo de Associado" for="associateType" styleClass="ui-g-2" />
@@ -99,6 +99,51 @@
 					<p:outputLabel value="Complemento" for="complement" styleClass="ui-g-2" />
 					<p:inputText value="#{associateBean.entity.address.complement}" id="complement" styleClass="ui-g-10" />
 				</div>
+			</p:panel>
+
+			<p:panel header="Conta de Usuário" toggleable="true" styleClass="left-label" style="text-align:center;">
+				<div class="ui-g">
+					<p:outputLabel value="Inserir Conta de Usuário:" />
+					<p:selectOneRadio id="hasUserAccount" value="#{associateBean.userAccount}" valueChangeListener="#{associateBean.userAccountChange}">
+						<f:selectItem itemLabel="Sim" itemValue="true" />
+						<f:selectItem itemLabel="Não" itemValue="false" />
+						<p:ajax event="change" update="userDataPanel" />
+					</p:selectOneRadio>
+				</div>
+
+				<p:outputPanel id="userDataPanel">
+					<p:outputPanel rendered="#{associateBean.userAccount}">
+
+						<div class="ui-g">
+							<p:outputLabel value="Login" for="username" styleClass="ui-g-2" />
+							<p:inputText value="#{associateBean.entity.user.username}" id="username" class="ui-g-4" required="true" />
+						</div>
+						<div class="ui-g">
+							<p:outputLabel value="Email" for="mail" styleClass="ui-g-2" />
+							<p:inputText value="#{associateBean.entity.user.mail}" id="mail" styleClass="ui-g-4" required="true" />
+
+							<p:outputLabel value="Confirmar Email" for="mailConfirmation" styleClass="ui-g-2" />
+							<p:inputText value="#{associateBean.mailConfirmation}" id="mailConfirmation" styleClass="ui-g-4" required="true" />
+						</div>
+						<div class="ui-g">
+							<p:outputLabel value="Senha" for="password" styleClass="ui-g-2" />
+							<p:password value="#{associateBean.entity.user.password}" id="password" styleClass="ui-g-4" required="true" />
+
+							<p:outputLabel value="Confirmar Senha" for="passwordConfirmation" styleClass="ui-g-2" />
+							<p:password value="#{associateBean.passwordConfirmation}" id="passwordConfirmation" styleClass="ui-g-4" required="true" />
+						</div>
+
+						<div class="ui-g">
+							<p:outputLabel value="Perfil" for="role" styleClass="ui-g-2" />
+							<div class="ui-g-4">
+								<p:autoComplete value="#{associateBean.entity.user.role}" id="role" dropdown="true" completeMethod="#{associateBean.autocompleteRole}" var="var" itemLabel="#{var.name}" itemValue="#{var}"
+									minQueryLength="" scrollHeight="200" size="40">
+									<o:converter converterId="omnifaces.ListConverter" list="#{associateBean.roleList}" />
+								</p:autoComplete>
+							</div>
+						</div>
+					</p:outputPanel>
+				</p:outputPanel>
 			</p:panel>
 			<p:spacer />
 			<div class="buttons">

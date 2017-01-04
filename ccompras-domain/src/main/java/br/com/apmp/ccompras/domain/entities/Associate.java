@@ -2,6 +2,7 @@ package br.com.apmp.ccompras.domain.entities;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -10,6 +11,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -72,6 +75,10 @@ public class Associate implements BaseEntity {
 
 	@Column( name = "retired" )
 	private Boolean retired;
+
+	@OneToOne( cascade = CascadeType.ALL )
+	@JoinColumn( name = "fk_user_account" )
+	private User user;
 
 	@NotNull
 	@Column( name = "active" )
@@ -191,6 +198,14 @@ public class Associate implements BaseEntity {
 
 	public void setRetired( Boolean retired ) {
 		this.retired = retired;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser( User user ) {
+		this.user = user;
 	}
 
 	@Override

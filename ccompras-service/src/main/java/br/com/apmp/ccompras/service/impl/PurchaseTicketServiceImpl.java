@@ -57,6 +57,9 @@ public class PurchaseTicketServiceImpl implements PurchaseTicketService {
 	@Override
 	@TransactionAttribute( TransactionAttributeType.REQUIRED )
 	public void delete( PurchaseTicket entity ) {
+		if ( entity.getPeriod().getPeriodStatus().equals( PeriodStatus.CLOSE ) )
+			throw new ServiceException( "O período " + entity.getPeriod().getDescription() + " encontra-se fechado." );
+		entity = this.purchaseTicketRepository.findById( entity.getId() );
 		this.purchaseTicketRepository.delete( entity );
 	}
 

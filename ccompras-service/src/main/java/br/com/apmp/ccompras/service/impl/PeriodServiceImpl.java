@@ -32,6 +32,7 @@ public class PeriodServiceImpl implements PeriodService {
 	@Override
 	@TransactionAttribute( TransactionAttributeType.REQUIRED )
 	public void delete( Period entity ) {
+		entity = periodRepository.findById( entity.getId() );
 		periodRepository.delete( entity );
 	}
 

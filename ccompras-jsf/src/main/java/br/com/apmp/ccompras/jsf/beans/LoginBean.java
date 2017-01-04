@@ -4,9 +4,10 @@ import java.io.IOException;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.shiro.SecurityUtils;
@@ -15,26 +16,30 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 
 import br.com.apmp.ccompras.domain.entities.User;
+import br.com.apmp.ccompras.service.UserService;
 
 @Named
-@RequestScoped
+@SessionScoped
 public class LoginBean implements Serializable {
 
 	private static final long serialVersionUID = -5046496166307344462L;
 
-	private User user;
+	@Inject
+	private UserService userService;
+	private User currentUser;
+	private String password;
+	private String username;
 
 	@PostConstruct
-	public void init() {
-		this.user = new User();
-	}
+	public void init() {}
 
 	public void login() throws IOException {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		UsernamePasswordToken token = new UsernamePasswordToken( user.getUsername(), user.getPassword() );
-		Subject currentUser = SecurityUtils.getSubject();
+		UsernamePasswordToken token = new UsernamePasswordToken( this.username, this.password );
+		Subject subject = SecurityUtils.getSubject();
 		try {
-			currentUser.login( token );
+			subject.login( token );
+			this.currentUser = userService.findByUsername( (String) subject.getPrincipal() );
 			ctx.getExternalContext().redirect( ctx.getExternalContext().getApplicationContextPath() + "/views/index.xhtml?faces-redirect=true" );
 		} catch ( AuthenticationException ae ) {
 
@@ -45,10 +50,11 @@ public class LoginBean implements Serializable {
 
 	public void logout() {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		Subject currentUser = SecurityUtils.getSubject();
+		Subject subject = SecurityUtils.getSubject();
 		try {
-			if ( currentUser.isAuthenticated() ) {
-				currentUser.logout();
+			if ( subject.isAuthenticated() ) {
+				subject.logout();
+				this.currentUser = null;
 				ctx.getExternalContext().redirect( ctx.getExternalContext().getApplicationContextPath() + "/login.xhtml?faces-redirect=true" );
 			}
 		} catch ( IOException e ) {
@@ -56,12 +62,28 @@ public class LoginBean implements Serializable {
 		}
 	}
 
-	public User getUser() {
-		return user;
+	public User getCurrentUser() {
+		return currentUser;
 	}
 
-	public void setUser( User user ) {
-		this.user = user;
+	public void setCurrentUser( User currentUser ) {
+		this.currentUser = currentUser;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword( String password ) {
+		this.password = password;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername( String username ) {
+		this.username = username;
 	}
 
 }

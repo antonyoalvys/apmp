@@ -54,6 +54,7 @@ public class PurchaseTicketBean implements Serializable {
 
 	public void register() {
 		purchaseTicketService.save( this.entity );
+		this.entity = purchaseTicketService.findById( this.entity.getId() );
 		String message = String.format( "O cheque compra %s foi registrado com sucesso.", this.entity.getCode() );
 		FacesContext.getCurrentInstance().addMessage( null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, null ) );
 		entityClear();

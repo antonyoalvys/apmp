@@ -4,7 +4,7 @@
 	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
 
 	<h:form id="editForm">
-		<p:panel header="Dados do Desconto de Convênio" style="text-align:center;" styleClass="left-label" toggleable="true">
+		<p:panel header="Dados do Cheque de Compra" style="text-align:center;" styleClass="left-label" toggleable="true">
 
 			<div class="ui-g">
 				<p:outputLabel value="Convênio" for="agreement" styleClass="ui-g-2" />
@@ -70,8 +70,8 @@
 		</p:panel>
 
 		<div class="buttons">
-			<p:commandButton action="#{purchaseTicketSearchBean.clear}" value="Limpar" styleClass="span2" process="@form" update="@form" />
-			<p:commandButton action="#{purchaseTicketSearchBean.save}" value="Salvar" styleClass="span2" process="@form" update="@form" />
+			<p:commandButton action="#{purchaseTicketSearchBean.closeEdit()}" value="Voltar" styleClass="span2" process="@this" update=":purchaseTicketTv @form" />
+			<p:commandButton action="#{purchaseTicketSearchBean.save}" value="Salvar" styleClass="span2" process="@form" update=":purchaseTicketTv @form" />
 		</div>
 	</h:form>
 

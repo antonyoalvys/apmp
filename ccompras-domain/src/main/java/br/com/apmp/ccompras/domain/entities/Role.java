@@ -46,7 +46,7 @@ public class Role implements BaseEntity {
 	private Boolean enabled;
 
 	@OneToMany( fetch = FetchType.EAGER )
-	@JoinTable( name = "role_permissions", joinColumns = @JoinColumn( name = "pk_role" ), inverseJoinColumns = @JoinColumn( name = "pk_permission" ) )
+	@JoinTable( name = "role_permission", joinColumns = @JoinColumn( name = "pk_role" ), inverseJoinColumns = @JoinColumn( name = "pk_permission" ) )
 	private List<Permission> permissions;
 
 	public Role() {

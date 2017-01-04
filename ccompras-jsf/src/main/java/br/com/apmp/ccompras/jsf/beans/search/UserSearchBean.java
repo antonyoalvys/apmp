@@ -12,9 +12,11 @@ import javax.inject.Named;
 
 import org.primefaces.component.tabview.Tab;
 
+import br.com.apmp.ccompras.domain.entities.Role;
 import br.com.apmp.ccompras.domain.entities.User;
 import br.com.apmp.ccompras.domain.exceptions.RepositoryException;
 import br.com.apmp.ccompras.jsf.security.configuration.BCryptPasswordService;
+import br.com.apmp.ccompras.service.RoleService;
 import br.com.apmp.ccompras.service.UserService;
 import br.com.apmp.ccompras.service.exceptions.ServiceException;
 
@@ -26,10 +28,13 @@ public class UserSearchBean extends BaseBeanSearch<User> {
 
 	@Inject
 	private UserService userService;
-	@Inject 
+	@Inject
 	private BCryptPasswordService passwordService;
+	@Inject
+	private RoleService roleService;
 
 	private List<User> userList;
+	private List<Role> roleList;
 
 	private Tab searchTab;
 
@@ -85,6 +90,12 @@ public class UserSearchBean extends BaseBeanSearch<User> {
 		FacesContext.getCurrentInstance().addMessage( null, facesMessage );
 	}
 
+	public List<Role> autocompleteRole( String name ) {
+		name = name.trim();
+		this.roleList = roleService.autocomplete( name );
+		return this.roleList;
+	}
+
 	public void closeShow() {
 		setShowEntity( new User() );
 		closeTab( getShowTab() );
@@ -101,6 +112,13 @@ public class UserSearchBean extends BaseBeanSearch<User> {
 		this.newPassword = "";
 		this.newPasswordConfirmation = "";
 		this.userList = new ArrayList<User>();
+		this.roleList = new ArrayList<Role>();
+	}
+
+	public void edit() {
+		if ( getEditEntity().getRole() == null )
+			getEditEntity().setRole( new Role() );
+		super.edit();
 	}
 
 	@Override

@@ -86,8 +86,8 @@
 		</p:panel>
 		<p:spacer />
 		<div class="buttons">
-			<p:commandButton action="#{companySearchBean.clear}" value="Limpar" styleClass="span2" process="@form" update="@form" />
-			<p:commandButton action="#{companySearchBean.save}" value="Salvar" styleClass="span2" process="@form" update="@form" />
+			<p:commandButton action="#{companySearchBean.closeEdit()}" value="Voltar" styleClass="span2" process="@form" update=":companyTv @form" />
+			<p:commandButton action="#{companySearchBean.save}" value="Salvar" styleClass="span2" process="@form" update=":companyTv @form" />
 		</div>
 	</h:form>
 </ui:composition>

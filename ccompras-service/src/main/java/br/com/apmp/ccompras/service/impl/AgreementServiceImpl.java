@@ -32,6 +32,7 @@ public class AgreementServiceImpl implements AgreementService, Serializable {
 	@Override
 	@TransactionAttribute( TransactionAttributeType.REQUIRED )
 	public void delete( Agreement entity ) {
+		entity = this.agreementRepository.findById( entity.getId() );
 		this.agreementRepository.delete( entity );
 	}
 

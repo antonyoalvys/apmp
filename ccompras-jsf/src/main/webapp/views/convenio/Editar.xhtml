@@ -13,8 +13,8 @@
 		</p:panel>
 
 		<div class="buttons">
-			<p:commandButton action="#{agreementSearchBean.clear}" value="Limpar" styleClass="span2" process="@form" update="@form" />
-			<p:commandButton action="#{agreementSearchBean.save}" value="Salvar" styleClass="span2" process="@form" update="@form" />
+			<p:commandButton action="#{agreementSearchBean.closeEdit()}" value="Voltar" styleClass="span2" process="@form" update=":agreementTv @form" />
+			<p:commandButton action="#{agreementSearchBean.save}" value="Salvar" styleClass="span2" process="@form" update=":agreementTv @form" />
 		</div>
 	</h:form>
 

@@ -34,6 +34,7 @@ public class RebateServiceImpl implements RebateService, Serializable {
 	@Override
 	@TransactionAttribute( TransactionAttributeType.REQUIRED )
 	public void delete( Rebate entity ) {
+		entity = rebateRepository.findById( entity.getId() );
 		rebateRepository.delete( entity );
 	}
 

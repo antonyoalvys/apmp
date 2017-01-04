@@ -37,8 +37,8 @@
 			</p:panel>
 			<p:spacer />
 			<div class="buttons">
-				<p:commandButton action="#{rebateSearchBean.clear}" value="Limpar" styleClass="span2" process="@form" update="@form" />
-				<p:commandButton action="#{rebateSearchBean.save}" value="Salvar" styleClass="span2" process="@form" update="@form" />
+				<p:commandButton action="#{rebateSearchBean.closeEdit()}" value="Voltar" styleClass="span2" process="@form" update=":rebateTv @form" />
+				<p:commandButton action="#{rebateSearchBean.save}" value="Salvar" styleClass="span2" process="@form" update=":rebateTv @form" />
 			</div>
 	</h:form>
 

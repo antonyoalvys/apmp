@@ -3,7 +3,6 @@ package br.com.apmp.ccompras.domain.entities;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -48,7 +47,7 @@ public class User implements BaseEntity {
 	@Email
 	private String mail;
 
-	@ManyToOne( cascade = CascadeType.PERSIST )
+	@ManyToOne
 	@JoinColumn( name = "fk_role" )
 	private Role role;
 

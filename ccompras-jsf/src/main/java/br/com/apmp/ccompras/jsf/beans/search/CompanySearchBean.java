@@ -28,8 +28,6 @@ public class CompanySearchBean extends BaseBeanSearch<Company> {
 	@Inject
 	private CompanyService companyService;
 
-	private Company companySearch;
-
 	private List<Company> companyList;
 
 	private Tab searchTab;
@@ -40,7 +38,7 @@ public class CompanySearchBean extends BaseBeanSearch<Company> {
 	}
 
 	public void findByEntity() throws ServiceException {
-		this.companyList = (List) companyService.findByEntity( this.companySearch );
+		this.companyList = companyService.findByEntity( getSearchEntity() );
 	}
 
 	public void show( Company company ) {
@@ -64,6 +62,7 @@ public class CompanySearchBean extends BaseBeanSearch<Company> {
 
 	public void disable() throws ServiceException {
 		companyService.disable( getRemoveEntity() );
+		this.companyList.remove( getRemoveEntity() );
 		String message = String.format( "O estabelecimento comercial %s foi desativado.", getRemoveEntity().getName() );
 		FacesMessage facesMessage = new FacesMessage( FacesMessage.SEVERITY_INFO, message, null );
 		FacesContext.getCurrentInstance().addMessage( null, facesMessage );
@@ -87,7 +86,7 @@ public class CompanySearchBean extends BaseBeanSearch<Company> {
 	}
 
 	public void clear() {
-		this.companySearch = new Company();
+		setSearchEntity( new Company() );
 		this.companyList = new ArrayList<Company>();
 	}
 
@@ -99,14 +98,6 @@ public class CompanySearchBean extends BaseBeanSearch<Company> {
 	@Override
 	protected Class<Company> searchEntityClass() {
 		return Company.class;
-	}
-
-	public Company getCompanySearch() {
-		return companySearch;
-	}
-
-	public void setCompanySearch( Company companySearch ) {
-		this.companySearch = companySearch;
 	}
 
 	public List<Company> getCompanyList() {
